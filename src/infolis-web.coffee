@@ -12,14 +12,17 @@ Chalk                 = require 'chalk'
 BodyParser            = require 'body-parser'
 ExpressJSONLD         = require 'express-jsonld/src'
 
+PORT = 3000
 class InfolisWebservice
 
-	constructor: () ->
+	constructor: (@port) ->
+		@port or= 3000
 		@infolisSchema = new InfolisSchema(
 			dbConnection: Mongoose.createConnection('mongodb://localhost:27018/test')
 		)
 		@mongooseJSONLD = new MongooseJSONLDExpress (
-			baseURL: 'http://www-test.bib-uni-mannheim.de/infolis'
+			# baseURL: 'http://www-test.bib-uni-mannheim.de/infolis'
+			baseURL: "http://localhost:#{@port}"
 			apiPrefix: '/api'
 			expandContext: 'basic'
 		)
@@ -30,27 +33,25 @@ class InfolisWebservice
 		# JSON body serialization middleware
 		@app.use(BodyParser.json())
 
-		jsonLdMiddleware = ExpressJSONLD().handle
-
-		# Load the models from the schema
+		# For all the models in our schema
 		for __, model of @infolisSchema.mongoose.model
-			@mongooseJSONLD.injectRestfulHandlers(@app, model, jsonLdMiddleware)
+			# Load the model's RESTful handlers into app
+			@mongooseJSONLD.injectRestfulHandlers(@app, model)
+			# Load the model's schema handler
+			@mongooseJSONLD.injectSchemaHandlers(@app, model)
 
-		# @app.use(jsonLdMiddleware)
-
-		# Load the schema
-
-		# Error handlerk
+		# Error handler
 		@app.use (err, req, res, next) ->
 			console.log "<ERROR>"
 			console.log err
 			console.log "</ERROR>"
+			throw err
 			res.send 400, err
 
-	startServer : (port) ->
+	startServer : () ->
 
 		console.log Chalk.yellow "Starting server"
-		@app.listen port
+		@app.listen @port
 
 server = new InfolisWebservice()
 server.startServer 3000
