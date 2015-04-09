@@ -2,16 +2,18 @@
 # Some Module
 
 ###
-Async                 = require 'async'
-Merge                 = require 'merge'
-InfolisSchema         = require 'infolis-schema/src/infolis-schema'
-Mongoose              = require 'mongoose'
-Express               = require 'express'
-Chalk                 = require 'chalk'
-BodyParser            = require 'body-parser'
-ExpressJSONLD         = require 'express-jsonld/src'
+Async      = require 'async'
+Merge      = require 'merge'
+Mongoose   = require 'mongoose'
+Express    = require 'express'
+Chalk      = require 'chalk'
+BodyParser = require 'body-parser'
 
-config = require './config'
+InfolisSchema  = require 'infolis-schema/src'
+ExpressJSONLD  = require 'express-jsonld/src'
+MongooseJSONLD = require 'mongoose-jsonld/src'
+
+CONFIG = require './config'
 
 errorHandler = (err, req, res, next) ->
 	if typeof err is 'string'
@@ -35,29 +37,44 @@ class InfolisWebservice
 
 		# Start DB
 		@app.db = Mongoose.createConnection(
-			config.mongoURI
-			config.mongoServerOptions
+			CONFIG.mongoURI
+			CONFIG.mongoServerOptions
 		)
-
-		# JSON body serialization middleware
-		@app.use(BodyParser.json())
+		if not @app.db
+			throw new Error("Must set the MongoDB connection for API")
 		@app.db.on 'error', (e) =>
 			console.log Chalk.red "ERROR starting MongoDB"
 			throw e
 
+		@app.mongooseJSONLD = new MongooseJSONLD(
+			baseURI: CONFIG.baseURI
+			apiPrefix: CONFIG.apiPrefix
+			schemaPrefix: CONFIG.schemaPrefix
+			expandContexts: CONFIG.expandContexts
+		)
+
+		@app.infolisSchema = new InfolisSchema(
+			dbConnection: @app.db
+			mongooseJSONLD: @app.mongooseJSONLD
+		)
+
+		@app.jsonldMiddleware = new ExpressJSONLD(@app.mongooseJSONLD).getMiddleware()
+
+		# JSON body serialization middleware
+		@app.use(BodyParser.json())
+
 		# Setup routes
-		# for controller in ['api', 'upload']
-		for controller in ['api']
+		for controller in ['jsonld-api', 'upload']
 			require("./routes/#{controller}")(@app)
 
 		# Error handler
 		@app.use errorHandler
 
 	startServer : () ->
-		console.log Chalk.yellow "Starting server on #{config.port}"
+		console.log Chalk.yellow "Starting server on #{CONFIG.port}"
 		@app.on 'error', (e) ->
 			console.log Chalk.red e
-		@app.listen config.port
+		@app.listen CONFIG.port
 
 server = new InfolisWebservice()
 server.startServer()
