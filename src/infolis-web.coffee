@@ -23,9 +23,9 @@ errorHandler = (err, req, res, next) ->
 		Object.getOwnPropertyNames(err).map (p) ->
 			flatErr[p] = err[p]
 		err = flatErr
-	console.log "<ERROR>"
-	console.log err
-	console.log "</ERROR>"
+	# console.log "<ERROR>"
+	# console.log err
+	# console.log "</ERROR>"
 	# throw err
 	next err
 
@@ -53,12 +53,12 @@ class InfolisWebservice
 			expandContexts: CONFIG.expandContexts
 		)
 
+		@app.jsonldMiddleware = new ExpressJSONLD(@app.mongooseJSONLD).getMiddleware()
+
 		@app.infolisSchema = new InfolisSchema(
 			dbConnection: @app.db
 			mongooseJSONLD: @app.mongooseJSONLD
 		)
-
-		@app.jsonldMiddleware = new ExpressJSONLD(@app.mongooseJSONLD).getMiddleware()
 
 		# JSON body serialization middleware
 		@app.use(BodyParser.json())
