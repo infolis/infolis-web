@@ -1,7 +1,9 @@
-{Form}  = require 'multiparty'
-Async = require 'async'
+{Form} = require 'multiparty'
+Async  = require 'async'
 Crypto = require 'crypto'
-Fs = require 'fs'
+Fs     = require 'fs'
+
+BackendClient = require '../backend-client'
 
 module.exports = setupRoutes = (app, opts) ->
 	opts or= {}
@@ -15,7 +17,9 @@ module.exports = setupRoutes = (app, opts) ->
 			fileField = files['file']?[0]
 
 			if not fileField
-				throw new Error("Didn't pass the 'file' upload")
+				ret = new Error("Didn't pass the 'file' upload")
+				ret.cause = [fields, files]
+				return next ret
 
 			fileModel = new app.infolisSchema.models.File()
 
@@ -26,8 +30,19 @@ module.exports = setupRoutes = (app, opts) ->
 					fileModel.set algo, sum.digest('hex')
 					done()
 				, (err, result) -> 
-					fileModel.set 'fileName', fileField.originalFileName
-					fileModel.save (err, saved) ->
+					fileModel.set 'size', fileField['size']
+					fileModel.set 'mediaType', fields['mediaType']
+					fileModel.set 'fileStatus', 'AVAILABLE'
+					fileModel.set 'fileName', fileField['originalFilename']
+					BackendClient.uploadFile fileModel, fileData, (err) ->
 						if err
-							throw new Error("Error saving file")
-						res.redirect(fileModel.uri())
+							return net err
+						fileModel.save (err, saved) ->
+							if err
+								ret = new Error("Error saving file to database")
+								ret.cause = err
+								ret.status = 400
+								return next ret
+							res.status 201
+							res.header 'Location', fileModel.uri()
+							res.send '@link': fileModel.uri()

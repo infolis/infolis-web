@@ -27,7 +27,8 @@ errorHandler = (err, req, res, next) ->
 	# console.log err
 	# console.log "</ERROR>"
 	# throw err
-	next err
+	# next JSON.stringify(err, null, 2)
+	res.send err
 
 
 class InfolisWebservice
