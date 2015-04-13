@@ -1,3 +1,5 @@
+Merge = require 'merge'
+
 C = {}
 
 C.mongoURI = 'mongodb://localhost:27018/test'
@@ -33,5 +35,17 @@ C.expandContexts = ['basic', {
 	uri4uri: 'http://uri4uri.net/vocab#'
 	xsd: 'http://www.w3.org/2001/XMLSchema#'
 }]
+
+loadPath = [
+	['system',      '/etc']
+	['home',        process.env.HOME]
+	['current dir', process.cwd()]
+]
+for [type, path] in loadPath
+	try
+		C = Merge C, require path + '/infolis-frontend-config'
+		console.log "Loaded #{type} configuration"
+	catch
+		console.log "No #{type} configuration found"
 
 module.exports = C

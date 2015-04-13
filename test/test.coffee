@@ -1,17 +1,11 @@
-Async = require 'async'
-test = require 'tapes'
+test = require 'tape'
 
-mod = require '../src'
+# mod = require '../src'
 
-DEBUG=false
-# DEBUG=true
+testConfigLoading = (t) ->
+	t.equals require('../src/config').foo, 'bar', 'Loaded from cwd'
+	t.end()
 
-testFunc = (t) ->
-	Async.each [0,0,0], (number, cb) ->
-		t.equals number, 0, 'Number is zero'
-		cb()
-	, () -> t.end()
-
-test "Basic async each test", testFunc
+test "Test config loading", testConfigLoading
 
 # ALT: src/index.coffee
