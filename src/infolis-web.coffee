@@ -9,9 +9,9 @@ Express    = require 'express'
 Chalk      = require 'chalk'
 BodyParser = require 'body-parser'
 
-InfolisSchema  = require 'infolis-schema/src'
-ExpressJSONLD  = require 'express-jsonld/src'
-MongooseJSONLD = require 'mongoose-jsonld/src'
+InfolisSchema  = require 'infolis-schema'
+ExpressJSONLD  = require 'express-jsonld'
+MongooseJSONLD = require 'mongoose-jsonld'
 
 CONFIG = require './config'
 
