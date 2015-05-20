@@ -29,7 +29,7 @@
     "chalk": "^1.0.0",
     "express": "^4.12.2",
     "infolis-schema": "0.0.3",
-    "express-jsonld": "0.0.8",
+    "express-jsonld": "0.0.9",
     "merge": "^1.2.0",
     "mongoose": "^4.0.1",
     "mongoose-jsonld": "^0.1.13",
