@@ -1,6 +1,6 @@
 {
   "name": "infolis-web",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Infolis Web services",
   "scripts": {
     "test": "coffee test/*.coffee | tap-spec",
