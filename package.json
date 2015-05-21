@@ -29,10 +29,10 @@
     "chalk": "^1.0.0",
     "express": "^4.12.2",
     "infolis-schema": "0.0.3",
-    "express-jsonld": "0.0.8",
     "merge": "^1.2.0",
     "mongoose": "^4.0.1",
-    "mongoose-jsonld": "^0.1.13",
+    "mongoose-jsonld": "^0.1.16",
+    "express-jsonld": "^0.0.12",
     "multiparty": "^4.1.1",
     "superagent": "^1.1.0",
     "tape": "^4.0.0"

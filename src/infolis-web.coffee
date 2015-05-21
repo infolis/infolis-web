@@ -68,6 +68,9 @@ class InfolisWebservice
 		for controller in ['jsonld-api', 'upload']
 			require("./routes/#{controller}")(@app)
 
+		@app.get '/', (req, res, next) ->
+			res.send 'API on /api, Schema/Ontology on /schema. Check http://github.com/infolis/infolis-schema'
+
 		# Error handler
 		@app.use errorHandler
 

@@ -2,6 +2,8 @@
 Async  = require 'async'
 Crypto = require 'crypto'
 Fs     = require 'fs'
+CONFIG = require '../config'
+Request = require 'superagent'
 
 BackendClient = require '../backend-client'
 
@@ -12,7 +14,7 @@ module.exports = setupRoutes = (app, opts) ->
 		form = new Form()
 		form.parse req, (err, fields, files) ->
 			if err
-				throw new Error(err)
+				return next new Error(err)
 
 			fileField = files['file']?[0]
 
@@ -34,15 +36,23 @@ module.exports = setupRoutes = (app, opts) ->
 					fileModel.set 'mediaType', fields['mediaType']
 					fileModel.set 'fileStatus', 'AVAILABLE'
 					fileModel.set 'fileName', fileField['originalFilename']
-					BackendClient.uploadFile fileModel, fileData, (err) ->
-						if err
-							return net err
-						fileModel.save (err, saved) ->
+					Request
+						.put("#{CONFIG.backendURI}/upload/#{fileModel.md5}")
+						.send(fileData.toString())
+						.end (err, res2) ->
 							if err
-								ret = new Error("Error saving file to database")
+								ret = new Error("Backend is down")
 								ret.cause = err
-								ret.status = 400
 								return next ret
-							res.status 201
-							res.header 'Location', fileModel.uri()
-							res.send '@link': fileModel.uri()
+							if res2.status isnt 201
+								ret = new Error(res.text)
+								return next ret
+							fileModel.save (err, saved) ->
+								if err
+									ret = new Error("Error saving file to database")
+									ret.cause = err
+									ret.status = 400
+									return next ret
+								res.status 201
+								res.header 'Location', fileModel.uri()
+								res.send '@link': fileModel.uri()
