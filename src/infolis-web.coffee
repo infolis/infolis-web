@@ -65,7 +65,7 @@ class InfolisWebservice
 		@app.use(BodyParser.json())
 
 		# Setup routes
-		for controller in ['jsonld-api', 'upload']
+		for controller in ['jsonld-api', 'upload', 'execute']
 			require("./routes/#{controller}")(@app)
 
 		@app.get '/', (req, res, next) ->

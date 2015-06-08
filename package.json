@@ -34,7 +34,7 @@
     "mongoose-jsonld": "^0.1.16",
     "express-jsonld": "^0.0.12",
     "multiparty": "^4.1.1",
-    "superagent": "^1.1.0",
+    "superagent": "git+https://git@github.com/visionmedia/superagent",
     "tape": "^4.0.0"
   },
   "devDependencies": {
