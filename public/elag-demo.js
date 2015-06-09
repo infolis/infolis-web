@@ -8,9 +8,14 @@ var applyTextUris = [];
 var patternUris = [];
 var newDatasetTerms = [];
 
-function hackySleep(sec) {
-  for (var i = 0; i < sec * 1000000 ; i++) {
+function linkifyArray(arr) {
+  var ret = "<ul>";
+  for (var i =0; i < arr.length ; i++) {
+    var link = arr[i];
+    ret += "<li><a href=\"" + link + "?format=text/turtle\">" + link + "</a></li>"
   }
+  ret += "</ul>";
+  return ret;
 }
 
 function _pollExecution(executionUri, execution, onFinished) {
@@ -57,7 +62,7 @@ function uploadFiles(id, arr) {
           arr.push(uri);
           if (++uploaded == nrFiles) {
             div.addClass("done");
-            pre.text(JSON.stringify(arr, null, 2));
+            pre.html(linkifyArray(arr));
           }
         }
       };
@@ -82,12 +87,12 @@ function convertToText(id, source, target) {
   req.onreadystatechange = function() {
     if (req.readyState === 4) {
       var executionUri = req.getResponseHeader('Location');
-      span.append("<a href=" + executionUri +">" + executionUri+"</a>")
+      span.append("<a href=\"" + executionUri +"?format=text/turtle\">" + executionUri+"</a>")
       pollExecution(executionUri, function(execution) {
     execution.outputFiles.forEach(function(textUri) {
       target.push(textUri);
     });
-    pre.text(JSON.stringify(target, null, 2));
+    pre.html(linkifyArray(target));
     div.addClass("done");
     });
     }
@@ -116,13 +121,13 @@ function learn(id, target) {
     if (req.readyState !== 4)
       return;
     var executionUri = req.getResponseHeader('Location');
-      span.append("<a href=" + executionUri +">" + executionUri+"</a>")
+      span.append("<a href=\"" + executionUri +"?format=text/turtle\">" + executionUri+"</a>")
   pollExecution(executionUri, function(execution) {
     for (var i = 0; i < execution.pattern.length; i++) {
       target.push(execution.pattern[i]);
     }
     console.log(target);
-    pre.text(JSON.stringify(target, null, 2));
+    pre.html(linkifyArray(target));
     div.addClass("done");
   });
   },
@@ -146,7 +151,7 @@ function applyPatterns(id) {
   req.onreadystatechange = function() {
 	if (req.readyState !== 4) return;
 	var executionUri = req.getResponseHeader('Location');
-	span.append("<a href=" + executionUri +">" + executionUri+"</a>")
+      span.append("<a href=\"" + executionUri +"?format=text/turtle\">" + executionUri+"</a>")
 	pollExecution(executionUri, function(execution) {
 	  console.log(execution.studyContexts);
 	  for (var i = 0; i < execution.studyContexts.length ; i++) {
