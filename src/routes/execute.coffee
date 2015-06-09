@@ -18,7 +18,7 @@ module.exports = setupRoutes = (app, opts) ->
 			executionModel.set 'status', 'PENDING'
 			console.log executionModel
 			Request
-				.post("#{CONFIG.baseURI}/#{CONFIG.apiPrefix}/execution")
+				.post("#{CONFIG.baseURI}#{CONFIG.apiPrefix}/execution")
 				.send(executionModel)
 				.end (err, postResp) ->
 					# console.log postResp
