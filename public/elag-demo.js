@@ -1,4 +1,5 @@
-var INFOLIS_BASE_URI = "http://localhost:3000/api";
+// var INFOLIS_BASE_URI = "http://localhost:3000/api";
+var INFOLIS_BASE_URI = "http://infolis.gesis.org/infolink/api";
 
 var learnSeed;
 var learnPdfUris = [];
