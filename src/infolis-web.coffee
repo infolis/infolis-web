@@ -49,6 +49,7 @@ class InfolisWebservice
 			throw e
 
 		@app.mongooseJSONLD = new MongooseJSONLD(
+			mongoose: Mongoose
 			baseURI: CONFIG.baseURI
 			apiPrefix: CONFIG.apiPrefix
 			schemaPrefix: CONFIG.schemaPrefix
