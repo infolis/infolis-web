@@ -69,7 +69,7 @@ class InfolisWebservice
 		@app.use(Cors())
 
 		# Static files
-		@app.use(Express.static('public'));
+		@app.use(Express.static('public'))
 
 		# Setup routes
 		for controller in ['jsonld-api', 'upload', 'execute']

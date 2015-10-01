@@ -32,8 +32,7 @@
     "express-jsonld": "^0.0.13",
     "infolis-schema": "0.0.4",
     "merge": "^1.2.0",
-    "mongoose": "^4.0.1",
-    "mongoose-jsonld": "^0.1.18",
+    "mongoose-jsonld": "^0.1.21",
     "multiparty": "^4.1.1",
     "superagent": "git+https://git@github.com/visionmedia/superagent",
     "tape": "^4.0.0"
