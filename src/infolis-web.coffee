@@ -8,6 +8,7 @@ Mongoose   = require 'mongoose'
 Express    = require 'express'
 Chalk      = require 'chalk'
 BodyParser = require 'body-parser'
+Cors       = require 'cors'
 
 InfolisSchema  = require 'infolis-schema'
 ExpressJSONLD  = require 'express-jsonld'
@@ -64,9 +65,18 @@ class InfolisWebservice
 		# JSON body serialization middleware
 		@app.use(BodyParser.json())
 
+		# CORS (Access-Control-Allow-Origin)
+		@app.use(Cors())
+
+		# Static files
+		@app.use(Express.static('public'));
+
 		# Setup routes
-		for controller in ['jsonld-api', 'upload']
+		for controller in ['jsonld-api', 'upload', 'execute']
 			require("./routes/#{controller}")(@app)
+
+		@app.get '/', (req, res, next) ->
+			res.send 'API on /api, Schema/Ontology on /schema. Check http://github.com/infolis/infolis-schema'
 
 		# Error handler
 		@app.use errorHandler

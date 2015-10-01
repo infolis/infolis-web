@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ELAG 2015 Demo</title>
+    <link rel='stylesheet' href='vendor/bootstrap/css/bootstrap.min.css'/>
+    <link rel='stylesheet' href='vendor/bootstrap/css/bootstrap-theme.min.css'/>
+    <!-- <link rel='stylesheet' href='/vendor/bootstrap/bootswatch/cyborg.css'/> -->
+    <!-- <link rel='stylesheet' href='/vendor/bootstrap/bootswatch/darkly.css'/> -->
+    <!-- <link rel='stylesheet' href='/vendor/bootstrap/bootswatch/slate.css'/> -->
+    <!-- <link rel='stylesheet' href='/vendor/bootstrap/bootswatch/DarkAdmin.css'/> -->
+    <!-- <link rel='stylesheet' href='/css/style.css'/> -->
+    <style>
+      .done {
+        background-color: #afa
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Infolis - ELAG Demo</h1>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h2>1.) Learn patterns from PDF and initial seed</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="upload-learn-pdf" class="col-sm-6">
+          <h3>Upload PDFs to learn from</h3>
+          <input type="file" multiple="multiple" class="input"/>
+          <button class="btn btn-success">Upload</button>
+          <pre>--</pre>
+        </div>
+
+        <div id="convert-learn-pdf" class="col-sm-6">
+          <h3>Convert them to text</h3>
+          <button class="btn btn-warning">Convert to text</button>
+          <span class="execution"></span>
+        <pre>--</pre>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="learning" class="col-sm-12">
+          <h3>Start learning with this seed</h3>
+          <input type="text" id="seed"/>
+          <button class="btn btn-danger">Start Learning</button>
+          <span class="execution"></span>
+        <pre>--</pre>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h2>2.) Apply pattern to a set of PDF</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="upload-apply-pdf" class="col-sm-6">
+          <h3>Upload a *different* set of PDF</h3>
+          <input type="file" multiple="multiple"/>
+          <button class="btn-success">Upload</button>
+          <pre>--</pre>
+        </div>
+
+        <div id="convert-apply-pdf" class="col-sm-6">
+          <h3>Convert those PDF to text</h3>
+          <button class="btn btn-warning">Convert to text</button>
+          <span class="execution"></span>
+          <pre>--</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div id="apply-patterns" class="col-sm-12">
+          <h3>Apply the learned patterns</h3>
+          <button class="btn btn-danger">Apply patterns</button>
+          <span class="execution"></span>
+          <pre>
+          </pre>
+        </div>
+      </div>
+
+    </div>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script type="text/javascript" src="./elag-demo.js"></script>
+
+  </body>
+</html>
