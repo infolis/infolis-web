@@ -10,9 +10,10 @@ Chalk      = require 'chalk'
 BodyParser = require 'body-parser'
 Cors       = require 'cors'
 
-InfolisSchema  = require 'infolis-schema'
 ExpressJSONLD  = require 'express-jsonld'
 MongooseJSONLD = require 'mongoose-jsonld'
+
+InfolisSchema  = require './schema'
 
 CONFIG = require './config'
 

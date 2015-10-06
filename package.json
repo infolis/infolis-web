@@ -7,7 +7,7 @@
     "docs": "docker -i src -o apidocs -s -n -c vs",
     "compile": "coffee -c -o lib src",
     "clean": "rm -r apidocs lib ; true",
-    "serve": "nodemon src/infolis-web.coffee -w src -w public -w ../express-jsonld/src -w ../mongoose-jsonld-express/src -w ../infolis-schema/src -w ../mongoose-jsonld/src",
+    "serve": "nodemon src/server.coffee -w src -w public -w ../express-jsonld/src -w ../mongoose-jsonld-express/src -w ../mongoose-jsonld/src",
     "mongo": "mongod --dbpath data/mongodb --port 27018",
     "run": "npm run mongo & npm run serve",
     "prepublish": "npm run compile"
@@ -24,18 +24,20 @@
   "homepage": "https://github.com/infolis/infolis-web",
   "dependencies": {
     "accepts": "^1.2.5",
-    "async": "^0.9.0",
+    "async": "^0.9.2",
     "body-parser": "^1.12.2",
     "chalk": "^1.0.0",
     "cors": "^2.7.1",
     "express": "^4.12.2",
-    "express-jsonld": "^0.0.13",
-    "infolis-schema": "0.0.4",
+    "express-jsonld": "0.0.13",
     "merge": "^1.2.0",
+    "mongoose": "^4.1.10",
     "mongoose-jsonld": "^0.1.21",
     "multiparty": "^4.1.1",
-    "superagent": "git+https://git@github.com/visionmedia/superagent",
-    "tape": "^4.0.0"
+    "safefs": "^4.0.0",
+    "superagent": "^1.4.0",
+    "tape": "^4.0.0",
+    "tson": "0.0.5"
   },
   "devDependencies": {
     "docker": "^0.2.14",
