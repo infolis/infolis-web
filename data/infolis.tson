@@ -331,6 +331,8 @@ QueryService
 	reliability
 		@context
 			dc:description "The reliablity of this QueryService"
+		type: Number
 	target
 		@context
 			dc:description "The target of this QueryService, in most cases a URI"
+		type: String
