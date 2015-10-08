@@ -150,32 +150,11 @@ SearchQuery
 		@context
 			dc:description "The query string"
 		type String
+		required: yes
 
 Entity
 	@context
 		dc:description "An entity to be linked from or to, a Dataset or a Publication or a SearchResult"
-	name
-		@context
-			dc:description "TODO"
-		type String
-	identifier
-		@context
-			dc:description "TODO"
-		type String
-	tags
-		@context
-			dc:description "TODO"
-		type ArrayOfStrings
-	textualReferences
-		@context
-			dc:description "TODO"
-		type ArrayOfStrings
-
-Publication
-	@context
-		dc:description "A publication"
-		rdfs:subClassOf
-			@id infolis:Entity
 	name
 		@context
 			dc:description "TODO"
@@ -284,14 +263,14 @@ InfolisFile
 			dc:description "MD5 checksum"
 		type String
 		validate 'MD5'
-		required: 1
+		required: no
 	fileName
 		@context
 			@type @id
 			owl:sameAs
 				@id omnom:fileName
 		type String
-		required: 1
+		required: no
 	mediaType
 		@context
 			owl:sameAs dcat:mediaType
@@ -301,7 +280,7 @@ InfolisFile
 			"application/pdf"
 			"text/plain"
 		]
-		required: false
+		required: no
 	fileStatus
 		@context
 			@id omnom:fileStatus
@@ -310,7 +289,7 @@ InfolisFile
 			'AVAILABLE'
 			'DELETED'
 		]
-		required: 1
+		required: no
 	tags
 		@context
 			owl:sameAs
@@ -332,7 +311,9 @@ QueryService
 		@context
 			dc:description "The reliablity of this QueryService"
 		type: Number
+		required: yes
 	target
 		@context
 			dc:description "The target of this QueryService, in most cases a URI"
 		type: String
+		required: yes
