@@ -47,6 +47,7 @@ Execution
 	status
 		@context
 			dc:description "Status of this execution"
+			dc:example 'SUCCESS'
 		required true
 		type String
 		enum: [
