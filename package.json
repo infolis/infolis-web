@@ -32,7 +32,7 @@
     "express-jsonld": "0.0.13",
     "merge": "^1.2.0",
     "mongoose": "4.1.10",
-    "mongoose-jsonld": ">=0.1.29",
+    "mongoose-jsonld": ">=0.1.30",
     "multiparty": "^4.1.1",
     "safefs": "^4.0.0",
     "superagent": "^1.4.0",
