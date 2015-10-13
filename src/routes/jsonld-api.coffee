@@ -11,8 +11,6 @@ module.exports = setupRoutes = (app, opts) ->
 		# Load the model's schema handler
 		app.infolisSchema.mongooseJSONLD.injectSchemaHandlers(app, model)
 	
-	app.infolisSchema.mongooseJSONLD.injectSwaggerHandler(app, models)
-	
 	# Schema handler for the ontology
 	app.get(
 		app.infolisSchema.mongooseJSONLD.schemaPrefix,

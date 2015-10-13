@@ -11,7 +11,7 @@ BodyParser = require 'body-parser'
 Cors       = require 'cors'
 
 ExpressJSONLD  = require 'express-jsonld'
-MongooseJSONLD = require 'mongoose-jsonld'
+MongooseJSONLD = require 'mongoose-jsonld/src'
 
 InfolisSchema  = require './schema'
 
@@ -74,7 +74,7 @@ class InfolisWebservice
 		@app.use(Express.static('public'))
 
 		# Setup routes
-		for controller in ['jsonld-api', 'upload', 'execute']
+		for controller in ['jsonld-api', 'upload', 'execute', 'swagger']
 			require("./routes/#{controller}")(@app)
 
 		@app.get '/', (req, res, next) ->
