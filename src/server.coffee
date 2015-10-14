@@ -11,7 +11,7 @@ BodyParser = require 'body-parser'
 Cors       = require 'cors'
 
 ExpressJSONLD  = require 'express-jsonld'
-MongooseJSONLD = require 'mongoose-jsonld/src'
+MongooseJSONLD = require 'mongoose-jsonld'
 
 InfolisSchema  = require './schema'
 

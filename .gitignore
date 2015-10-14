@@ -28,4 +28,4 @@ node_modules
 .lock-wscript
 package.cson
 apidocs/
-lib/
+/lib/
