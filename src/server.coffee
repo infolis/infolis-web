@@ -11,7 +11,7 @@ BodyParser = require 'body-parser'
 Cors       = require 'cors'
 
 ExpressJSONLD  = require 'express-jsonld'
-MongooseJSONLD = require 'mongoose-jsonld'
+MongooseJSONLD = require 'mongoose-jsonld/src'
 
 InfolisSchema  = require './schema'
 
@@ -30,6 +30,7 @@ errorHandler = (err, req, res, next) ->
 	# console.log "</ERROR>"
 	# throw err
 	# next JSON.stringify(err, null, 2)
+	res.status 400
 	res.send err
 
 
