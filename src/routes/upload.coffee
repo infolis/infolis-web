@@ -21,7 +21,7 @@ module.exports = setupRoutes = (app, opts) ->
 				ret.cause = [fields, files]
 				return next ret
 
-			fileModel = new app.infolisSchema.models.File()
+			fileModel = new app.infolisSchema.models.InfolisFile()
 
 			Fs.readFile fileField.path, (err, fileData) ->
 				Async.map ['md5', 'sha1'], (algo, done) ->
