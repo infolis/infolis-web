@@ -30,7 +30,7 @@ errorHandler = (err, req, res, next) ->
 	# console.log "</ERROR>"
 	# throw err
 	# next JSON.stringify(err, null, 2)
-	res.status 400
+	res.status = 400
 	res.send err
 
 
@@ -56,6 +56,7 @@ class InfolisWebservice
 			apiPrefix: CONFIG.apiPrefix
 			schemaPrefix: CONFIG.schemaPrefix
 			expandContexts: CONFIG.expandContexts
+			htmlFormat: 'text/turtle'
 		)
 
 		@app.jsonldMiddleware = new ExpressJSONLD(@app.mongooseJSONLD).getMiddleware()
@@ -79,7 +80,10 @@ class InfolisWebservice
 			require("./routes/#{controller}")(@app)
 
 		@app.get '/', (req, res, next) ->
-			res.send 'API on /api, Schema/Ontology on /schema. Check http://github.com/infolis/infolis-schema'
+			res.status 302
+			res.header 'Location', '/infolink/swagger/'
+			res.end()
+			# res.send 'API on /api, Schema/Ontology on /schema. Check http://github.com/infolis/infolis-schema'
 
 		# Error handler
 		@app.use errorHandler

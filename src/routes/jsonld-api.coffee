@@ -11,9 +11,8 @@ module.exports = setupRoutes = (app, opts) ->
 		# Load the model's schema handler
 		app.infolisSchema.mongooseJSONLD.injectSchemaHandlers(app, model)
 	
-	# Schema handler for the ontology
-	app.get(
-		app.infolisSchema.mongooseJSONLD.schemaPrefix,
+	# Schema handler for the ontology, i.e. /schema
+	app.get(app.infolisSchema.mongooseJSONLD.schemaPrefix,
 		(req, res, next) ->
 			req.jsonld = app.infolisSchema.jsonldTBox()
 			next()
