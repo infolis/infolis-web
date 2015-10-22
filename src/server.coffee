@@ -2,18 +2,18 @@
 # Some Module
 
 ###
-Async      = require 'async'
-Merge      = require 'merge'
-Mongoose   = require 'mongoose'
-Express    = require 'express'
-Chalk      = require 'chalk'
-BodyParser = require 'body-parser'
-Cors       = require 'cors'
+Async         = require 'async'
+Merge         = require 'merge'
+Mongoose      = require 'mongoose'
+Express       = require 'express'
+Chalk         = require 'chalk'
+BodyParser    = require 'body-parser'
+TSON          = require 'tson'
+Cors          = require 'cors'
+StringifySafe = require 'json-stringify-safe'
 
 ExpressJSONLD  = require 'express-jsonld'
-MongooseJSONLD = require 'mongoose-jsonld/src'
-
-InfolisSchema  = require './schema'
+Schemo = require 'mongoose-jsonld/src'
 
 CONFIG = require './config'
 
@@ -30,8 +30,10 @@ errorHandler = (err, req, res, next) ->
 	# console.log "</ERROR>"
 	# throw err
 	# next JSON.stringify(err, null, 2)
+	# err = Object.keys(err)
+	delete err.arguments
 	res.status = 400
-	res.send err
+	res.send StringifySafe err, null, 2
 
 
 class InfolisWebservice
@@ -50,21 +52,17 @@ class InfolisWebservice
 			console.log Chalk.red "ERROR starting MongoDB"
 			throw e
 
-		@app.mongooseJSONLD = new MongooseJSONLD(
+		@app.schemo = new Schemo(
 			mongoose: Mongoose
 			baseURI: CONFIG.baseURI
 			apiPrefix: CONFIG.apiPrefix
 			schemaPrefix: CONFIG.schemaPrefix
 			expandContexts: CONFIG.expandContexts
 			htmlFormat: 'text/turtle'
+			schemo: TSON.load __dirname + '/../data/infolis.tson' 
 		)
 
-		@app.jsonldMiddleware = new ExpressJSONLD(@app.mongooseJSONLD).getMiddleware()
-
-		@app.infolisSchema = new InfolisSchema(
-			dbConnection: @app.db
-			mongooseJSONLD: @app.mongooseJSONLD
-		)
+		@app.jsonldMiddleware = new ExpressJSONLD(@app.schemo.factory.utils).getMiddleware()
 
 		# JSON body serialization middleware
 		@app.use(BodyParser.json())
@@ -76,7 +74,8 @@ class InfolisWebservice
 		@app.use(Express.static('public'))
 
 		# Setup routes
-		for controller in ['jsonld-api', 'upload', 'execute', 'swagger']
+		# for controller in ['jsonld-api', 'upload', 'execute', 'swagger']
+		for controller in ['jsonld-api', 'upload', 'execute']
 			require("./routes/#{controller}")(@app)
 
 		@app.get '/', (req, res, next) ->

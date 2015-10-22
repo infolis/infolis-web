@@ -1,19 +1,17 @@
 module.exports = setupRoutes = (app, opts) ->
 	opts or= {}
 
-	models = []
-	for __, model of app.infolisSchema.models
-		models.push model
+	# console.log app.schemo.models
 	# For all the models in our schema
-	for model in models
+	for modelName, model of app.schemo.models
 		# Load the model's RESTful handlers into app
-		app.infolisSchema.mongooseJSONLD.injectRestfulHandlers(app, model)
+		# app.schemo.injectRestfulHandlers(app, model)
 		# Load the model's schema handler
-		app.infolisSchema.mongooseJSONLD.injectSchemaHandlers(app, model)
+		app.schemo.injectSchemaHandlers(app, model)
 	
 	# Schema handler for the ontology, i.e. /schema
-	app.get(app.infolisSchema.mongooseJSONLD.schemaPrefix,
+	app.get(app.schemo.schemaPrefix,
 		(req, res, next) ->
-			req.jsonld = app.infolisSchema.jsonldTBox()
+			req.jsonld = app.schemo.jsonldTBox()
 			next()
 		app.jsonldMiddleware)
