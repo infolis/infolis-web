@@ -51,9 +51,9 @@ class InfolisWebservice
 		@app.db.on 'error', (e) =>
 			console.log Chalk.red "ERROR starting MongoDB"
 			throw e
-
+		# Schemo!
 		@app.schemo = new Schemo(
-			mongoose: Mongoose
+			mongoose: @app.db
 			baseURI: CONFIG.baseURI
 			apiPrefix: CONFIG.apiPrefix
 			schemaPrefix: CONFIG.schemaPrefix
@@ -61,29 +61,22 @@ class InfolisWebservice
 			htmlFormat: 'text/turtle'
 			schemo: TSON.load __dirname + '/../data/infolis.tson' 
 		)
-
-		@app.jsonldMiddleware = new ExpressJSONLD(@app.schemo.factory.utils).getMiddleware()
-
+		# JSON-LD Middleware
+		@app.jsonldMiddleware = @app.schemo.expressJsonldMiddleware
 		# JSON body serialization middleware
 		@app.use(BodyParser.json())
-
 		# CORS (Access-Control-Allow-Origin)
 		@app.use(Cors())
-
 		# Static files
 		@app.use(Express.static('public'))
-
 		# Setup routes
-		# for controller in ['jsonld-api', 'upload', 'execute', 'swagger']
-		for controller in ['jsonld-api', 'upload', 'execute']
+		for controller in ['schemo', 'upload', 'execute']
 			require("./routes/#{controller}")(@app)
-
 		@app.get '/', (req, res, next) ->
 			res.status 302
 			res.header 'Location', '/infolink/swagger/'
 			res.end()
 			# res.send 'API on /api, Schema/Ontology on /schema. Check http://github.com/infolis/infolis-schema'
-
 		# Error handler
 		@app.use errorHandler
 

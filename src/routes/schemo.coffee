@@ -1,10 +1,21 @@
-CONFIG = require '../config'
 module.exports = setupRoutes = (app, opts) ->
-	models = []
-	for __, model of app.infolisSchema.models
-		models.push model
+	opts or= {}
 
-	swaggerDef = {
+	# restful handlers
+	app.schemo.handlers.restful.inject(app)
+
+	# schema handlers
+	app.schemo.handlers.schema.inject(app)
+	
+	# Schema handler for the ontology, i.e. /schema
+	app.get(app.schemo.schemaPrefix,
+		(req, res, next) ->
+			req.jsonld = app.schemo.jsonldTBox()
+			next()
+		app.jsonldMiddleware)
+
+	# swagger handler
+	app.schemo.handlers.swagger.inject app, {
 		basePath: "/infolink"
 		info:
 			title: 'Infolis YAY'
@@ -79,5 +90,3 @@ module.exports = setupRoutes = (app, opts) ->
 						500:
 							description: 'Backend failed.'
 	}
-
-	app.infolisSchema.mongooseJSONLD.injectSwaggerHandler(app, models, swaggerDef)
