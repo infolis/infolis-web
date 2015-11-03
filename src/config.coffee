@@ -2,7 +2,7 @@ Merge = require 'merge'
 
 C = {}
 
-C.mongoURI = 'mongodb://localhost:27018/test'
+C.mongoURI = 'mongodb://localhost:27018/infolis'
 C.mongoServerOptions = {
 	server:
 		socketOptions:

@@ -264,14 +264,14 @@ InfolisFile
 			dc:description "MD5 checksum"
 		type String
 		validate 'MD5'
-		required: true
+		required: no
 	fileName
 		@context
 			@type @id
 			owl:sameAs
 				@id omnom:fileName
 		type String
-		required: true
+		required: no
 	mediaType
 		@context
 			owl:sameAs dcat:mediaType
@@ -281,7 +281,7 @@ InfolisFile
 			"application/pdf"
 			"text/plain"
 		]
-		required: true
+		required: no
 	fileStatus
 		@context
 			@id omnom:fileStatus
@@ -290,7 +290,7 @@ InfolisFile
 			'AVAILABLE'
 			'DELETED'
 		]
-		required true
+		required: no
 	tags
 		@context
 			owl:sameAs
