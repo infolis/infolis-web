@@ -270,9 +270,10 @@
   cursor: pointer;
 }
 .swagger-section .swagger-ui-wrap .info_title {
-  padding-bottom: 10px;
+  padding-bottom: 0;
   font-weight: bold;
   font-size: 25px;
+  display: none;
 }
 .swagger-section .swagger-ui-wrap .footer {
   margin-top: 20px;
@@ -1219,7 +1220,8 @@
   cursor: pointer;
 }
 .swagger-section #header {
-  background-color: #89bf04;
+  /* background-color: #89bf04; */
+  background-color: #113;
   padding: 14px;
 }
 .swagger-section #header a#logo {
@@ -1276,6 +1278,7 @@
   color: #999999;
 }
 .swagger-section #message-bar {
+  display: none;
   min-height: 30px;
   text-align: center;
   padding-top: 10px;
