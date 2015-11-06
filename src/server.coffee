@@ -72,11 +72,11 @@ class InfolisWebservice
 		# Setup routes
 		for controller in ['schemo', 'upload', 'execute']
 			require("./routes/#{controller}")(@app)
+		# root route
 		@app.get '/', (req, res, next) ->
 			res.status 302
 			res.header 'Location', '/infolink/swagger/'
 			res.end()
-			# res.send 'API on /api, Schema/Ontology on /schema. Check http://github.com/infolis/infolis-schema'
 		# Error handler
 		@app.use errorHandler
 
