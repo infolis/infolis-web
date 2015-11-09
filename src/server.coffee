@@ -59,7 +59,7 @@ class InfolisWebservice
 			schemaPrefix: CONFIG.schemaPrefix
 			expandContexts: CONFIG.expandContexts
 			htmlFormat: 'text/turtle'
-			schemo: TSON.load __dirname + '/../data/infolis.tson' 
+			schemo: TSON.load __dirname + '/../data/infolis.tson'
 		)
 		# JSON-LD Middleware
 		@app.jsonldMiddleware = @app.schemo.expressJsonldMiddleware
@@ -70,8 +70,17 @@ class InfolisWebservice
 		# Static files
 		@app.use(Express.static('public'))
 		# Setup routes
-		for controller in ['schemo', 'upload', 'execute']
-			require("./routes/#{controller}")(@app)
+		for controller in [
+				'restful'
+				'schemo'
+				'upload'
+				'execute'
+				'monitor'
+				'swagger'
+			]
+			do (controller) =>
+				console.log "Setting up route #{controller}"
+				require("./routes/#{controller}")(@app)
 		# root route
 		@app.get '/', (req, res, next) ->
 			res.status 302

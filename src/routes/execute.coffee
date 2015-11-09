@@ -4,17 +4,8 @@ Fs     = require 'fs'
 CONFIG = require '../config'
 Request = require 'superagent'
 
-module.exports = setupRoutes = (app, opts) ->
+module.exports = (app, opts) ->
 	opts or= {}
-
-	app.get '/api/monitor', (req, res, next) ->
-		Request
-			.get("#{CONFIG.backendURI}/executor?status=#{req.query.status}")
-			.set 'Accept', 'application/json'
-			.end (err, startResp) ->
-				if err
-					return next err
-				return res.send startResp.body
 
 	app.post '/api/execute', (req, res, next) ->
 		exec = req.body

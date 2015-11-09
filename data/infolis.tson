@@ -155,14 +155,14 @@ Execution
 		@context
 			dc:description "List of QueryService to use"
 		type ArrayOfStrings
+	progress
+		@context
+			dc:description "Numerical progress of the execution in the interval 0-1"
+		type: Number
 	searchResults
 		@context
 			dc:description "Search results"
 		type ArrayOfStrings
-	progress
-		@context
-			dc:description "Numerical progress of the execution in the interval [0,1]"
-		type Number
 
 SearchQuery
 	@context

@@ -5,7 +5,8 @@ Fs     = require 'fs'
 CONFIG = require '../config'
 Request = require 'superagent'
 
-module.exports = setupRoutes = (app, opts) ->
+module.exports = (app, opts) ->
+
 	opts or= {}
 
 	app.post '/api/upload', (req, res, next) ->
