@@ -5,60 +5,75 @@ Fs     = require 'fs'
 CONFIG = require '../config'
 Request = require 'superagent'
 
+
+_replaceAll = (str, mapping) ->
+	for olds, news of mapping
+		str = str.replace(new RegExp(olds, 'g'), news)
+	return str
+
+_postFiles = (origDB, files, callback) ->
+	db = JSON.parse origDB
+	missingFiles = []
+	for fileId in Object.keys(db.infolisFile)
+		if fileId not of files
+			missingFiles.push fileId
+	if missingFiles.length > 0
+		return next "Did not provide these files: #{[missingFiles]}"
+	# Post all files
+	mapping = {}
+	Async.each Object.keys(db.infolisFile), (fileId, done) ->
+		filePath = files[fileId][0].path
+		mediaType = if /.*txt$/.test(filePath) then 'text/plain' else 'application/pdf'
+		Request
+			.post("/infolink/api/upload")
+			.type('form')
+			.field('mediaType', mediaType)
+			.attach('file', filePath)
+			.buffer(false)
+			.end (err, resp) ->
+				if resp.status isnt 201
+					console.log resp
+					err = resp.text
+				if err
+					console.log err
+					done err
+				mapping[fileId] = resp.get('Location')
+				done()
+	, (err) ->
+		if err
+			callback err
+		callback null, _replaceAll(origDB, mapping)
+
+_postResource = (origDB, resourceEndpoint, callback) ->
+	db = JSON.parse origDB
+	mapping = {}
+	Async.forEachOf db[resourceEndpoint], (obj, uuid, done) ->
+		Request
+			.post "/infolink/api/#{resourceEndpoint}"
+			.send obj
+			.end (err, resp) ->
+				if err or resp.status isnt 201
+					return done err
+				mapping[uuid] = resp.get('Location')
+				return done()
+	, (err) ->
+		return callback err if err
+		return callback _replaceAll(origDB, mapping)
+
 module.exports = (app, opts) ->
 
 	opts or= {}
 
-	app.post '/api/json-import', (req, res, next) ->
+	app.post '/api/json-import', (req, res, next) =>
 		form = new Form()
-		form.parse req, (err, fields, files) ->
+		form.parse req, (err, fields, files) =>
 			if not fields.db
 				return next "Must pass 'db'"
-			db = JSON.parse fields.db
-			missingFiles = []
-			for fileId in Object.keys(db.infolisFile)
-				if fileId not of files
-					missingFiles.push fileId
-			if missingFiles.length > 0
-				return next "Did not provide these files: #{[missingFiles]}"
-			res.send db
-			# if err
-			#     return next new Error(err)
-			# fileFields = files['files']
-			# if not fileFields
-			#     ret = new Error("Didn't pass the 'files' upload")
-			#     ret.cause = [fields, files]
-			#     return next ret
-			# fileModel = new app.schemo.models.InfolisFile()
-			# Fs.readFile fileField.path, (err, fileData) ->
-			#     Async.map ['md5', 'sha1'], (algo, done) ->
-			#         sum = Crypto.createHash(algo)
-			#         sum.update(fileData)
-			#         fileModel.set algo, sum.digest('hex')
-			#         done()
-			#     , (err, result) ->
-			#         fileModel.set 'size', fileField['size']
-			#         fileModel.set 'mediaType', fields['mediaType']
-			#         fileModel.set 'fileStatus', 'AVAILABLE'
-			#         fileModel.set 'fileName', fileField['originalFilename']
-			#         Request
-			#             .put("#{CONFIG.backendURI}/upload/#{fileModel.md5}")
-			#             .type('application/octet-stream')
-			#             .send(fileData)
-			#             .end (err, res2) ->
-			#                 if err
-			#                     ret = new Error("Backend is down")
-			#                     ret.cause = err
-			#                     return next ret
-			#                 if res2.status isnt 201
-			#                     ret = new Error(res.text)
-			#                     return next ret
-			#                 fileModel.save (err, saved) ->
-			#                     if err
-			#                         ret = new Error("Error saving file to database")
-			#                         ret.cause = err
-			#                         ret.status = 400
-			#                         return next ret
-			#                     res.status 201
-			#                     res.header 'Location', fileModel.uri()
-			#                     res.send '@link': fileModel.uri()
+			_postFiles fields.db.toString(), files, (err, origDB) ->
+				return next err if err
+				# TODO
+				# Here you are, Ethan
+				order = ['pattern', 'execution']
+				# Async.eachSeries order, (resourceEndpoint, done) ->
+					# _postResource origDB, resourceEndpoint, done
+				return res.send JSON.parse origDB
