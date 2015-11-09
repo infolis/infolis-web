@@ -32,5 +32,6 @@ module.exports = setupRoutes = (app, opts) ->
 						if err
 							return next err
 						res.header 'Location', executionUri
+						res.send '@link': executionUri
 						res.status 201
 						return res.end()
