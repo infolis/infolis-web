@@ -281,7 +281,7 @@ InfolisFile
 			"application/pdf"
 			"text/plain"
 		]
-		required: no
+		required: true
 	fileStatus
 		@context
 			@id omnom:fileStatus
