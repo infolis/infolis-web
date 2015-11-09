@@ -21,12 +21,12 @@ module.exports = (app, opts) ->
 				return next ret
 			fileModel = new app.schemo.models.InfolisFile()
 			Fs.readFile fileField.path, (err, fileData) ->
-				Async.map ['md5', 'sha1'], (algo, done) ->
+				Async.each ['md5', 'sha1'], (algo, done) ->
 					sum = Crypto.createHash(algo)
 					sum.update(fileData)
 					fileModel.set algo, sum.digest('hex')
 					done()
-				, (err, result) ->
+				, (err) ->
 					fileModel.set 'size', fileField['size']
 					fileModel.set 'mediaType', fields['mediaType']
 					fileModel.set 'fileStatus', 'AVAILABLE'
