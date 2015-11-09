@@ -77,6 +77,7 @@ class InfolisWebservice
 				'execute'
 				'monitor'
 				'swagger'
+				'json-import'
 			]
 			do (controller) =>
 				console.log "Setting up route #{controller}"
