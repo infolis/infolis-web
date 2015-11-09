@@ -34,7 +34,12 @@ module.exports = setupRoutes = (app, opts) ->
 						{
 							name: 'mediaType'
 							in: 'formData'
-							type: 'string'
+							schema:
+								$ref: '#/definitions/InfolisFile/mediaType'
+							enum: [
+								'application/pdf'
+								'text/plain'
+							]
 						}
 					]
 					responses:
