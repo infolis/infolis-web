@@ -21,9 +21,9 @@ module.exports = setupRoutes = (app, opts) ->
 			title: 'Infolis YAY'
 		paths:
 
-			'/upload':
+			'/api/upload':
 				post:
-					tags: ['custom']
+					tags: ['custom', 'infolisFile']
 					description: "Upload a file"
 					parameters: [
 						{
@@ -50,31 +50,25 @@ module.exports = setupRoutes = (app, opts) ->
 								$ref: "#/definitions/InfolisFile"
 						400:
 							description: 'Upload failed'
-						502:
+						503:
+							description: 'Backend is down.'
+						503:
 							description: 'Backend is down.'
 						500:
 							description: 'Backend failed.'
 
-			'/execute':
+			'/api/execute':
 				post:
-					tags: ['custom']
+					tags: ['custom', 'execution']
 					description: "Post an execution and run it on the backend."
-					consumes: ['multipart/form-data']
-					produces: ['application/json']
+					consumes: ['application/json']
 					parameters: [
-						{
-							name: 'algorithm'
-							in: 'formData'
-							type: 'array'
-							items: {
-								type: 'string'
-							}
-						}
-						{
-							name: 'something'
-							in: 'formData'
-							type: 'string'
-						}
+						name: 'execution'
+						in: "body"
+						description: "Execution to POST"
+						required: true
+						schema:
+							$ref: "#/definitions/Execution"
 					]
 					responses:
 						201:

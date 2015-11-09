@@ -13,23 +13,19 @@ module.exports = setupRoutes = (app, opts) ->
 		form.parse req, (err, fields, files) ->
 			if err
 				return next new Error(err)
-
 			fileField = files['file']?[0]
-
 			if not fileField
 				ret = new Error("Didn't pass the 'file' upload")
 				ret.cause = [fields, files]
 				return next ret
-
-			fileModel = new app.infolisSchema.models.InfolisFile()
-
+			fileModel = new app.schemo.models.InfolisFile()
 			Fs.readFile fileField.path, (err, fileData) ->
 				Async.map ['md5', 'sha1'], (algo, done) ->
 					sum = Crypto.createHash(algo)
 					sum.update(fileData)
 					fileModel.set algo, sum.digest('hex')
 					done()
-				, (err, result) -> 
+				, (err, result) ->
 					fileModel.set 'size', fileField['size']
 					fileModel.set 'mediaType', fields['mediaType']
 					fileModel.set 'fileStatus', 'AVAILABLE'
