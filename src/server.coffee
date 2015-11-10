@@ -4,8 +4,8 @@
 ###
 Async         = require 'async'
 Merge         = require 'merge'
-Mongoose      = require 'mongoose'
 Express       = require 'express'
+Mongoose      = require 'mongoose'
 Chalk         = require 'chalk'
 BodyParser    = require 'body-parser'
 TSON          = require 'tson'
@@ -80,7 +80,7 @@ class InfolisWebservice
 				'json-import'
 			]
 			do (controller) =>
-				console.log "Setting up route #{controller}"
+				console.log Chalk.green "Setting up route #{controller}"
 				require("./routes/#{controller}")(@app)
 		# root route
 		@app.get '/', (req, res, next) ->
