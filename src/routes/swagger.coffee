@@ -12,6 +12,8 @@ module.exports = (app, opts) ->
 				get:
 					tags: ['custom', 'execution', 'monitor']
 					description: 'Get the status of executions live from the backend'
+					responses:
+						200: description: "Retrieved the executions by status"
 					parameters: [
 						name: 'status'
 						in: 'query'
@@ -28,17 +30,17 @@ module.exports = (app, opts) ->
 				post:
 					tags: ['custom', 'infolisFile']
 					description: "Upload a file"
+					consumes: ['multipart/form-data']
 					parameters: [
 						{
 							name: 'file'
-							in: 'formData'
 							type: 'file'
+							in: 'formData'
 						}
 						{
 							name: 'mediaType'
+							type: 'string'
 							in: 'formData'
-							schema:
-								$ref: '#/definitions/InfolisFile/mediaType'
 							enum: [
 								'application/pdf'
 								'text/plain'
