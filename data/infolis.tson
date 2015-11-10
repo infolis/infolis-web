@@ -97,7 +97,7 @@ Execution
 	removeBib
 		@context
 			dc:description "Whether to remove the bibliography from a text document."
-		type String
+		type Boolean
 	outputDirectory
 		@context
 			dc:description "Output directory of the indexer."
@@ -106,6 +106,10 @@ Execution
 		@context
 			dc:description "Phrase Slop for Lucene indexer."
 		type: Number
+	upperCaseConstraint
+		@context
+			dc:description "Upper Case Constraint"
+		type Boolean
 	allowLeadingWildcards
 		@context
 			dc:description "Whether leading wildcards are allowed"
