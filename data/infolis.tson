@@ -243,7 +243,7 @@ SearchResult
 			dc:description "TODO"
 		type ArrayOfStrings
 
-Pattern
+InfolisPattern
 	@context
 		dc:description 'A Regular Expression pattern'
 	patternRegex
@@ -338,3 +338,31 @@ QueryService
 			dc:description "The target of this QueryService, in most cases a URI"
 		type: String
 		required: yes
+
+TextualReference
+	@context
+		dc:description "Class for saving contexts (= surrounding words of a term)."
+	leftWords
+		@context
+			dc:description "Words left of the term"
+		type: ArrayOfStrings
+	rightWords
+		@context
+			dc:description "Words right of the term"
+		type: ArrayOfStrings
+	leftText
+		@context
+			dc:description 'Text left of the term'
+		type: String
+	rightText
+		@context
+			dc:description 'Text right of the term'
+		type: String
+	term
+		@context
+			dc:description "The term"
+		type: String
+	file
+		@context
+			dc:description "The file this reference came from"
+		type: String
