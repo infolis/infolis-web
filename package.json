@@ -7,7 +7,7 @@
     "docs": "docker -i src -o apidocs -s -n -c vs",
     "compile": "coffee -c -o lib src",
     "clean": "rm -r apidocs lib ; true",
-    "serve": "nodemon src/server.coffee -w src -w public -w ../mongoose-jsonld/src",
+    "serve": "nodemon src/server.coffee -w src -w public -w data/infolis.tson -w ../mongoose-jsonld/src",
     "mongo": "mongod --dbpath data/mongodb --port 27018",
     "run": "npm run mongo & npm run serve",
     "prepublish": "npm run compile"
@@ -28,18 +28,18 @@
     "chalk": "^1.0.0",
     "cors": "^2.7.1",
     "express": "^4.12.2",
-    "express-jsonld": "0.0.14",
+    "express-jsonld": "0.0.15",
     "json-stringify-safe": "^5.0.1",
     "merge": "^1.2.0",
     "mongoose": "4.1.10",
-    "mongoose-jsonld": ">=0.1.33",
+    "mongoose-jsonld": "^0.1.34",
     "multiparty": "^4.1.1",
     "superagent": "^1.4.0",
     "swagger-ui": "^2.1.3",
-    "tape": "^4.0.0",
     "tson": "0.0.6"
   },
   "devDependencies": {
+    "tape": "^4.0.0",
     "docker": "^0.2.14",
     "tap-spec": "^2.2.2",
     "tapes": "^0.4.1"
