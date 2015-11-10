@@ -17,6 +17,8 @@ Schemo = require 'mongoose-jsonld/src'
 
 CONFIG = require './config'
 
+log = require('./log')(module)
+
 errorHandler = (err, req, res, next) ->
 	if typeof err is 'string'
 		err = {'message': err}
@@ -25,12 +27,7 @@ errorHandler = (err, req, res, next) ->
 		Object.getOwnPropertyNames(err).map (p) ->
 			flatErr[p] = err[p]
 		err = flatErr
-	# console.log "<ERROR>"
-	# console.log err
-	# console.log "</ERROR>"
-	# throw err
-	# next JSON.stringify(err, null, 2)
-	# err = Object.keys(err)
+	log.error StringifySafe err
 	delete err.arguments
 	res.status = 400
 	res.send StringifySafe err, null, 2
@@ -49,7 +46,7 @@ class InfolisWebservice
 		if not @app.db
 			throw new Error("Must set the MongoDB connection for API")
 		@app.db.on 'error', (e) =>
-			console.log Chalk.red "ERROR starting MongoDB"
+			log.error "ERROR starting MongoDB"
 			throw e
 		# Schemo!
 		@app.schemo = new Schemo(
@@ -76,11 +73,12 @@ class InfolisWebservice
 				'upload'
 				'execute'
 				'monitor'
+				'ldf'
 				'swagger'
 				'json-import'
 			]
 			do (controller) =>
-				console.log Chalk.green "Setting up route #{controller}"
+				log.info "Setting up route #{controller}"
 				require("./routes/#{controller}")(@app)
 		# root route
 		@app.get '/', (req, res, next) ->
@@ -91,9 +89,9 @@ class InfolisWebservice
 		@app.use errorHandler
 
 	startServer : () ->
-		console.log Chalk.yellow "Starting server on #{CONFIG.port}"
+		log.info "Starting server on #{CONFIG.port}"
 		@app.on 'error', (e) ->
-			console.log Chalk.red e
+			log.error e
 		@app.listen CONFIG.port
 
 server = new InfolisWebservice()
