@@ -41,9 +41,9 @@ Execution
 		required true
 		type: String
 		enum: [
-			'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
+			'io.github.infolis.algorithm.bootstrapping.FrequencyBasedBootstrapping'
 			'io.github.infolis.algorithm.TextExtractorAlgorithm'
-			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
+			'io.github.infolis.algorithm.bootstrapping.ReliabilityBasedBootstrapping'
 			'io.github.infolis.algorithm.DaraLinker'
 			'io.github.infolis.algorithm.ApplyPatternAndResolve'
 			'io.github.infolis.algorithm.FederatedSearcher'
@@ -51,7 +51,6 @@ Execution
 			'io.github.infolis.algorithm.Learner'
 			'io.github.infolis.algorithm.LocalResolver'
 			'io.github.infolis.algorithm.MetaDataExtractor'
-			'io.github.infolis.algorithm.PatternApplier'
 			'io.github.infolis.algorithm.PatternApplier'
 			'io.github.infolis.algorithm.SearchTermPosition'
 			'io.github.infolis.algorithm.VersionPatternApplier'
