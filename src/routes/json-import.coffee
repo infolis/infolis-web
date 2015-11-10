@@ -45,9 +45,13 @@ _postFiles = (origDB, files, callback) ->
 		callback null, _replaceAll(origDB, mapping)
 
 _postResource = (origDB, resourceEndpoint, callback) ->
+	console.log "Posting all to #{resourceEndpoint}"
 	db = JSON.parse origDB
+	resMap = db[resourceEndpoint]
+	if not resMap
+		return callback null, origDB
 	mapping = {}
-	Async.forEachOf db[resourceEndpoint], (obj, uuid, done) ->
+	Async.forEachOf resMap, (obj, uuid, done) ->
 		Request
 			.post "/infolink/api/#{resourceEndpoint}"
 			.send obj
@@ -58,7 +62,7 @@ _postResource = (origDB, resourceEndpoint, callback) ->
 				return done()
 	, (err) ->
 		return callback err if err
-		return callback _replaceAll(origDB, mapping)
+		return callback null, _replaceAll(origDB, mapping)
 
 module.exports = (app, opts) ->
 
@@ -69,11 +73,22 @@ module.exports = (app, opts) ->
 		form.parse req, (err, fields, files) =>
 			if not fields.db
 				return next "Must pass 'db'"
-			_postFiles fields.db.toString(), files, (err, origDB) ->
+			_postFiles fields.db.toString(), files, (err, serializedDB) ->
 				return next err if err
-				# TODO
-				# Here you are, Ethan
-				order = ['pattern', 'execution']
-				# Async.eachSeries order, (resourceEndpoint, done) ->
-					# _postResource origDB, resourceEndpoint, done
-				return res.send JSON.parse origDB
+				order = [
+					'queryService'
+					'searchResult'
+					'entity'
+					'entityLink'
+					'textualReference'
+					'infolisPattern'
+					'execution'
+				]
+				Async.eachSeries order, (resourceEndpoint, done) ->
+					_postResource serializedDB, resourceEndpoint, (err, updatedSerializedDB) ->
+						return done err if err
+						serializedDB = updatedSerializedDB
+						done()
+				, (err) ->
+					return next err if err
+					return res.send JSON.stringify JSON.parse(serializedDB), null, 2
