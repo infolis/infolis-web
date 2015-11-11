@@ -15,6 +15,9 @@ C.port         = 3000
 C.baseURI      = "http://localhost:#{C.port}"
 C.apiPrefix    = '/api'
 C.schemaPrefix = '/schema'
+C.logging      = {
+	# TODO
+}
 C.expandContexts = ['basic', {
 	# infolis: 'http://localhost:3000/schema/'
 	# infolis: 'http://www-test.bib.uni-mannheim.de/infolis/schema/'
