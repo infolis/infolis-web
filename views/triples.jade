@@ -1,0 +1,32 @@
+extends ./layout.jade
+block title
+	title= title
+block content
+	h1 #{title} [#{format}]
+	li.triple-formats
+		ul
+			li(data-format="text/html") #[a(href="?format=text/html") HTML Table]
+			li(data-format="text/turtle") #[a(href="?format=text/turtle") Turtle]
+			li(data-format="application/ntriples") #[a(href="?format=application/ntriples") N-Triples]
+			li(data-format="application/rdf+xml") #[a(href="?format=application/rdf+xml") RDF/XML]
+			li(data-format="application/n3+json") #[a(href="?format=application/n3+json") N3.js JSON]
+			li(data-format="application/json") #[a(href="?format=application/json") Plain JSON]
+			li(data-profile="flatten") #[a(href="?profile=flatten") JSON-LD (flattened)]
+			li(data-profile="expand") #[a(href="?profile=expand") JSON-LD (expanded)]
+			li(data-profile="compact") #[a(href="?profile=compact") JSON-LD (compact)]
+			li(data-format="text/vnd.graphviz") #[a(href="?format=text/vnd.graphviz") GraphViz]
+	.triples
+		if format == 'text/html'
+			!= rdf
+		else if format == 'text/vnd.graphviz'
+			span#dot
+				!= rdf
+			script.
+				var dotElem = document.getElementById("dot")
+				var svg = Viz(dotElem.textContent, {format:"svg", engine:"dot"})
+				dotElem.innerHTML = svg
+		else
+			pre
+				= rdf
+		script.
+			console.log($('li[data-format="#{format}"]').addClass('selected'));

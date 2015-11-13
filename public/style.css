@@ -1,5 +1,7 @@
 div.content { clear: both; }
 
+li.selected { background: #ffba6f; }
+
 .triple-formats ul {
   list-style-type: none;
 }
