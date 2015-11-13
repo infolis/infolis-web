@@ -1,19 +1,27 @@
-h2 Executions
-each executions,status in byStatus
-	h3= status
-	each execution in executions
-		//- pre= JSON.stringify(execution, null, 2)
-		table(border="1px solid black")
-			tr
-				th ID
-				td
-					a(href="#{execution.uri}")= execution._id
-			each field in ["startTime", "endTime", "progress"]
-				tr
-					th= field
-					td= execution[field]
-			tr
-				th log
-				td
-					pre= JSON.stringify(execution.log, null, 2)
-
+//- index.jade
+extends ./layout.jade
+block title
+	title Monitor backend
+block content
+	div.executions
+		h2 Executions
+		each executions,status in byStatus
+			div(class="status-#{status}")
+				h3= status
+				each execution in executions
+					//- pre= JSON.stringify(execution, null, 2)
+					table(border="1px solid black")
+						tr
+							th ID
+							td
+								a(href="#{execution.uri}")= execution._id
+						each field in ["startTime", "endTime", "progress"]
+							tr
+								th= field
+								td= execution[field]
+						tr
+							th log
+							td
+								ul
+									each logEntry in execution.log
+										li.logEntry= logEntry

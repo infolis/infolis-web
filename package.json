@@ -7,7 +7,7 @@
     "docs": "docker -i src -o apidocs -s -n -c vs",
     "compile": "coffee -c -o lib src",
     "clean": "rm -r apidocs lib ; true",
-    "serve": "nodemon src/server.coffee -w src -w public -w data/infolis.tson -w ../mongoose-jsonld/src",
+    "serve": "cd node_modules/express-jsonld/;npm run compile;cd -;nodemon src/server.coffee -w src -w public -w data/infolis.tson -w ../mongoose-jsonld/src -w ../express-jsonld/src",
     "mongo": "mongod --dbpath data/mongodb --port 27018",
     "run": "npm run mongo & npm run serve",
     "prepublish": "npm run compile"

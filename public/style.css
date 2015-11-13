@@ -1,0 +1,24 @@
+div.content { clear: both; }
+
+.triple-formats ul {
+  list-style-type: none;
+}
+.triple-formats ul li {
+  display: inline;
+}
+.triple-formats ul li a{
+  padding: .2em 1em;
+}
+
+.status-FAILED {
+  background: #ffcccc;
+}
+.status-FINISHED {
+  background: #ccffcc;
+}
+.status-PENDING {
+  background: #ccccff;
+}
+.status-STARTED {
+  background: #ffffcc;
+}
