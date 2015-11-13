@@ -8,6 +8,48 @@ Request = require 'superagent'
 module.exports = (app, opts) ->
 
 	opts or= {}
+	
+	app.swagger '/api/upload',
+		post:
+			tags: ['helper', 'rest-ld-infolisFile']
+			summary: "Upload a file"
+			consumes: ['multipart/form-data']
+			parameters: [
+				{
+					name: 'file'
+					type: 'file'
+					in: 'formData'
+				}
+				{
+					name: 'mediaType'
+					type: 'string'
+					in: 'formData'
+					enum: [
+						'application/pdf'
+						'text/plain'
+					]
+				}
+			]
+			responses:
+				201:
+					description: 'File was uploaded'
+					headers:
+						'Location': {
+							description: 'The location of the InfolisFile'
+							type: 'string'
+							format: 'uri'
+						}
+					schema:
+						$ref: "#/definitions/InfolisFile"
+				400:
+					description: 'Upload failed'
+				503:
+					description: 'Backend is down.'
+				503:
+					description: 'Backend is down.'
+				500:
+					description: 'Backend failed.'
+
 
 	app.post '/api/upload', (req, res, next) ->
 		form = new Form()

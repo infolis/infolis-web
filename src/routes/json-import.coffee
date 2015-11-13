@@ -68,6 +68,28 @@ module.exports = (app, opts) ->
 
 	opts or= {}
 
+	app.swagger '/api/json-import',
+		post:
+			tags: ['helper']
+			summary: 'Import a database dump'
+			responses:
+				201:
+					description: 'Successfully uploaded database'
+			parameters: [
+				{
+					name: '--UUID-of-file--'
+					description: 'File contents with their UUID as used in the db as the field name. Repeatable of course'
+					type: 'file'
+					in: 'formData'
+				}
+				{
+					name: 'db'
+					description: 'JSON dump'
+					type: 'string'
+					in: 'formData'
+				}
+			]
+
 	app.post '/api/json-import', (req, res, next) =>
 		form = new Form()
 		form.parse req, (err, fields, files) =>
