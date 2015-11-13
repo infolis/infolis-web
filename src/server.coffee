@@ -11,7 +11,7 @@ TSON          = require 'tson'
 Cors          = require 'cors'
 StringifySafe = require 'json-stringify-safe'
 
-ExpressJSONLD  = require 'express-jsonld'
+ExpressJSONLD  = require 'express-jsonld/src'
 Schemo = require 'mongoose-jsonld/src'
 
 CONFIG = require './config'
@@ -53,7 +53,8 @@ class InfolisWebservice
 			apiPrefix: CONFIG.apiPrefix
 			schemaPrefix: CONFIG.schemaPrefix
 			expandContexts: CONFIG.expandContexts
-			htmlFormat: 'text/turtle'
+			htmlFormat: 'text/html'
+			htmlView: 'triples'
 			schemo: TSON.load __dirname + '/../data/infolis.tson'
 		)
 		# JSON-LD Middleware
