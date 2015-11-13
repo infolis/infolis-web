@@ -41,6 +41,7 @@
     "tson": "0.0.6"
   },
   "devDependencies": {
+    "coffee-script": "^1.10.0",
     "tape": "^4.0.0",
     "docker": "^0.2.14",
     "tap-spec": "^2.2.2",
