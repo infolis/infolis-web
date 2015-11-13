@@ -34,9 +34,8 @@ errorHandler = (err, req, res, next) ->
 class InfolisWebservice
 
 	constructor: (@port) ->
-		log.debug "Configuration", CONFIG
+		log.silly "Configuration", CONFIG
 		@app = Express()
-
 		# Start DB
 		@app.db = Mongoose.createConnection(
 			CONFIG.mongoURI
@@ -65,7 +64,17 @@ class InfolisWebservice
 		@app.use(Cors())
 		# Static files
 		@app.use(Express.static('public'))
-		# Setup routes
+		# Jade
+		@app.set('views', './views')
+		@app.set('view engine', 'jade')
+		# Make it easy for routes to add swagger docs
+		@app._swagger = {}
+		@app.swagger = (endpoint, def) ->
+			return @_swagger if not (endpoint and def)
+			log.debug "Adding swagger for #{endpoint}"
+			@_swagger[endpoint] = def
+
+	setupRoutes : () ->
 		for controller in [
 				'restful'
 				'schemo'
@@ -88,6 +97,8 @@ class InfolisWebservice
 		@app.use errorHandler
 
 	startServer : () ->
+		log.info "Setting up routes"
+		@setupRoutes()
 		log.info "Starting server on #{CONFIG.port}"
 		@app.on 'error', (e) ->
 			log.error e
