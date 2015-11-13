@@ -16,7 +16,7 @@
 	dqm     <http://purl.org/dqm-vocabulary/v1/dqm#>
 	uri4uri <http://uri4uri.net/vocab#>
 	dm2e    <http://onto.dm2e.eu/schema/dm2e/>
-	omnom   <http://onto.dm2e.eu/schema/omnom/>
+	omnom   <http://onto.dm2e.eu/omnom/>
 	dcat    <http://www.w3.org/ns/dcat#>
 
 @context
