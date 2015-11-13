@@ -1,9 +1,19 @@
 Async = require 'async'
 Request = require 'superagent'
+Accepts = require 'accepts'
 CONFIG = require '../config'
+
+log = require('../log')(module)
 
 module.exports = (app, opts) ->
 	opts or= {}
+
+	app.swagger '/api/stats',
+		get:
+			tags: ['helper']
+			summary: 'Get some statistics about the data store'
+			responses:
+				200: description: "Retrieved the statistics"
 
 	app.get '/api/stats', (req, res, next) ->
 		stats = {}
@@ -15,6 +25,24 @@ module.exports = (app, opts) ->
 		, (err) ->
 			res.send stats
 
+	app.swagger '/api/monitor',
+		get:
+			tags: ['helper']
+			summary: 'Get the status of executions live from the backend'
+			responses:
+				200: description: "Retrieved the executions by status"
+			parameters: [
+				name: 'status'
+				in: 'query'
+				type: 'string'
+				enum: [
+					'PENDING'
+					'STARTED'
+					'FINISHED'
+					'FAILED'
+				]
+			]
+
 	app.get '/api/monitor', (req, res, next) ->
 		Request
 			.get("#{CONFIG.backendURI}/executor?status=#{req.query.status}")
@@ -22,5 +50,21 @@ module.exports = (app, opts) ->
 			.end (err, startResp) ->
 				if err
 					return next err
-				return res.send startResp.body
+				Async.map startResp.body, (uri, cb) ->
+					Request
+						.get(uri)
+						.set 'Accept', 'application/json'
+						.end (err, execResp) ->
+							return cb err if err
+							execResp.body.uri = uri
+							return cb null, execResp.body
+				, (err, mapped) ->
+					byStatus = {}
+					for execution in mapped
+						byStatus[execution.status] or= []
+						byStatus[execution.status].push execution
+					if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
+						return res.render 'monitor', { byStatus }
+					else
+						return res.send mapped
 
