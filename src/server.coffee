@@ -31,10 +31,10 @@ errorHandler = (err, req, res, next) ->
 	res.status = 400
 	res.send StringifySafe err, null, 2
 
-
 class InfolisWebservice
 
 	constructor: (@port) ->
+		log.debug "Configuration", CONFIG
 		@app = Express()
 
 		# Start DB

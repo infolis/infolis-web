@@ -8,6 +8,13 @@ module.exports = (app, opts) ->
 			title: 'Infolis YAY'
 		paths:
 
+			'/api/stats':
+				get:
+					tags: ['custom', 'monitor']
+					description: 'Get some statistics about the data store'
+					responses:
+						200: description: "Retrieved the statistics"
+
 			'/api/monitor':
 				get:
 					tags: ['custom', 'execution', 'monitor']
