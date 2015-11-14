@@ -3,6 +3,7 @@
 
 ###
 Async         = require 'async'
+Fs            = require 'fs'
 Merge         = require 'merge'
 Express       = require 'express'
 Mongoose      = require 'mongoose'
@@ -10,6 +11,7 @@ BodyParser    = require 'body-parser'
 TSON          = require 'tson'
 Cors          = require 'cors'
 StringifySafe = require 'json-stringify-safe'
+Morgan        = require 'morgan'
 
 ExpressJSONLD  = require 'express-jsonld/src'
 Schemo = require 'mongoose-jsonld/src'
@@ -30,6 +32,9 @@ errorHandler = (err, req, res, next) ->
 	delete err.arguments
 	res.status = 400
 	res.send StringifySafe err, null, 2
+
+accessLogger = Morgan 'short', stream: Fs.createWriteStream(__dirname + '/../data/logs/access.log', {flags: 'a'})
+accessLoggerDev = Morgan 'dev'
 
 class InfolisWebservice
 
@@ -68,6 +73,8 @@ class InfolisWebservice
 		# Jade
 		@app.set('views', './views')
 		@app.set('view engine', 'jade')
+		# Forward proxy remote address
+		@app.set("trust proxy", 'loopback')
 		# Make it easy for routes to add swagger docs
 		@app._swagger = {}
 		@app.swagger = (endpoint, def) ->
@@ -76,6 +83,8 @@ class InfolisWebservice
 			@_swagger[endpoint] = def
 
 	setupRoutes : () ->
+		@app.use accessLogger
+		@app.use accessLoggerDev
 		for controller in [
 				'restful'
 				'schemo'
@@ -89,12 +98,15 @@ class InfolisWebservice
 			do (controller) =>
 				log.info "Setting up route #{controller}"
 				require("./routes/#{controller}")(@app)
+		# swagger
+		@app.get '/api', (req, res, next) ->
+			res.render 'swagger'
 		# root route
 		@app.get '/', (req, res, next) ->
-			res.render 'swagger'
-			# res.status 302
-			# res.header 'Location', '/infolink/swagger/'
-			# res.end()
+			res.status 302
+			# res.header 'Location', 'http://infolis.github.io'
+			res.header 'Location', 'api'
+			res.end()
 		# Error handler
 		@app.use errorHandler
 
