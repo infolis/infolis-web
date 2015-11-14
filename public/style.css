@@ -1,26 +1,24 @@
 div.content { clear: both; }
 
+.swagger-section .swagger-ui-wrap { max-width: none; }
+
+/* Bootstrap overrides */
+.navbar-inverse { background-color: #2277b0; border-color: #2277b0; }
+.navbar-inverse .navbar-nav>li>a { color: white; }
+.navbar-inverse .navbar-brand { color: white; font-weight: bold }
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+  background: #ffba61;
+  color: black;
+}
+
+/* triples */
 li.selected { background: #ffba6f; }
+.triple-formats ul { list-style-type: none; }
+.triple-formats ul li { display: inline; }
+.triple-formats ul li a { padding: .2em 1em; }
 
-.triple-formats ul {
-  list-style-type: none;
-}
-.triple-formats ul li {
-  display: inline;
-}
-.triple-formats ul li a{
-  padding: .2em 1em;
-}
-
-.status-FAILED {
-  background: #ffcccc;
-}
-.status-FINISHED {
-  background: #ccffcc;
-}
-.status-PENDING {
-  background: #ccccff;
-}
-.status-STARTED {
-  background: #ffffcc;
-}
+/* /api/monitor */
+.status-FAILED { background: #ffcccc; }
+.status-FINISHED { background: #ccffcc; }
+.status-PENDING { background: #ccccff; }
+.status-STARTED { background: #ffffcc; }

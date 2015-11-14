@@ -91,9 +91,10 @@ class InfolisWebservice
 				require("./routes/#{controller}")(@app)
 		# root route
 		@app.get '/', (req, res, next) ->
-			res.status 302
-			res.header 'Location', '/infolink/swagger/'
-			res.end()
+			res.render 'swagger'
+			# res.status 302
+			# res.header 'Location', '/infolink/swagger/'
+			# res.end()
 		# Error handler
 		@app.use errorHandler
 

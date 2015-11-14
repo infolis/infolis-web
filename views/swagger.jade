@@ -1,0 +1,41 @@
+extends ./layout.jade
+block title
+	title Infolis API Explorer
+block content
+	script.
+		$(function () {
+		  var url = "/infolink/swagger.json";
+		
+		  // Pre load translate...
+		  if(window.SwaggerTranslator) {
+		    window.SwaggerTranslator.translate();
+		  }
+		  window.swaggerUi = new SwaggerUi({
+		    url: url,
+		    dom_id: "swagger-ui-container",
+		    supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+		    onComplete: function(swaggerApi, swaggerUi){
+		      $(".container .container").removeClass("container");
+		      $("#api_info").hide();
+		      $('pre code').each(function(i, e) {
+		        hljs.highlightBlock(e)
+		      });
+		
+		    },
+		    onFailure: function(data) {
+		      log("Unable to Load SwaggerUI");
+		    },
+		    docExpansion: "none",
+		    apisSorter: "alpha",
+		    showRequestHeaders: false
+		  });
+		
+		  window.swaggerUi.load();
+		  function log() {
+		    if ('console' in window) {
+		      console.log.apply(console, arguments);
+		    }
+		  }
+		});
+	.swagger-section
+		#swagger-ui-container.swagger-ui-wrap
