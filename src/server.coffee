@@ -83,6 +83,11 @@ class InfolisWebservice
 			@_swagger[endpoint] = def
 
 	setupRoutes : () ->
+		# Store site information
+		@app.use (req, res, next) ->
+			res.locals.site_api = "http://infolis.gesis.org/infolink"
+			res.locals.site_github = "http://infolis.github.io"
+			next()
 		# Log access
 		@app.use accessLogger
 		@app.use accessLoggerDev
@@ -102,6 +107,8 @@ class InfolisWebservice
 		# swagger
 		@app.get '/api', (req, res, next) ->
 			res.render 'swagger'
+		@app.get '/_header', (req, res, next) ->
+			res.render 'header'
 		# root route
 		@app.get '/', (req, res, next) ->
 			res.status 302
