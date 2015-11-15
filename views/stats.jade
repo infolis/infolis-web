@@ -1,0 +1,12 @@
+extends ./layout.jade
+block title
+	title Datastore stats
+block content
+	.row
+		.col-md-5
+			h1 Datastore statistics
+			table.table
+				each stat,cls in stats
+					tr
+						th= cls
+						td= JSON.stringify(stat)
