@@ -1,6 +1,10 @@
 module.exports = (app, opts) ->
 	opts or= {}
 
+	# Swagger interface
+	app.get '/api', (req, res, next) ->
+		res.render 'swagger'
+
 	# swagger handler
 	app.schemo.handlers.swagger.inject app, {
 		basePath: "/infolink"

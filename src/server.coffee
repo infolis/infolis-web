@@ -91,11 +91,14 @@ class InfolisWebservice
 		@app.use (req, res, next) ->
 			res.locals.site_api = "http://infolis.gesis.org/infolink"
 			res.locals.site_github = "http://infolis.github.io"
+			if req.query.site_github
+				res.locals.site_github = req.query.site_github
 			next()
 		# Log access
 		@app.use accessLogger
 		@app.use accessLoggerDev
 		for controller in [
+				'header'
 				'restful'
 				'schemo'
 				'upload'
@@ -108,16 +111,10 @@ class InfolisWebservice
 			do (controller) =>
 				log.info "Setting up route #{controller}"
 				require("./routes/#{controller}")(@app)
-		# swagger
-		@app.get '/api', (req, res, next) ->
-			res.render 'swagger'
-		@app.get '/_header', (req, res, next) ->
-			res.render 'header'
 		# root route
 		@app.get '/', (req, res, next) ->
 			res.status 302
-			# res.header 'Location', 'http://infolis.github.io'
-			res.header 'Location', 'api'
+			res.header 'Location', 'http://infolis.github.io'
 			res.end()
 		# Error handler
 		@app.use errorHandler
