@@ -1,27 +1,35 @@
-//- index.jade
 extends ./layout.jade
 block title
 	title Monitor backend
 block content
-	div.executions
-		h2 Executions
-		each executions,status in byStatus
-			div(class="status-#{status}")
-				h3= status
-				each execution in executions
-					//- pre= JSON.stringify(execution, null, 2)
-					table(border="1px solid black")
-						tr
-							th ID
-							td
-								a(href="#{execution.uri}")= execution._id
-						each field in ["startTime", "endTime", "progress"]
-							tr
-								th= field
-								td= execution[field]
-						tr
-							th log
-							td
-								ul
-									each logEntry in execution.log
-										li.logEntry= logEntry
+	- infolis2bootstrap = {"FINISHED": "success", "FAILED": 'danger', "PENDING": "warning", "STARTED": "info"}
+	.row
+		.col-md-10.executions
+
+			h1 Executions
+
+			ul.nav.nav-tabs
+					each status in statuses
+						li
+							a(href="#executions-#{status}",class="btn btn-#{infolis2bootstrap[status]}",data-toggle="tab")
+								= status
+								|&nbsp[#{byStatus[status].length}]
+			.tab-content
+				each status in statuses
+					.tab-pane(id="executions-#{status}")
+						each execution in byStatus[status]
+							table(class="table status-#{status}")
+								tr
+									th ID
+									td
+										a(href="#{execution.uri}")= execution._id
+								each field in ["startTime", "endTime", "progress"]
+									tr
+										th= field
+										td= execution[field]
+								tr.log
+									th log
+									td
+										ul
+											each logEntry in execution.log
+												li.logEntry= logEntry

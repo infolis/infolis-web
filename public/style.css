@@ -4,7 +4,7 @@ div.content { clear: both; }
 body {
   color: #383838;
   font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
-  font-size: 2em;
+  font-size: 14pt;
   word-wrap: break-word;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -71,6 +71,7 @@ body.home .intro {
 .navbar-inverse .navbar-nav .open>a,
 .navbar-inverse .navbar-nav .open>a:focus,
 .navbar-inverse .navbar-nav .open>a:hover,
+.nav-tabs a:hover,
 .dropdown-menu li>a:focus,
 .dropdown-menu li>a:hover
 {
@@ -85,7 +86,9 @@ li.selected { background: #ffba6f; }
 .triple-formats ul li a { padding: .2em 1em; }
 
 /* /api/monitor */
-.status-FAILED { background: #ffcccc; }
+.executions table { margin-bottom: 10px; }
+.executions table tr.log li { font-family: monospace; }
+.status-FAILED   { background: #ffcccc; }
 .status-FINISHED { background: #ccffcc; }
-.status-PENDING { background: #ccccff; }
-.status-STARTED { background: #ffffcc; }
+.status-PENDING  { background: #ccccff; }
+.status-STARTED  { background: #ffffcc; }

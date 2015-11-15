@@ -23,7 +23,10 @@ module.exports = (app, opts) ->
 				stats[modelName].count = nr
 				cb()
 		, (err) ->
-			res.send stats
+			if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
+				return res.render 'stats', { stats }
+			else
+				res.send stats
 
 	app.swagger '/api/monitor',
 		get:
@@ -59,12 +62,13 @@ module.exports = (app, opts) ->
 							execResp.body.uri = uri
 							return cb null, execResp.body
 				, (err, mapped) ->
+					statuses = ["PENDING", "STARTED", "FINISHED", "FAILED"]
 					byStatus = {}
+					byStatus[v] = [] for v in statuses
 					for execution in mapped
-						byStatus[execution.status] or= []
 						byStatus[execution.status].push execution
 					if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
-						return res.render 'monitor', { byStatus }
+						return res.render 'monitor', { byStatus, statuses }
 					else
 						return res.send mapped
 
