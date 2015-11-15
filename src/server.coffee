@@ -83,6 +83,7 @@ class InfolisWebservice
 			@_swagger[endpoint] = def
 
 	setupRoutes : () ->
+		# Log access
 		@app.use accessLogger
 		@app.use accessLoggerDev
 		for controller in [
