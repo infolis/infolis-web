@@ -1,35 +1,56 @@
 nav.navbar.navbar-inverse.navbar-static-top
+	script.
+		$(function(){
+				var path = window.location.pathname;
+				if (path !== '/')
+					$('nav li a[href$="'+path+'"]').parents('li').addClass('active');
+				else
+					$('nav li a.home').parents('li').addClass('active');
+		});
 	.container
 		.navbar-header
-			a.navbar-brand(style="padding-top: 5px;")
-				img(src='http://letschm.github.io/img/logo.png', alt='', style="height:2em;display:inline")
-			a.navbar-brand
-				| InFoLiS
+			a.navbar-brand(href='#{site_github}', style="padding-top: 5px;")
+				img(src='#{site_github}/img/logo-circle.png', alt='', style="height:2.3em;display:inline")
 		#navbar.navbar-collapse.collapse
 			ul.nav.navbar-nav
 				li
-					a(href='/infolink/api') API
-				li
-					a(href='/infolink/schema') Schema
-			ul.nav.navbar-nav
+					a.home(href="#{site_github}") Home
 				li
 					a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
 						| Learn
 						span.caret
 					ul.dropdown-menu
 						li
-							a quux
+							a(href="#{site_github}/about-en/") About
+						li
+							a(href="#{site_github}/about-goals/") Goals
+						li
+							a(href="#{site_github}/publications/") Publications
 				li.dropdown
 					a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
 						| Explore
 						span.caret
 					ul.dropdown-menu
 						li
-							a quux
+							a(href='#{site_api}/api') API
+						li
+							a(href='#{site_api}/ldf') Linked Data Fragments
+						li
+							a(href='#{site_api}/schema') Schema
+						li
+							a(href='#{site_api}/api/monitor') Monitor
+						li
+							a(href='#{site_api}/api/stats') Stats
+				li
+					a(href="#{site_github}/blog/") Blog
 			ul.nav.navbar-nav.navbar-right
+				li
+					a(href='#{site_github}/feed.xml', title='Follow RSS feed')
+						i.fa.fa-fw.fa-rss
 				li
 					a(href='https://github.com/infolis/infolis.github.io', title='Follow on GitHub')
 						i.fa.fa-fw.fa-github
 				li
 					a(href='https://twitter.com/infolis_project', title='Follow on Twitter')
 						i.fa.fa-fw.fa-twitter
+
