@@ -1,0 +1,10 @@
+extends ./layout.jade
+block title
+	title Application error
+block content
+	h1 Application error 
+	pre.bg-danger= err.message
+	h2 Path
+		pre= err.path
+	h2 Stacktrace
+		pre= err.stack

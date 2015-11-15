@@ -3,6 +3,7 @@
 
 ###
 Async         = require 'async'
+Accepts       = require 'accepts'
 Fs            = require 'fs'
 Merge         = require 'merge'
 Express       = require 'express'
@@ -31,7 +32,10 @@ errorHandler = (err, req, res, next) ->
 	log.error StringifySafe err
 	delete err.arguments
 	res.status = 400
-	res.send StringifySafe err, null, 2
+	if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
+		return res.render 'error', { err }
+	else
+		res.send StringifySafe err, null, 2
 
 accessLogger = Morgan 'short', stream: Fs.createWriteStream(__dirname + '/../data/logs/access.log', {flags: 'a'})
 accessLoggerDev = Morgan 'dev'
