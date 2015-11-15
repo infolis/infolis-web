@@ -1,16 +1,81 @@
 div.content { clear: both; }
 
+/* typography */
+body {
+  color: #383838;
+  font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+  font-size: 2em;
+  word-wrap: break-word;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+  line-height: 1.3;
+  margin: 0.67em 0;
+}
+
+/* home page */
+body.home {
+  background-image: url('http://infolis.github.io/img/back.png');
+  linear-gradient(
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0.45)
+  ),
+}
+
+body.home .parts .part { 
+  border: 1px solid #555;
+  text-align: center;
+  border-radius: 10px;
+  background-color: white;
+}
+body.home .parts { 
+  padding-top: 1em;
+}
+body.home .parts img { height: auto; width: 128px; }
+body.home .parts img { clear:both; }
+body.home .intro {
+  background: rgba(34,119,176,0.7);
+  padding: 1em;
+  color: white;
+  margin-right: 3em;
+  border-radius: 1em;
+}
+
+
+/* swagger overrides */
 .swagger-section .swagger-ui-wrap { max-width: none; }
 
 /* Bootstrap overrides */
-.navbar-inverse { background-color: #2277b0; border-color: #2277b0; }
-.navbar-inverse .navbar-nav>li>a { color: white; }
-.navbar-inverse .navbar-brand { color: white; font-weight: bold }
-.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover,
-.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover
+.navbar-inverse,
+.dropdown-menu
 {
-  background: #ffba61;
+    background-color: #2277b0;
+    border-color: #2277b0;
+}
+.navbar-inverse .navbar-nav li>a
+{
+    color: white;
+  font-size: 20px;
+}
+.navbar-inverse .navbar-brand { color: white; font-weight: bold }
+
+.navbar-inverse .navbar-nav .active>a,
+.navbar-inverse .navbar-nav .active>a:focus,
+.navbar-inverse .navbar-nav .active>a:hover
+{
+  background: #6FC4FD;
   color: black;
+}
+
+.navbar-inverse a:hover,
+.navbar-inverse .navbar-nav .open>a,
+.navbar-inverse .navbar-nav .open>a:focus,
+.navbar-inverse .navbar-nav .open>a:hover,
+.dropdown-menu li>a:focus,
+.dropdown-menu li>a:hover
+{
+  background: #ffba61 !important;
+  color: black !important;
 }
 
 /* triples */
