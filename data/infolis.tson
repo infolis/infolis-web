@@ -37,7 +37,7 @@ Execution
 			@id: 'infolis:Algorithm'
 	algorithm
 		@context
-			dc:description "Java Class of this algorithm"
+			dc:description "Java class of the algorthim which is supposed to be executed within this execution."
 		required true
 		type: String
 		enum: [
@@ -55,13 +55,9 @@ Execution
 		  'io.github.infolis.algorithm.SearchTermPosition'
 		  'io.github.infolis.algorithm.VersionPatternApplier'
 		]
-	log
-		@context
-			dc:description "Log messages"
-		type: []
 	status
 		@context
-			dc:description "Status of this execution"
+			dc:description "Status of the execution (PENDING, STARTED, FINISHED, FAILED).\n Default (when starting): ExecutionStatus.PENDING"
 			dc:example 'SUCCESS'
 		required true
 		type String
@@ -71,32 +67,36 @@ Execution
 			"FAILED"
 			"FINISHED"
 		]
+	log
+		@context
+			dc:description "Log messages of this execution"
+		type: ArrayOfStrings
 	startTime
 		@context
 			owl:sameAs schema:startTime
 			@type xsd:date
-			dc:description "Timestamp of the begin of this execution"
+			dc:description "Timestamp when execution started"
 		type Date
 	endTime
 		@context
 			owl:sameAs schema:endTime
 			@type xsd:date
-			dc:description "Timestamp when the execution of this algorithm finished."
+			dc:description "Timestamp when execution ended"
 		type Date
 	#
 	# Parameters
 	#
 	inputFiles
 		@context
-			dc:description "List of URIs of input files"
+			dc:description "List of URIs of input files. Can be either PDF or text files.\nThey are for example used to search patterns within the Pattern Applier algorithm."
 		type: ArrayOfStrings
 	outputFiles
 		@context
-			dc:description "List of URIs of output files"
+			dc:description "List of URIs of output files. Output files to save the output files (txt files) of algorithms."
 		type: ArrayOfStrings
 	removeBib
 		@context
-			dc:description "Whether to remove the bibliography from a text document."
+			dc:description "Whether to remove the bibliography from text/plain document."
 		type Boolean
 	outputDirectory
 		@context
@@ -116,11 +116,11 @@ Execution
 		type Boolean
 	maxClauseCount
 		@context
-			dc:description "TODO"
+			dc:description "Maximum Numb"
 		type: Number
 	searchTerm
 		@context
-			dc:description "TODO"
+			dc:description "A search term that can be used in different algorithms whenever something a certain term needs to be searched in a text.\n For example, the bootstrapping algorithms need a seed in the beginning to start the whole process. The search term represents such a seed, e.g. the study name 'ALLBUS'."
 		type String
 	searchQuery
 		@context
@@ -160,7 +160,7 @@ Execution
 		type ArrayOfStrings
 	progress
 		@context
-			dc:description "Numerical progress of the execution in the interval 0-1"
+			dc:description "Numerical progress of the execution in the interval 0-100"
 		type: Number
 	searchResults
 		@context
