@@ -7,50 +7,53 @@ nav.navbar.navbar-inverse.navbar-static-top
 				else
 					$('nav li a.home').parents('li').addClass('active');
 		});
-	.container
-		.navbar-header
-			a.navbar-brand(href='#{site_github}', style="padding-top: 5px;")
-				img(src='#{site_github}/img/logo-circle.png', alt='', style="height:2.3em;display:inline")
-		#navbar.navbar-collapse.collapse
-			ul.nav.navbar-nav
-				li
-					a.home(href="#{site_github}") Home
-				li
-					a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
-						| Learn
-						span.caret
-					ul.dropdown-menu
-						li
-							a(href="#{site_github}/about/") About
-						li
-							a(href="#{site_github}/goals/") Goals
-						li
-							a(href="#{site_github}/publications/") Publications
-				li.dropdown
-					a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
-						| Work
-						span.caret
-					ul.dropdown-menu
-						li
-							a(href='#{site_api}/api') API
-						li
-							a(href='#{site_api}/ldf') Linked Data Fragments
-						li
-							a(href='#{site_api}/schema') Schema
-						li
-							a(href='#{site_api}/api/monitor') Monitor
-						li
-							a(href='#{site_api}/api/stats') Stats
-				li
-					a(href="#{site_github}/blog/") Blog
-			ul.nav.navbar-nav.navbar-right
-				li
-					a(href='#{site_github}/feed.xml', title='Follow RSS feed')
-						i.fa.fa-fw.fa-rss
-				li
-					a(href='https://github.com/infolis/', title='Follow on GitHub')
-						i.fa.fa-fw.fa-github
-				li
-					a(href='https://twitter.com/infolis_project', title='Follow on Twitter')
-						i.fa.fa-fw.fa-twitter
+	.navbar-header
+		a.navbar-brand(href='#{site_github}', style="padding-top: 5px;")
+			img(src='#{site_github}/img/logo-circle.png', alt='', style="height:2.3em;display:inline")
+		button.navbar-toggle.colapsed(type="button",data-toggle="collapse",data-target="#infolis-navbar")
+			span.icon-bar
+			span.icon-bar
+			span.icon-bar
+	#infolis-navbar.navbar-collapse.collapse
+		ul.nav.navbar-nav
+			li
+				a.home(href="#{site_github}") Home
+			li
+				a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
+					| Learn
+					span.caret
+				ul.dropdown-menu
+					li
+						a(href="#{site_github}/about/") About
+					li
+						a(href="#{site_github}/goals/") Goals
+					li
+						a(href="#{site_github}/publications/") Publications
+			li.dropdown
+				a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
+					| Work
+					span.caret
+				ul.dropdown-menu
+					li
+						a(href='#{site_api}/api') API
+					li
+						a(href='#{site_api}/ldf') Linked Data Fragments
+					li
+						a(href='#{site_api}/schema') Schema
+					li
+						a(href='#{site_api}/api/monitor') Monitor
+					li
+						a(href='#{site_api}/api/stats') Stats
+			li
+				a(href="#{site_github}/blog/") Blog
+		ul.nav.navbar-nav.navbar-right
+			li
+				a(href='#{site_github}/feed.xml', title='Follow RSS feed')
+					i.fa.fa-fw.fa-rss
+			li
+				a(href='https://github.com/infolis/', title='Follow on GitHub')
+					i.fa.fa-fw.fa-github
+			li
+				a(href='https://twitter.com/infolis_project', title='Follow on Twitter')
+					i.fa.fa-fw.fa-twitter
 
