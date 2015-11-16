@@ -31,7 +31,6 @@ block content
 						li(data-format="application/ntriples") #[a(href="?format=application/ntriples") N-Triples]
 						li(data-format="application/rdf+xml") #[a(href="?format=application/rdf+xml") RDF/XML]
 						li(data-format="application/n3+json") #[a(href="?format=application/n3+json") N3.js JSON]
-						li(data-format="application/json") #[a(href="?format=application/json") Plain JSON]
 				li.dropdown
 					a.dropdown-toggle(data-toggle="dropdown")
 						| JSON-LD
@@ -47,7 +46,7 @@ block content
 			#triples-container
 				if format == 'text/html'
 					script
-						:coffeescript
+						:coffee-script
 							$ ->
 								table = $("table", $("<div/>").html($("#rdf").text()))
 								table.addClass('table')
@@ -60,7 +59,7 @@ block content
 								$("#triples-container").append(table)
 				else if format == 'text/vnd.graphviz'
 					script
-						:coffeescript
+						:coffee-script
 							$ ->
 								rdfElem = document.getElementById("rdf")
 								svg = Viz(rdfElem.textContent, format:"svg", engine:"dot")
@@ -70,12 +69,13 @@ block content
 								$("#triples-container svg").attr('height', '100%')
 				else
 					script
-						:coffeescript
+						:coffee-script
 							$ ->
 								rdfElem = document.getElementById("rdf")
 								console.log(rdfElem)
-								data = JSON.stringify({"text": rdfElem.textContent})
-
+								data = JSON.stringify
+									text: rdfElem.textContent
+									mimetype: '#{format}'
 								request = new XMLHttpRequest()
 								request.open('POST', '/infolink/api/syntax-highlight', true)
 								request.setRequestHeader('Content-Type', 'application/json')
