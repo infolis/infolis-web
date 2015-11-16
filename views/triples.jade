@@ -14,7 +14,7 @@ block libs
 		});
 block content
 	#rdf.hidden
-		!= rdf
+		= rdf
 
 	.row
 		.col-md-8.col-md-offset-1
@@ -47,7 +47,7 @@ block content
 				if format == 'text/html'
 					script.
 						$(function(){
-							var table = $("#rdf table").clone();
+							var table = $("table", $("<div/>").html($("#rdf").text()));
 							//- table.removeClass('hidden');
 							table.addClass('table');
 							table.removeAttr('border');
@@ -70,5 +70,21 @@ block content
 							$("#triples-container svg").attr('height', '100%');
 						});
 				else
-					pre
-						= rdf
+					script.
+						$(function(){
+							var rdfElem = document.getElementById("rdf");
+							console.log(rdfElem);
+							var data = JSON.stringify({"text": rdfElem.textContent});
+
+							var request = new XMLHttpRequest();
+							request.open('POST', '/infolink/api/syntax-highlight', true);
+							request.setRequestHeader('Content-Type', 'application/json');
+							request.onload = function() {
+								if (this.status !== 200) {
+									window.alert("Syntax highlighter threw!");
+								}
+								$("#triples-container").html($(this.response));
+							}
+							request.send(data);
+							//- #vimCodeElement
+						});
