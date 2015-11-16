@@ -6,7 +6,14 @@ block content
 		.col-md-5
 			h1 Datastore statistics
 			table.table
+				tr
+					th Class
+					th Count
+					th JSON
 				each stat,cls in stats
 					tr
-						th= cls
+						td
+							a(href="/infolink/schema/#{cls}")= cls
+						td
+							a(href="/infolink/api/execution/")= stat.count
 						td= JSON.stringify(stat)
