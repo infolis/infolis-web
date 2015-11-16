@@ -67,22 +67,31 @@ Execution
 			"FAILED"
 			"FINISHED"
 		]
+		hideFromSwagger: true
 	log
 		@context
 			dc:description "Log messages of this execution"
 		type: ArrayOfStrings
+		hideFromSwagger: true
 	startTime
 		@context
 			owl:sameAs schema:startTime
 			@type xsd:date
 			dc:description "Timestamp when execution started"
 		type Date
+		hideFromSwagger: true
 	endTime
 		@context
 			owl:sameAs schema:endTime
 			@type xsd:date
 			dc:description "Timestamp when execution ended"
 		type Date
+		hideFromSwagger: true
+	progress
+		@context
+			dc:description "Numerical progress of the execution in the interval 0-100"
+		type: Number
+		hideFromSwagger: true
 	#
 	# Parameters
 	#
@@ -158,10 +167,6 @@ Execution
 		@context
 			dc:description "List of QueryService to use"
 		type ArrayOfStrings
-	progress
-		@context
-			dc:description "Numerical progress of the execution in the interval 0-100"
-		type: Number
 	searchResults
 		@context
 			dc:description "Search results"
