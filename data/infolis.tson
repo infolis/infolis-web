@@ -181,7 +181,7 @@ Entity
 		dc:description "An entity to be linked from or to, a Dataset or a Publication or a SearchResult"
 	name
 		@context
-			dc:description "TODO"
+			dc:description "Name of the entity"
 		type String
 	identifier
 		@context
@@ -189,7 +189,7 @@ Entity
 		type String
 	tags
 		@context
-			dc:description "TODO"
+			dc:description "Tags of this entity"
 		type ArrayOfStrings
 	textualReferences
 		@context
@@ -231,11 +231,11 @@ SearchResult
 		type Number
 	date
 		@context
-			dc:description "TODO"
+			dc:description "Date of the search resul"
 		type String
 	queryService
 		@context
-			dc:description "TODO"
+			dc:description "Query Service used to retrieve search result."
 		type String
 	titles
 		@context
