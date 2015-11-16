@@ -107,6 +107,7 @@ class InfolisWebservice
 				'ldf'
 				'swagger'
 				'json-import'
+				'syntax-highlight'
 			]
 			do (controller) =>
 				log.info "Setting up route #{controller}"
