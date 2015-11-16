@@ -31,7 +31,7 @@ module.exports = (app, opts) ->
 		res.header 'Content-Type', 'text/html'
 		opts = {
 			syntax: 'n3'
-			colorscheme: 'delek'
+			colorscheme: 'seoul256-light'
 			number_lines: 0
 			use_css: 0
 			pre_only: 1
