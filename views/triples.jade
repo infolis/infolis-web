@@ -4,14 +4,12 @@ block title
 block libs
 	script(src="#{site_api}/vendor/viz.js")
 	script.
-		console.log("#{profile}")
 		$(function() {
 			$('li[data-format="#{format}"] a').parents('li').addClass('active');
 			var profile = "#{profile}";
 			if ("" !== profile) {
 				profile = profile.substring(profile.lastIndexOf('#')+1)
-				console.log(profile);
-				$('li[data-format="' + profile + '"] a').parents('li').addClass('active');
+				//- $('li[data-profile="' + profile + '"] a').parents('li').addClass('active');
 			}
 		});
 block content
