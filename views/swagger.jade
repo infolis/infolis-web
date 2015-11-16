@@ -18,40 +18,31 @@ block libs
 	script(src='#{site_api}/vendor/swagger/lib/marked.js', type='text/javascript')
 	script(src='#{site_api}/vendor/swagger/lib/swagger-oauth.js', type='text/javascript')
 block content
-	script.
-		$(function () {
-		  var url = "/infolink/swagger.json";
-		
-		  // Pre load translate...
-		  if(window.SwaggerTranslator) {
-		    window.SwaggerTranslator.translate();
-		  }
-		  window.swaggerUi = new SwaggerUi({
-		    url: url,
-		    dom_id: "swagger-ui-container",
-		    supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
-		    onComplete: function(swaggerApi, swaggerUi){
-		      $(".container .container").removeClass("container");
-		      $("#api_info").hide();
-		      $('pre code').each(function(i, e) {
-		        hljs.highlightBlock(e)
-		      });
-		
-		    },
-		    onFailure: function(data) {
-		      log("Unable to Load SwaggerUI");
-		    },
-		    docExpansion: "none",
-		    apisSorter: "alpha",
-		    showRequestHeaders: false
-		  });
-		
-		  window.swaggerUi.load();
-		  function log() {
-		    if ('console' in window) {
-		      console.log.apply(console, arguments);
-		    }
-		  }
-		});
+	script
+		:coffeescript
+			$ ->
+				window.swaggerUi = new SwaggerUi(
+					url: '/infolink/swagger.json'
+					dom_id: 'swagger-ui-container'
+					supportedSubmitMethods: [
+						'get'
+						'post'
+						'put'
+						'delete'
+						'patch'
+					]
+					onComplete: (swaggerApi, swaggerUi) ->
+						$('.container .container').removeClass 'container'
+						$('#api_info').hide()
+						$('.options').hide()
+						$('.endpoint').has('.delete').hide()
+						$('pre code').each (i, e) ->
+							hljs.highlightBlock e
+					onFailure: (data) -> console.log 'Unable to Load SwaggerUI'
+					docExpansion: 'none'
+					apisSorter: 'alpha'
+					showRequestHeaders: true
+				)
+				window.swaggerUi.load()
 	.swagger-section
 		#swagger-ui-container.swagger-ui-wrap
