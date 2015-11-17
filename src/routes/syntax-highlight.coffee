@@ -40,6 +40,7 @@ module.exports = (app, opts) ->
 		'application/trig':             'n3'
 		'text/turtle':                  'n3'
 		'application/nquads':           'n3'
+		'application/ntriples':         'n3'
 		'application/rdf+xml':          'xml'
 		'text/xml':                     'xml'
 		'text/html':                    'html'
