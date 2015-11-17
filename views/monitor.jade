@@ -1,42 +1,60 @@
 extends ./layout.jade
+
+mixin executionTab(status, size)
+	li
+		a(href="#executions-#{status}",id="executions-#{status}-tab",class="btn btn-#{status2bootstrap[status] || 'ALL'}",data-toggle="tab")
+			= status
+			|&nbsp[#{size}]
+
+mixin executionPane(status, executions)
+	.tab-pane(id="executions-#{status}")
+		each execution in executions
+			table(class="table status-#{execution.status}")
+				tr
+					th.col-md-2 ID
+					td
+						a(href="#{execution.uri}")= execution._id
+				each field in ["algorithm", "startTime", "endTime", "progress"]
+					tr
+						th= field
+						td= execution[field]
+				tr.outputFiles
+					th.col-md-2 outputFiles
+					td
+						ul
+							each outputFile in execution.outputFiles
+								li
+									a(href="#{outputFile}")= outputFile
+				tr.log
+					th.col-md-2 log
+					td
+						ul.list-unstyled
+							each logEntry in execution.log
+								if logEntry.indexOf("INFO") === 0
+									li.btn-success.logEntry= logEntry
+								else if logEntry.indexOf("FATAL") === 0
+									li.btn-danger.logEntry= logEntry
+								else
+									li.btn-info.logEntry= logEntry
+
 block title
 	title Monitor backend
+
 block content
-	- infolis2bootstrap = {"FINISHED": "success", "FAILED": 'danger', "PENDING": "warning", "STARTED": "info"}
+	- status2bootstrap = {"FINISHED": "success", "FAILED": 'danger', "PENDING": "warning", "STARTED": "info"}
+	- level2bootstrap = {"INFO": "success", "FATAL": 'danger'}
+	script
+		:coffee-script
+			$ ->
+				$("#executions-ALL-tab").tab('show')
 	.row
 		.col-md-10.executions
-
 			h1 Executions
-
 			ul.nav.nav-tabs
-					each status in statuses
-						li
-							a(href="#executions-#{status}",class="btn btn-#{infolis2bootstrap[status]}",data-toggle="tab")
-								= status
-								|&nbsp[#{byStatus[status].length}]
-			.tab-content
+				+ executionTab("ALL", allExecutions.length)
 				each status in statuses
-					.tab-pane(id="executions-#{status}")
-						each execution in byStatus[status]
-							table(class="table status-#{status}")
-								tr
-									th.col-md-2 ID
-									td
-										a(href="#{execution.uri}")= execution._id
-								each field in ["algorithm", "startTime", "endTime", "progress"]
-									tr
-										th= field
-										td= execution[field]
-								tr.outputFiles
-									th.col-md-2 outputFiles
-									td
-										ul
-											each outputFile in execution.outputFiles
-												li
-													a(href="#{outputFile}")= outputFile
-								tr.log
-									th.col-md-2 log
-									td
-										ul
-											each logEntry in execution.log
-												li.logEntry= logEntry
+					+ executionTab(status, byStatus[status].length)
+			.tab-content
+				+ executionPane("ALL", allExecutions)
+				each status in statuses
+					+ executionPane(status, byStatus[status])

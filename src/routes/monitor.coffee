@@ -50,28 +50,31 @@ module.exports = (app, opts) ->
 		Request
 			.get("#{CONFIG.backendURI}/executor?status=#{req.query.status}")
 			.set 'Accept', 'application/json'
-			.end (err, startResp) ->
+			.end (err, getAllResp) ->
 				if err
 					return next err
-				Async.map startResp.body, (uri, cb) ->
+				allExecutions = []
+				Async.map getAllResp.body, (uri, cb) ->
 					Request
 						.get(uri)
 						.set 'Accept', 'application/json'
-						.end (err, execResp) ->
+						.end (err, getOneResp) ->
 							return cb() if err
-							execResp.body.uri = uri
-							return cb null, execResp.body
-				, (err, mapped) ->
+							getOneResp.body.uri = uri
+							allExecutions.push getOneResp.body
+							return cb()
+				, (err) ->
 					statuses = ["PENDING", "STARTED", "FINISHED", "FAILED"]
 					byStatus = {}
 					byStatus[v] = [] for v in statuses
-					for execution in mapped
+					for execution in allExecutions
 						if execution
 							byStatus[execution.status].push execution
 					for k,v of byStatus
 						byStatus[k] = v.sort (a,b) -> new Date(a.startTime) - new Date(b.startTime)
+					allExecutions = allExecutions.sort (a,b) -> new Date(a.startTime) - new Date(b.startTime)
 					if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
-						return res.render 'monitor', { byStatus, statuses }
+						return res.render 'monitor', { byStatus, statuses, allExecutions }
 					else
-						return res.send mapped
+						return res.send allExecutions
 
