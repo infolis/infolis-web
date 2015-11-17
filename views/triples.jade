@@ -11,17 +11,23 @@ block libs
 	script
 		:coffee-script
 			$ ->
-				$('li[data-format="#{format}"] a').parents('li').addClass('active');
+				$('li[data-format="#{format}"] a').parents('li').addClass('active')
 				if profile
 					profile = profile.substring(profile.lastIndexOf('#')+1)
-					$('li[data-profile="' + profile + '"] a').parents('li').addClass('active');
+					$('li[data-profile="' + profile + '"] a').parents('li').addClass('active')
 block content
 	#rdf.hidden
 		= rdf
 
 	.row
 		.col-md-12
-			h2 #{title} 
+			h2 
+				- uptonow = '/infolink/'
+				each segment,idx in title.split('/')
+					if idx > 0
+						| &nbsp;/&nbsp;
+						a(href="#{uptonow}#{segment}")= segment
+						- uptonow = uptonow + segment + "/"
 				code.small
 					code [#{format}]
 			if is_ldf
@@ -102,6 +108,7 @@ block content
 							data = JSON.stringify
 								text: rdfElem.textContent
 								mimetype: '#{format}'
+							# infolinkClient.syntaxHighlight(data.text, data.mimetype)
 							request = new XMLHttpRequest()
 							request.open('POST', '/infolink/api/syntax-highlight', true)
 							request.setRequestHeader('Content-Type', 'application/json')
