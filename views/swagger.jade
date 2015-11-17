@@ -32,17 +32,25 @@ block content
 						'patch'
 					]
 					onComplete: (swaggerApi, swaggerUi) ->
-						$('.container .container').removeClass 'container'
+						$('.container-fluid .container').removeClass 'container'
 						$('#api_info').hide()
 						$('.options').hide()
-						# $('.endpoint').has('.delete').hide()
+						$('th').removeAttr 'style'
+						# ($ '.endpoint').has('.delete').hide()
+						$('textarea').css('height': "250px")
+						$('textarea').css('width': "100%")
+						$('textarea').css('font-family': "monospace")
+						$('textarea').css('font-weight': "medium")
+						$('.signature-container .description').css('max-width': "500px")
 						$('pre code').each (i, e) ->
 							hljs.highlightBlock e
 					onFailure: (data) -> console.log 'Unable to Load SwaggerUI'
-					docExpansion: 'none'
+					docExpansion: 'list'
 					apisSorter: 'alpha'
 					showRequestHeaders: true
 				)
 				window.swaggerUi.load()
-	.swagger-section
-		#swagger-ui-container.swagger-ui-wrap
+	.row
+		.col-md-offset-1.col-md-11
+			.swagger-section
+				#swagger-ui-container.swagger-ui-wrap
