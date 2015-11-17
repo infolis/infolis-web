@@ -3,12 +3,15 @@ block title
 	title= title
 block libs
 	script(src="#{site_api}/vendor/viz.js")
+	script.
+		profile = "#{profile}"
+		if (profile === "") profile = undefined
+		format = "#{format}"
 	script
 		:coffeescript
 			$ ->
 				$('li[data-format="#{format}"] a').parents('li').addClass('active');
-				profile = "#{profile}"
-				if profile isnt ""
+				if profile
 					profile = profile.substring(profile.lastIndexOf('#')+1)
 					$('li[data-profile="' + profile + '"] a').parents('li').addClass('active');
 block content
@@ -42,45 +45,50 @@ block content
 				li(data-format="text/vnd.graphviz") #[a(href="?format=text/vnd.graphviz") GraphViz]
 
 	.row
-		.col-md-8.col-md-offset-1
+		.col-md-10.col-md-offset-1
 			#triples-container
-				if format == 'text/html'
-					script
-						:coffee-script
-							$ ->
-								table = $("table", $("<div/>").html($("#rdf").text()))
-								table.addClass('table')
-								table.removeAttr('border')
-								$("a", table).each () ->
-									linkText = $(@).text()
-									linkText = linkText.substring(linkText.lastIndexOf('#')+1)
-									linkText = linkText.substring(linkText.lastIndexOf('/')+1)
-									$(@).text(linkText)
-								$("#triples-container").append(table)
-				else if format == 'text/vnd.graphviz'
-					script
-						:coffee-script
-							$ ->
-								rdfElem = document.getElementById("rdf")
-								svg = Viz(rdfElem.textContent, format:"svg", engine:"dot")
-								document.getElementById('triples-container').innerHTML = svg
-								$("#triples-container svg>g>text").remove()
-								$("#triples-container svg").attr('width', '100%')
-								$("#triples-container svg").attr('height', '100%')
-				else
-					script
-						:coffee-script
-							$ ->
-								rdfElem = document.getElementById("rdf")
-								console.log(rdfElem)
-								data = JSON.stringify
-									text: rdfElem.textContent
-									mimetype: '#{format}'
-								request = new XMLHttpRequest()
-								request.open('POST', '/infolink/api/syntax-highlight', true)
-								request.setRequestHeader('Content-Type', 'application/json')
-								request.onload = ->
-									if this.status isnt 200
-										window.alert("Syntax highlighter threw!")
-									$("#triples-container").html($(@response))
-								request.send(data)
+				div(style="margin-top: 5em")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+					img(src="/infolink/spinner.gif")
+			script
+				:coffee-script
+					$ ->
+						rdfElem = document.getElementById("rdf")
+						if format is 'text/html'
+							table = $("table", $("<div/>").html($("#rdf").text()))
+							table.addClass('table')
+							table.removeAttr('border')
+							$("a", table).each () ->
+								linkText = $(@).text()
+								linkText = linkText.substring(linkText.lastIndexOf('#')+1)
+								linkText = linkText.substring(linkText.lastIndexOf('/')+1)
+								$(@).text(linkText)
+							$("#triples-container").html(table)
+						else if format == 'text/vnd.graphviz'
+							svg = Viz(rdfElem.textContent, format:"svg", engine:"dot")
+							document.getElementById('triples-container').innerHTML = svg
+							$("#triples-container svg>g>text").remove()
+							$("#triples-container svg").attr('width', '100%')
+							$("#triples-container svg").attr('height', '100%')
+						else
+							rdfElem = document.getElementById("rdf")
+							console.log(rdfElem)
+							data = JSON.stringify
+								text: rdfElem.textContent
+								mimetype: '#{format}'
+							request = new XMLHttpRequest()
+							request.open('POST', '/infolink/api/syntax-highlight', true)
+							request.setRequestHeader('Content-Type', 'application/json')
+							request.onload = ->
+								if this.status isnt 200
+									window.alert("Syntax highlighter threw!")
+								$("#triples-container").html($(@response))
+							request.send(data)
