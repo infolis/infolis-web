@@ -6,8 +6,10 @@
     "test": "coffee test/*.coffee | tap-spec",
     "docs": "docker -i src -o apidocs -s -n -c vs",
     "compile": "coffee -c -o lib src",
+    "client": "browserify -t coffeeify src/client/index.coffee > public/client.js",
+    "rebuild-client": "watchify --verbose -o public/client.js -t coffeeify src-client/index.coffee",
     "clean": "rm -r apidocs lib ; true",
-    "serve": "cd node_modules/express-jsonld/;npm run compile;cd -;nodemon src/server.coffee -w src -w public -w data/infolis.tson -w ../mongoose-jsonld/src -w ../express-jsonld/src",
+    "serve": "cd node_modules/express-jsonld/;npm run compile;cd -;nodemon src/server.coffee -w src -w data/infolis.tson -w ../mongoose-jsonld/src -w ../express-jsonld/src",
     "mongo": "mongod --dbpath data/mongodb --port 27018",
     "run": "npm run mongo & npm run serve",
     "prepublish": "npm run compile"
@@ -26,6 +28,7 @@
     "accepts": "^1.3.0",
     "async": "^1.5.0",
     "body-parser": "^1.12.2",
+    "coffeeify": "^1.1.0",
     "cors": "^2.7.1",
     "express": "^4.12.2",
     "express-jsonld": "0.0.16",
@@ -49,7 +52,8 @@
     "docker": "^0.2.14",
     "tap-spec": "^2.2.2",
     "tape": "^4.0.0",
-    "tapes": "^0.4.1"
+    "tapes": "^0.4.1",
+    "watchify": "^3.6.1"
   },
   "main": "lib/index.js"
 }
