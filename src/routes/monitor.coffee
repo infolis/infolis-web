@@ -68,6 +68,8 @@ module.exports = (app, opts) ->
 					for execution in mapped
 						if execution
 							byStatus[execution.status].push execution
+					for k,v of byStatus
+						byStatus[k] = v.sort (a,b) -> new Date(a.startTime) - new Date(b.startTime)
 					if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
 						return res.render 'monitor', { byStatus, statuses }
 					else
