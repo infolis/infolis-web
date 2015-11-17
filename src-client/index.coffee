@@ -71,6 +71,7 @@ exp.InfolinkClient = class InfolinkClient
 		formData = new FormData()
 		formData.append 'file', file
 		formData.append 'mediaType', opts.mediaType
+		console.log formData
 		Request
 			.post(@_apiUrl 'upload')
 			.set 'accept', 'application/json'
