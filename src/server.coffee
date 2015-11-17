@@ -29,9 +29,9 @@ errorHandler = (err, req, res, next) ->
 		Object.getOwnPropertyNames(err).map (p) ->
 			flatErr[p] = err[p]
 		err = flatErr
-	log.error StringifySafe err
+	log.error "ERROR", StringifySafe err
 	delete err.arguments
-	res.status = 400
+	res.status 400
 	if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
 		return res.render 'error', { err }
 	else
@@ -108,6 +108,7 @@ class InfolisWebservice
 				'swagger'
 				'json-import'
 				'syntax-highlight'
+				'play'
 			]
 			do (controller) =>
 				log.info "Setting up route #{controller}"
