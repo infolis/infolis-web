@@ -18,6 +18,18 @@ C.schemaPrefix = '/schema'
 C.logging      = {
 	# TODO
 }
+loadPath = [
+	['system',      '/etc']
+	['home',        process.env.HOME]
+	['current dir', process.cwd()]
+]
+for [type, path] in loadPath
+	try
+		C = Merge C, require path + '/infolis-frontend-config'
+		console.log "Loaded #{type} configuration"
+	catch
+		console.log "No #{type} configuration found"
+
 C.expandContexts = ['basic', {
 	# infolis: 'http://localhost:3000/schema/'
 	# infolis: 'http://www-test.bib.uni-mannheim.de/infolis/schema/'
@@ -38,17 +50,5 @@ C.expandContexts = ['basic', {
 	uri4uri: 'http://uri4uri.net/vocab#'
 	xsd: 'http://www.w3.org/2001/XMLSchema#'
 }]
-
-loadPath = [
-	['system',      '/etc']
-	['home',        process.env.HOME]
-	['current dir', process.cwd()]
-]
-for [type, path] in loadPath
-	try
-		C = Merge C, require path + '/infolis-frontend-config'
-		console.log "Loaded #{type} configuration"
-	catch
-		console.log "No #{type} configuration found"
 
 module.exports = C
