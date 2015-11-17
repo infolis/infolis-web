@@ -1,0 +1,11 @@
+extends ./layout.jade
+
+block content
+	h1 world. be greeted.
+	input#file(type="file")
+	input#foo(type="button")
+	script
+		:coffee-script
+			$('#foo').on 'click', ->
+				console.log $("#file").get(0).files[0]
+				infolinkClient.uploadFile("#file")
