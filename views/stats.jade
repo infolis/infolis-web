@@ -15,5 +15,5 @@ block content
 						td
 							a(href="/infolink/schema/#{cls}")= cls
 						td
-							a(href="/infolink/api/execution/")= stat.count
+							a(href="/infolink/api/#{cls[0].toLowerCase() + cls.substring(1)}")= stat.count
 						td= JSON.stringify(stat)

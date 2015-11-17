@@ -19,7 +19,7 @@ block libs
 	script(src='#{site_api}/vendor/swagger/lib/swagger-oauth.js', type='text/javascript')
 block content
 	script
-		:coffeescript
+		:coffee-script
 			$ ->
 				window.swaggerUi = new SwaggerUi(
 					url: '/infolink/swagger.json'
@@ -35,7 +35,7 @@ block content
 						$('.container .container').removeClass 'container'
 						$('#api_info').hide()
 						$('.options').hide()
-						$('.endpoint').has('.delete').hide()
+						# $('.endpoint').has('.delete').hide()
 						$('pre code').each (i, e) ->
 							hljs.highlightBlock e
 					onFailure: (data) -> console.log 'Unable to Load SwaggerUI'

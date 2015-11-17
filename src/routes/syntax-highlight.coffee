@@ -53,7 +53,7 @@ module.exports = (app, opts) ->
 		log.debug syntax
 		opts = {
 			syntax: syntax
-			colorscheme: 'summerfruit256'
+			colorscheme: 'legiblelight'
 			number_lines: 0
 			use_css: 0
 			pre_only: 1
