@@ -23,7 +23,7 @@ block content
 									th.col-md-2 ID
 									td
 										a(href="#{execution.uri}")= execution._id
-								each field in ["startTime", "endTime", "progress"]
+								each field in ["algorithm", "startTime", "endTime", "progress"]
 									tr
 										th= field
 										td= execution[field]
