@@ -49,6 +49,13 @@ nav.navbar.navbar-inverse.navbar-static-top
 									a(href='#{site_api}/api/monitor') Monitor
 								li
 									a(href='#{site_api}/api/stats') Stats
+						li.dropdown
+							a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
+								| Play
+								span.caret
+							ul.dropdown-menu
+								li
+									a(href='#{site_api}/play/demo1') Demo1
 						li
 							a(href="#{site_github}/blog/") Blog
 					ul.nav.navbar-nav.navbar-right
