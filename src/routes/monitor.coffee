@@ -58,7 +58,7 @@ module.exports = (app, opts) ->
 						.get(uri)
 						.set 'Accept', 'application/json'
 						.end (err, execResp) ->
-							return cb err if err
+							return cb() if err
 							execResp.body.uri = uri
 							return cb null, execResp.body
 				, (err, mapped) ->
@@ -66,7 +66,8 @@ module.exports = (app, opts) ->
 					byStatus = {}
 					byStatus[v] = [] for v in statuses
 					for execution in mapped
-						byStatus[execution.status].push execution
+						if execution
+							byStatus[execution.status].push execution
 					if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
 						return res.render 'monitor', { byStatus, statuses }
 					else
