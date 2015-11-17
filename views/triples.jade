@@ -9,7 +9,7 @@ block libs
 		format = "#{format}"
 		is_ldf = !("#{is_ldf}" === "")
 	script
-		:coffeescript
+		:coffee-script
 			$ ->
 				$('li[data-format="#{format}"] a').parents('li').addClass('active');
 				if profile
@@ -35,7 +35,7 @@ block content
 						.col-md-10
 							input.form-control(type='text',name="predicate",value="#{predicate || ''}")
 					.form-group
-						label.col-md-2 Subject:
+						label.col-md-2 Object:
 						.col-md-10
 							input.form-control(type='text',name="object",value="#{object || ''}")
 					.form-group
