@@ -6,7 +6,7 @@ Async         = require 'async'
 Accepts       = require 'accepts'
 Fs            = require 'fs'
 Merge         = require 'merge'
-Express       = require 'express'
+Express       = require 'express.io'
 Mongoose      = require 'mongoose'
 BodyParser    = require 'body-parser'
 TSON          = require 'tson'
@@ -37,7 +37,7 @@ errorHandler = (err, req, res, next) ->
 	else
 		res.send StringifySafe err, null, 2
 
-accessLogger = Morgan 'short', stream: Fs.createWriteStream(__dirname + '/../data/logs/access.log', {flags: 'a'})
+accessLogger = Morgan 'combined', stream: Fs.createWriteStream(__dirname + '/../data/logs/access.log', {flags: 'a'})
 accessLoggerDev = Morgan 'dev'
 
 class InfolisWebservice
@@ -87,6 +87,7 @@ class InfolisWebservice
 			@_swagger[endpoint] = def
 
 	setupRoutes : () ->
+		# @app.http().io()
 		# Store site information
 		@app.use (req, res, next) ->
 			res.locals.site_api = "http://infolis.gesis.org/infolink"

@@ -34,6 +34,12 @@ module.exports = (app, opts) ->
 				500:
 					description: 'Backend failed.'
 
+	# console.log(app.io.route)
+	# app.io.route 'ready', (req) ->
+	#     console.log req
+	#     req.io.emit 'talk', {
+	#         message: 'yay'
+	#     }
 	app.post '/api/execute', (req, res, next) ->
 		exec = req.body
 		exec.status = 'PENDING'

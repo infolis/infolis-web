@@ -1,6 +1,6 @@
-$       = require 'jquery'
-Async   = require 'async'
-Request = require 'superagent'
+$        = require 'jquery'
+Async    = require 'async'
+Request  = require 'superagent'
 
 if typeof window isnt 'undefined'
 	exp = window
@@ -22,11 +22,16 @@ _onSuccessDefault = (res) ->
 
 exp.InfolinkClient = class InfolinkClient
 
-
 	constructor: (@baseURI, @apiPrefix, @schemaPrefix) ->
 		@baseURI or= 'http://infolis.gesis.org/infolink'
 		@apiPrefix or= '/api'
 		@schemaPrefix or= '/schema'
+		# @io = require('socket.io-client').connect(@baseURI)
+		# @io.connect()
+		# @io.emit('ready')
+		# @io.on 'talk', (data) ->
+		#     console.log(data)
+
 
 	_apiUrl: (endpoint) -> "#{@baseURI}#{@apiPrefix}/#{endpoint}"
 
