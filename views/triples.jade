@@ -7,6 +7,7 @@ block libs
 		profile = "#{profile}"
 		if (profile === "") profile = undefined
 		format = "#{format}"
+		is_ldf = !("#{is_ldf}" === "")
 	script
 		:coffeescript
 			$ ->
@@ -19,10 +20,27 @@ block content
 		= rdf
 
 	.row
-		.col-md-8.col-md-offset-1
+		.col-md-12
 			h2 #{title} 
 				code.small
 					code [#{format}]
+			if is_ldf
+				form.form-horizontal
+					.form-group
+						label.col-md-2 Subject:
+						.col-md-10
+							input.form-control(type='text',name="subject",value="#{subject || ''}")
+					.form-group
+						label.col-md-2 Predicate:
+						.col-md-10
+							input.form-control(type='text',name="predicate",value="#{predicate || ''}")
+					.form-group
+						label.col-md-2 Subject:
+						.col-md-10
+							input.form-control(type='text',name="object",value="#{object || ''}")
+					.form-group
+						.col-md-2.col-md-offset-2
+							input.btn.btn-success.form-control(type="submit",value="Query")
 			ul.nav.nav-pills
 				li(data-format="text/html") #[a(href="?format=text/html") HTML Table]
 				li.dropdown
@@ -45,7 +63,7 @@ block content
 				li(data-format="text/vnd.graphviz") #[a(href="?format=text/vnd.graphviz") GraphViz]
 
 	.row
-		.col-md-10.col-md-offset-1
+		.col-md-10
 			#triples-container
 				div(style="margin-top: 5em")
 					img(src="/infolink/spinner.gif")
