@@ -50,7 +50,7 @@ module.exports = (app, opts) ->
 		if not mimetype or mimetype is ''
 			mimetype = 'application/json'
 		syntax = mimetype2syntax[mimetype] or 'javascript'
-		log.debug syntax
+		log.debug "highlighting format #{mimetype} as #{syntax}"
 		opts = {
 			syntax: syntax
 			colorscheme: 'legiblelight'

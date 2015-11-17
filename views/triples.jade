@@ -16,8 +16,6 @@ block libs
 					profile = profile.substring(profile.lastIndexOf('#')+1)
 					$('li[data-profile="' + profile + '"] a').parents('li').addClass('active')
 block content
-	#rdf.hidden
-		= rdf
 
 	.row
 		.col-md-12
@@ -71,6 +69,8 @@ block content
 	.row
 		.col-md-10
 			#triples-container
+				pre#rdf
+					= rdf
 				div(style="margin-top: 5em")
 					img(src="/infolink/spinner.gif")
 					img(src="/infolink/spinner.gif")
@@ -103,17 +103,8 @@ block content
 							$("#triples-container svg").attr('width', '100%')
 							$("#triples-container svg").attr('height', '100%')
 						else
-							rdfElem = document.getElementById("rdf")
-							console.log(rdfElem)
-							data = JSON.stringify
-								text: rdfElem.textContent
+							infolinkClient.syntaxHighlight {
+								text: document.getElementById("rdf").textContent
 								mimetype: '#{format}'
-							# infolinkClient.syntaxHighlight(data.text, data.mimetype)
-							request = new XMLHttpRequest()
-							request.open('POST', '/infolink/api/syntax-highlight', true)
-							request.setRequestHeader('Content-Type', 'application/json')
-							request.onload = ->
-								if this.status isnt 200
-									window.alert("Syntax highlighter threw!")
-								$("#triples-container").html($(@response))
-							request.send(data)
+								selector: "#triples-container"
+							}
