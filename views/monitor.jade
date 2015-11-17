@@ -20,15 +20,22 @@ block content
 						each execution in byStatus[status]
 							table(class="table status-#{status}")
 								tr
-									th ID
+									th.col-md-2 ID
 									td
 										a(href="#{execution.uri}")= execution._id
 								each field in ["startTime", "endTime", "progress"]
 									tr
 										th= field
 										td= execution[field]
+								tr.outputFiles
+									th.col-md-2 outputFiles
+									td
+										ul
+											each outputFile in execution.outputFiles
+												li
+													a(href="#{outputFile}")= outputFile
 								tr.log
-									th log
+									th.col-md-2 log
 									td
 										ul
 											each logEntry in execution.log
