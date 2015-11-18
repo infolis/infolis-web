@@ -20,11 +20,6 @@ block libs
 	script(src='#{site_api}/vendor/swagger/lib/highlight.7.3.pack.js', type='text/javascript')
 	script(src='#{site_api}/vendor/swagger/lib/marked.js', type='text/javascript')
 	script(src='#{site_api}/vendor/swagger/lib/swagger-oauth.js', type='text/javascript')
-
-block help
-	p  This interface is fun and simple.
-
-block content
 	script
 		:coffee-script
 			$ ->
@@ -41,7 +36,7 @@ block content
 					onComplete: (swaggerApi, swaggerUi) ->
 						$('.container-fluid .container').removeClass 'container'
 						$('#api_info').hide()
-						$('.options').hide()
+						#$('.options').hide()
 						$('th').removeAttr 'style'
 						# ($ '.endpoint').has('.delete').hide()
 						$('textarea').css('height': "250px")
@@ -57,6 +52,11 @@ block content
 					showRequestHeaders: true
 				)
 				window.swaggerUi.load()
+
+block help
+	p  This interface is fun and simple.
+
+block content
 	.row
 		.col-md-offset-1.col-md-11
 			.swagger-section
