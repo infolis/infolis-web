@@ -41,8 +41,8 @@ Execution
 		required true
 		type: String
 		enum: [
+		  'io.github.infolis.algorithm.TextExtractor'
 		  'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
-		  'io.github.infolis.algorithm.TextExtractorAlgorithm'
 		  'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
 		  'io.github.infolis.algorithm.DaraLinker'
 		  'io.github.infolis.algorithm.ApplyPatternAndResolve'
