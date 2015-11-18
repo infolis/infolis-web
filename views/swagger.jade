@@ -46,8 +46,9 @@ block libs
 						$('.signature-container .description').css('max-width': "500px")
 						$('pre code').each (i, e) ->
 							hljs.highlightBlock e
+						Docs.expandEndpointListForResource('helper')
 					onFailure: (data) -> console.log 'Unable to Load SwaggerUI'
-					docExpansion: 'list'
+					docExpansion: 'none'
 					apisSorter: 'alpha'
 					showRequestHeaders: true
 				)
