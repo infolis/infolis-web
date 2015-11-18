@@ -44,6 +44,8 @@ block libs
 						$('textarea').css('font-family': "monospace")
 						$('textarea').css('font-weight': "medium")
 						$('.signature-container .description').css('max-width': "500px")
+						$('ul.options li:nth-child(2)').hide()
+						$('ul.options li:nth-child(3)').hide()
 						$('pre code').each (i, e) ->
 							hljs.highlightBlock e
 						Docs.expandEndpointListForResource('helper')
