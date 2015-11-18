@@ -30,6 +30,8 @@ _onSuccessDefault = (res) ->
 _onProgressDefault = (ev) ->
 	console.log ev
 
+_requireArg = (arg) -> "Must provide '#{arg}' argument"
+
 exp.InfolinkClient = class InfolinkClient
 
 	constructor: (@baseURI, @apiPrefix, @schemaPrefix) ->
@@ -48,11 +50,10 @@ exp.InfolinkClient = class InfolinkClient
 	syntaxHighlight: (opts = {}) ->
 		onError   = opts.onError   or _onErrorDefault
 		onSuccess = opts.onSuccess or _onSuccessDefault
-		if 'text' not of opts
-			return onError "Must provide 'text'"
+		for required in ['text', 'mimetype']
+			if required not of opts
+				return onError _requireArg required
 		text = opts.text
-		if 'mimetype' not of opts
-			return onError "Must provide 'mimetype'"
 		mimetype = opts.mimetype
 		Request
 			.post(@_apiUrl 'syntax-highlight')
@@ -65,6 +66,18 @@ exp.InfolinkClient = class InfolinkClient
 				console.log res
 				return onSuccess res
 
+	execute: (opts) ->
+		if typeof opts isnt 'object'
+			return _onErrorDefault _requireArg 'opts'
+		onError    = opts.onError    or _onErrorDefault
+		onStarted  = opts.onStarted  or _noop
+		onSuccess  = opts.onSuccess  or _onSuccessDefault
+		onProgress = opts.onProgress or _onProgressDefault
+		for required in ['text', 'mimetype']
+			if required not of opts
+				return onError _requireArg required
+		# TODO
+
 	uploadFiles: (opts = {}) ->
 		if typeof opts isnt 'object'
 			opts = selector: opts
@@ -73,7 +86,7 @@ exp.InfolinkClient = class InfolinkClient
 		onSuccess  = opts.onSuccess  or _onSuccessDefault
 		onProgress = opts.onProgress or _onProgressDefault
 		if 'selector' not of opts
-			return onError "Must provide 'selector'"
+			return onError _requireArg 'selector'
 		fileList = $(opts.selector).get(0).files
 		if not fileList
 			return onError 'No files specified'
