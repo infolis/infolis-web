@@ -278,7 +278,10 @@ InfolisPattern
 		@context
 			dc:description "TODO"
 		type Number
-
+	tags
+		@context
+			dc:description "Tags of this pattern"
+		type ArrayOfStrings
 
 InfolisFile
 	@context
