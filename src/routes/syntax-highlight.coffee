@@ -13,16 +13,16 @@ module.exports = (app, opts) ->
 			consumes: ['application/json']
 			produces: ['text/html']
 			parameters: [
-				name: 'text'
+				name: 'hl'
 				in: "body"
 				description: "Text to highlight"
-				required: true
-			]
-			parameters: [
-				name: 'mimetype'
-				in: "body"
-				description: "mimetype"
-				required: true
+				schema:
+					type: 'object'
+					properties:
+						text:
+							type: 'string'
+						mimetype:
+							type: 'string'
 			]
 			responses:
 				200:
