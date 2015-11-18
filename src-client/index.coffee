@@ -1,4 +1,5 @@
 $        = require 'jquery'
+_        = require 'lodash'
 Async    = require 'async'
 Request  = require 'superagent'
 
@@ -9,16 +10,25 @@ else if typeof self isnt 'undefined'
 else
 	exp = module.exports
 
+_noop = ->
+
 _onErrorDefault = (err) ->
 	if not err
 		console.error "There was an error "
 	if err.status is 400
-		console.error JSON.parse err.response.text
+		errObj = JSON.parse(err.response.text)
+		if 'cause' of errObj
+			console.error errObj.cause
+		else
+			console.error errObj
 	else
 		console.error err
 
 _onSuccessDefault = (res) ->
 	console.log 'YAY', res
+
+_onProgressDefault = (ev) ->
+	console.log ev
 
 exp.InfolinkClient = class InfolinkClient
 
@@ -38,7 +48,6 @@ exp.InfolinkClient = class InfolinkClient
 	syntaxHighlight: (opts = {}) ->
 		onError   = opts.onError   or _onErrorDefault
 		onSuccess = opts.onSuccess or _onSuccessDefault
-		selector  = opts.selector
 		if 'text' not of opts
 			return onError "Must provide 'text'"
 		text = opts.text
@@ -51,32 +60,40 @@ exp.InfolinkClient = class InfolinkClient
 			.end (err, res) ->
 				if err
 					return onError err, res
-				if selector
-					$(selector).html(res.text)
+				if opts.selector
+					$(opts.selector).html(res.text)
 				console.log res
-				return onSuccess res.text, res
+				return onSuccess res
 
-	uploadFile: (opts = {}) ->
+	uploadFiles: (opts = {}) ->
 		if typeof opts isnt 'object'
 			opts = selector: opts
-		onError   = opts.onError   or _onErrorDefault
-		onSuccess = opts.onSuccess or _onSuccessDefault
+		onError    = opts.onError    or _onErrorDefault
+		onStarted  = opts.onStarted  or _noop
+		onSuccess  = opts.onSuccess  or _onSuccessDefault
+		onProgress = opts.onProgress or _onProgressDefault
 		if 'selector' not of opts
 			return onError "Must provide 'selector'"
-		file = $(opts.selector).get(0).files[0]
-		if not file
-			return onError "No file found in selector 'selector'"
-		if 'mediaType' not of opts
-			opts.mediaType = file.type
-		formData = new FormData()
-		formData.append 'file', file
-		formData.append 'mediaType', opts.mediaType
-		console.log formData
-		Request
-			.post(@_apiUrl 'upload')
-			.set 'accept', 'application/json'
-			.send(formData)
-			.end (err, res) ->
-				if err
-					return onError err
-				return onSuccess res
+		fileList = $(opts.selector).get(0).files
+		if not fileList
+			return onError 'No files specified'
+		fileArray = (file for file in fileList)
+		Async.each fileArray, (file, done) =>
+			fileIdx = fileArray.indexOf(file)
+			onStarted {fileIdx, file}
+			formData = new FormData()
+			formData.append 'file', file
+			formData.append 'mediaType', file.type
+			Request
+				.post(@_apiUrl 'upload')
+				.set 'accept', 'application/json'
+				.send(formData)
+				.on 'progress', (ev) ->
+					ev.fileIdx = fileIdx
+					ev.file = file
+					onProgress ev
+				.end (err, res) ->
+					if err
+						return onError {fileIdx, err, file}
+					uri = res.headers.location
+					return onSuccess {fileIdx, file, uri}

@@ -1,11 +1,53 @@
 extends ./layout.jade
 
-block content
-	h1 world. be greeted.
-	input#file(type="file")
-	input#foo(type="button")
+block title 
+	title Datasetify your PDFs
+
+block libs
 	script
 		:coffee-script
-			$('#foo').on 'click', ->
-				console.log $("#file").get(0).files[0]
-				infolinkClient.uploadFile("#file")
+			$ ->
+				$('#foo').on 'click', () ->
+					$('#file-progress-bar').empty()
+					$('#file-uri').empty()
+					infolinkClient.uploadFiles {
+						selector: "#file"
+						onStarted: (ev) ->
+							$('#file-progress-bar').append(
+								$("<div>")
+									.addClass("progress")
+									.css('margin-bottom', '0').append(
+										$("<div>")
+											.attr('class', "progress-bar file-#{ev.fileIdx}")
+											.attr("role", "progressbar")
+											.css('margin-bottom', '0')
+											.css('width', '0')
+											.text(ev.file.name)))
+							$("#file-uri").append(
+								$("<div>").attr('class', "file-#{ev.fileIdx}"))
+						onProgress: (ev) ->
+							$("#file-progress-bar .file-#{ev.fileIdx}").css('width', ev.percent + "%")
+						onError: (ev) ->
+							$("#file-progress-bar .file-#{ev.fileIdx}").addClass('progress-bar-danger')
+						onSuccess: (ev) ->
+							$("#file-progress-bar .file-#{ev.fileIdx}").addClass('progress-bar-success')
+							$("#file-uri .file-#{ev.fileIdx}").html $('<a>').attr('href', ev.uri).html(ev.uri)
+					}
+
+block content
+	.row
+		.col-md-10.col-md-offset-1
+			h1 Upload a PDF, Get Datasets
+	.row
+		.col-md-4.col-md-offset-2
+			form.form
+				.form-group
+					input.form-control#file(type="file",multiple=true)
+				.form-group
+					input.form-control.btn.btn-success#foo(type="button",value="Analyze")
+	.row
+		.col-md-2 Upload Progress
+		.col-md-8#file-progress-bar
+	.row
+		.col-md-2 File URI
+		.col-md-8#file-uri
