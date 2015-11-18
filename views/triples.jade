@@ -1,6 +1,17 @@
 extends ./layout.jade
+
 block title
-	title= title
+	if is_ldf
+		| InFoLiS Linked Data Fragments
+	else
+		| InFoLiS Triples View
+
+block help
+	if is_ldf
+		p Them tasty fragments is tasty
+	else
+		p I sure like me my triples
+
 block libs
 	script(src="#{site_api}/vendor/viz.js")
 	script.

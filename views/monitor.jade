@@ -1,5 +1,11 @@
 extends ./layout.jade
 
+block title
+	| title Monitor backend
+
+block help
+	p rotinoM spelled backwards
+
 mixin executionTab(status, size)
 	li
 		a(href="#executions-#{status}",id="executions-#{status}-tab",class="btn btn-#{status2bootstrap[status] || 'ALL'}",data-toggle="tab")
@@ -36,9 +42,6 @@ mixin executionPane(status, executions)
 									li.btn-danger.logEntry= logEntry
 								else
 									li.btn-info.logEntry= logEntry
-
-block title
-	title Monitor backend
 
 block content
 	- status2bootstrap = {"FINISHED": "success", "FAILED": 'danger', "PENDING": "warning", "STARTED": "info"}

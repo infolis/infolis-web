@@ -1,6 +1,11 @@
 extends ./layout.jade
+
 block title
-	title Application error
+	| Application error
+
+block help
+	p Like a balloon and something bad happens
+
 block content
 	h1 Application error 
 	pre.bg-danger= err.message
