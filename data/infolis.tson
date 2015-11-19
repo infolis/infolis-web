@@ -27,7 +27,7 @@
 
 Execution
 	@context
-		dc:description "The concrete execution of an Algorithm"
+		dc:description "The concrete execution of an Algorithm."
 		rdfs:subClassOf 
 			@id schema:Action
 		rdfs:seeAlso
@@ -40,6 +40,7 @@ Execution
 		type: String
 		enum: [
 			'io.github.infolis.algorithm.TextExtractor'
+			'io.github.infolis.algorithm.BibliographyExtractor'
 			'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
 			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
 			'io.github.infolis.algorithm.DaraLinker'
@@ -72,14 +73,14 @@ Execution
 		hideFromSwagger: true
 	log
 		@context
-			dc:description "Log messages of this execution"
+			dc:description "Log messages of this execution."
 		type: ArrayOfStrings
 		hideFromSwagger: true
 	startTime
 		@context
 			owl:sameAs schema:startTime
 			@type xsd:date
-			dc:description "Timestamp when execution started"
+			dc:description "Timestamp when execution started."
 		type Date
 		index: true
 		hideFromSwagger: true
@@ -87,13 +88,13 @@ Execution
 		@context
 			owl:sameAs schema:endTime
 			@type xsd:date
-			dc:description "Timestamp when execution ended"
+			dc:description "Timestamp when execution ended."
 		type Date
 		index: true
 		hideFromSwagger: true
 	progress
 		@context
-			dc:description "Numerical progress of the execution in the interval 0-100"
+			dc:description "Numerical progress of the execution in the interval 0-100."
 		type: Number
 		hideFromSwagger: true
 	#
@@ -122,17 +123,17 @@ Execution
 		type String
 	phraseSlop
 		@context
-			dc:description "Phrase Slop for Lucene indexer."
+			dc:description "Phrase Slop for Lucene query parser."
 		index: true
 		type: Number
 	upperCaseConstraint
 		@context
-			dc:description "Upper Case Constraint"
+			dc:description "Indicates whether we require a term to contain at least one upper case character."
 		index: true
 		type Boolean
 	allowLeadingWildcards
 		@context
-			dc:description "Whether leading wildcards are allowed"
+			dc:description "Whether leading wildcards are allowed."
 		index: true
 		type Boolean
 	maxClauseCount
@@ -177,9 +178,20 @@ Execution
 		type Number
 	reliabilityThreshold
 		@context
-			dc:description "TODO"
+			dc:description "Determines which patterns are the relevant ones."
 		index: true
 		type Number
+	bootstrapStrategy
+		@context
+			dc:description "Strategy to use for bootstrapping. Can either be: mergeCurrent, mergeNew, mergeAll, separate, reliability."
+		type: String
+		enum: [
+			'mergeCurrent'
+			'mergeNew'
+			'mergeAll'
+			'separate'
+			'reliability'
+		]
 	links
 		@context
 			dc:description "The found EntityLinks."
