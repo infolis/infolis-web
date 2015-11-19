@@ -269,7 +269,7 @@ SearchResult
 		index: true
 	tags
 		@context
-			dc:description "tags to assign to this entity"
+			dc:description "tags to assign to this search result"
 		type ArrayOfStrings
 		index: true
 	textualReferences
