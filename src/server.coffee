@@ -45,6 +45,7 @@ class InfolisWebservice
 	constructor: (@port) ->
 		log.silly "Configuration", CONFIG
 		@app = Express()
+		@app.set('case sensitive routing', true)
 		# Start DB
 		@app.mongoose = Mongoose.createConnection(
 			CONFIG.mongoURI
