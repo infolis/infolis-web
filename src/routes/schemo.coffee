@@ -1,8 +1,4 @@
-module.exports = setupRoutes = (app, opts) ->
-	opts or= {}
-
-	# schema handlers
-	app.schemo.handlers.schema.inject(app)
+module.exports = setupRoutes = (app, done) ->
 
 	# Schema handler for the ontology, i.e. /schema
 	app.get(app.schemo.schemaPrefix,
@@ -10,3 +6,7 @@ module.exports = setupRoutes = (app, opts) ->
 			req.jsonld = app.schemo.jsonldTBox()
 			next()
 		app.jsonldMiddleware)
+
+	# schema handlers
+	app.schemo.handlers.schema.inject(app, done)
+

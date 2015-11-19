@@ -64,9 +64,7 @@ _postResource = (origDB, resourceEndpoint, callback) ->
 		return callback err if err
 		return callback null, _replaceAll(origDB, mapping)
 
-module.exports = (app, opts) ->
-
-	opts or= {}
+module.exports = (app, done) ->
 
 	app.swagger '/api/json-import',
 		post:
@@ -114,3 +112,5 @@ module.exports = (app, opts) ->
 				, (err) ->
 					return next err if err
 					return res.send JSON.stringify JSON.parse(serializedDB), null, 2
+
+	done()

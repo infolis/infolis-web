@@ -4,8 +4,7 @@ Fs     = require 'fs'
 CONFIG = require '../config'
 Request = require 'superagent'
 
-module.exports = (app, opts) ->
-	opts or= {}
+module.exports = (app, done) ->
 
 	app.swagger '/api/execute',
 		post:
@@ -59,3 +58,5 @@ module.exports = (app, opts) ->
 						res.send '@link': executionUri
 						res.status 201
 						return res.end()
+
+	done()

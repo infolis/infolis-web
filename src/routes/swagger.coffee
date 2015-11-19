@@ -1,5 +1,4 @@
-module.exports = (app, opts) ->
-	opts or= {}
+module.exports = (app, done) ->
 
 	# Swagger interface
 	app.get '/api', (req, res, next) ->
@@ -21,4 +20,4 @@ module.exports = (app, opts) ->
 			}
 		]
 		paths: app.swagger()
-	}
+	}, done

@@ -108,7 +108,7 @@ class InfolisWebservice
 		# Log access
 		@app.use accessLogger
 		@app.use accessLoggerDev
-		controlers = [
+		controllers = [
 			'header'
 			'restful'
 			'schemo'
@@ -121,9 +121,9 @@ class InfolisWebservice
 			'syntax-highlight'
 			'play'
 		]
-		Async.eachSeries controlers, (controller, done) =>
+		Async.eachSeries controllers, (controller, done) =>
 			log.info "Setting up route #{controller}"
-			done null, require("./routes/#{controller}")(@app)
+			require("./routes/#{controller}")(@app, done)
 		, (err, next) =>
 			# root route
 			@app.get '/', (req, res, next) ->

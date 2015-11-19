@@ -3,8 +3,7 @@ Vim2Html   = require 'vim2html'
 
 log = require('../log')(module)
 
-module.exports = (app, opts) ->
-	opts or= {}
+module.exports = (app, done) ->
 
 	app.swagger '/api/syntax-highlight', 
 		post:
@@ -64,3 +63,5 @@ module.exports = (app, opts) ->
 			if err
 				return next err
 			res.send highlighted
+
+	done()

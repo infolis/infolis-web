@@ -5,8 +5,7 @@ CONFIG = require '../config'
 
 log = require('../log')(module)
 
-module.exports = (app, opts) ->
-	opts or= {}
+module.exports = (app, done) ->
 
 	app.swagger '/api/stats',
 		get:
@@ -82,4 +81,5 @@ module.exports = (app, opts) ->
 						return res.render 'monitor', { byStatus, statuses, allExecutions }
 					else
 						return res.send allExecutions
+	done()
 

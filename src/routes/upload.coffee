@@ -5,10 +5,8 @@ Fs     = require 'fs'
 CONFIG = require '../config'
 Request = require 'superagent'
 
-module.exports = (app, opts) ->
+module.exports = (app, done) ->
 
-	opts or= {}
-	
 	app.swagger '/api/upload',
 		post:
 			tags: ['essential']
@@ -92,3 +90,5 @@ module.exports = (app, opts) ->
 								res.status 201
 								res.header 'Location', fileModel.uri()
 								res.send '@link': fileModel.uri()
+
+	done()
