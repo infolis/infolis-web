@@ -46,18 +46,18 @@ class InfolisWebservice
 		log.silly "Configuration", CONFIG
 		@app = Express()
 		# Start DB
-		@app.db = Mongoose.createConnection(
+		@app.mongoose = Mongoose.createConnection(
 			CONFIG.mongoURI
 			CONFIG.mongoServerOptions
 		)
-		if not @app.db
+		if not @app.mongoose
 			throw new Error("Must set the MongoDB connection for API")
-		@app.db.on 'error', (e) =>
+		@app.mongoose.on 'error', (e) =>
 			log.error "ERROR starting MongoDB"
 			throw e
 		# Schemo!
 		@app.schemo = new Schemo(
-			mongoose: @app.db
+			mongoose: @app.mongoose
 			baseURI: CONFIG.baseURI
 			apiPrefix: CONFIG.apiPrefix
 			schemaPrefix: CONFIG.schemaPrefix
