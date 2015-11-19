@@ -32,10 +32,18 @@ errorHandler = (err, req, res, next) ->
 	log.error "ERROR", StringifySafe err
 	delete err.arguments
 	res.status 400
-	if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
+	if Accepts(req).type('text/html')
 		return res.render 'error', { err }
 	else
 		res.send StringifySafe err, null, 2
+
+notFoundHandler = (req, res) ->
+	if Accepts(req).type('text/html')
+		return res.render '404', {reqJSON: StringifySafe(req, null, 2)}
+	else
+		res.end()
+
+
 
 accessLogger = Morgan 'combined', stream: Fs.createWriteStream(__dirname + '/../data/logs/access.log', {flags: 'a'})
 accessLoggerDev = Morgan 'dev'
@@ -122,6 +130,7 @@ class InfolisWebservice
 			res.end()
 		# Error handler
 		@app.use errorHandler
+		@app.use notFoundHandler
 
 	startServer : () ->
 		log.info "Setting up routes"

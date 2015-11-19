@@ -1,0 +1,12 @@
+extends ./layout.jade
+
+block title
+	| 404 Not Found
+
+block content
+	- req = JSON.parse(reqJSON)
+	.row
+		.col-md-offset-1
+			h1 404 Not Found
+			p There is no such thing
+			pre= JSON.stringify(req.headers, null, 2)
