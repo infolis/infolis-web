@@ -237,7 +237,7 @@ Entity
 		@context
 			dc:description "TODO"
 		refMany infolis:TextualReference
-	infolisFile
+	file
 		@context
 			dc:description "The InfolisFile that manifests this entity"
 		refOne infolis:InfolisFile
