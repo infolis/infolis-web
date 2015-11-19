@@ -10,53 +10,77 @@ else if typeof self isnt 'undefined'
 else
 	exp = module.exports
 
-_noop = ->
 
-_onErrorDefault = (err) ->
-	if not err
-		console.error "There was an error "
-	if err.status is 400
-		errObj = JSON.parse(err.response.text)
-		if 'cause' of errObj
-			console.error errObj.cause
-		else
-			console.error errObj
-	else
-		console.error err
-
-_onSuccessDefault = (res) ->
-	console.log 'YAY', res
-
-_onProgressDefault = (ev) ->
-	console.log ev
 
 _requireArg = (arg) -> "Must provide '#{arg}' argument"
 
-exp.InfolinkClient = class InfolinkClient
+class Bootstrap
 
-	constructor: (@baseURI, @apiPrefix, @schemaPrefix) ->
+	createProgressBar : (uri, selector) ->
+		inner = $("<div>")
+			.addClass("progress-bar")
+			.attr("role", "progressbar")
+			.css('margin-bottom', '0')
+			.css('width', '0')
+		bar = $("<div>")
+			.addClass("progress")
+			.attr('data-uri', uri)
+			.css('margin-bottom', '0')
+			.append(inner)
+		$(selector).append(bar)
+		return inner
+
+	setProgressBar : (uri, percent) -> @getProgressBar(uri).css('width', percent + "%")
+	getProgressBar : (uri) -> $(".progress[data-uri='#{uri}'] .progress-bar")
+
+class InfolinkClient
+
+	constructor: (opts = {}) ->
+		@[k] = v for k,v of opts
 		@baseURI or= 'http://infolis.gesis.org/infolink'
 		@apiPrefix or= '/api'
 		@schemaPrefix or= '/schema'
+		@pollInterval = 1000
+		@debug = false
 		# @io = require('socket.io-client').connect(@baseURI)
 		# @io.connect()
 		# @io.emit('ready')
 		# @io.on 'talk', (data) ->
 		#     console.log(data)
 
+	defaultHandler:
+		no_op: ->
+		started: (res)  -> console.log 'STARTED', res
+		success: (res)  -> console.log 'SUCCESS', res
+		complete: (res) -> console.log 'COMPLETE', res
+		progress: (ev)  -> console.log 'PROGRESS', ev
+		error: (err) ->
+			if not err
+				return console.error "ERROR"
+			if 'err' of err
+				err = err.err
+			if err.status is 400
+				while 'response' of err
+					err = JSON.parse err.response.text
+				if 'cause' of err
+					if 'errors' of err.cause
+						return console.error 'ERROR (errors)', err.cause.errors
+					return console.error 'ERROR (cause)', err.cause
+			return console.error 'ERROR', err
 
-	_apiUrl: (endpoint) -> "#{@baseURI}#{@apiPrefix}/#{endpoint}"
+
+	apiUrl: (endpoint) -> "#{@baseURI}#{@apiPrefix}/#{endpoint}"
 
 	syntaxHighlight: (opts = {}) ->
-		onError   = opts.onError   or _onErrorDefault
-		onSuccess = opts.onSuccess or _onSuccessDefault
+		onError   = opts.onError   or @defaultHandler.error
+		onSuccess = opts.onSuccess or @defaultHandler.success
 		for required in ['text', 'mimetype']
 			if required not of opts
 				return onError _requireArg required
 		text = opts.text
 		mimetype = opts.mimetype
 		Request
-			.post(@_apiUrl 'syntax-highlight')
+			.post(@apiUrl 'syntax-highlight')
 			.send { text, mimetype }
 			.end (err, res) ->
 				if err
@@ -68,37 +92,72 @@ exp.InfolinkClient = class InfolinkClient
 
 	execute: (opts) ->
 		if typeof opts isnt 'object'
-			return _onErrorDefault _requireArg 'opts'
-		onError    = opts.onError    or _onErrorDefault
-		onStarted  = opts.onStarted  or _noop
-		onSuccess  = opts.onSuccess  or _onSuccessDefault
-		onProgress = opts.onProgress or _onProgressDefault
-		for required in ['text', 'mimetype']
+			return @defaultHandler.error _requireArg 'opts'
+		onError    = opts.onError    or @defaultHandler.error
+		onStarted  = opts.onStarted  or @defaultHandler.no_op
+		onSuccess  = opts.onSuccess  or @defaultHandler.success
+		onProgress = opts.onProgress or @defaultHandler.progress
+		onComplete = opts.onComplete or @defaultHandler.complete
+		for required in ['execution']
 			if required not of opts
 				return onError _requireArg required
-		# TODO
+		if typeof opts.execution isnt 'object'
+			return onError "Execution not an object: #{opts.execution}"
+		for required in ['algorithm']
+			if required not of opts.execution
+				return onError _requireArg 'algorithm'
+		# TODO verify opts.execution per-algorithm
+		execution = opts.execution
+		Request
+			.post(@apiUrl 'execute')
+			.set 'Accept', 'application/json'
+			.send execution
+			.end (err, res) =>
+				if err
+					return onError {execution, err}
+				uri = res.headers.location
+				onStarted {execution, uri}
+				@pollExecutionStatus uri, { onProgress, onComplete }
+
+	pollExecutionStatus : (uri, opts) ->
+		pollId = null
+		poll = ->
+			Request
+				.get(uri)
+				.set 'Accept', 'application/json'
+				.end (err, res) ->
+					if err
+						clearTimeout pollId
+						return opts.onComplete err
+					execution = res.body
+					if execution.status in ['FINISHED','FAILED']
+						clearTimeout pollId
+						return opts.onComplete null, execution
+					return opts.onProgress execution
+		pollId = setTimeout poll, @pollInterval
 
 	uploadFiles: (opts = {}) ->
 		if typeof opts isnt 'object'
 			opts = selector: opts
-		onError    = opts.onError    or _onErrorDefault
-		onStarted  = opts.onStarted  or _noop
-		onSuccess  = opts.onSuccess  or _onSuccessDefault
-		onProgress = opts.onProgress or _onProgressDefault
+		onError    = opts.onError    or @defaultHandler.error
+		onStarted  = opts.onStarted  or @defaultHandler.started
+		onSuccess  = opts.onSuccess  or @defaultHandler.success
+		onProgress = opts.onProgress or @defaultHandler.progress
+		onComplete = opts.onComplete or @defaultHandler.complete
 		if 'selector' not of opts
 			return onError _requireArg 'selector'
 		fileList = $(opts.selector).get(0).files
 		if not fileList
 			return onError 'No files specified'
 		fileArray = (file for file in fileList)
-		Async.each fileArray, (file, done) =>
+		Async.map fileArray, (file, done) =>
 			fileIdx = fileArray.indexOf(file)
 			onStarted {fileIdx, file}
 			formData = new FormData()
 			formData.append 'file', file
 			formData.append 'mediaType', file.type
 			Request
-				.post(@_apiUrl 'upload')
+				.post(@apiUrl 'upload')
 				.set 'accept', 'application/json'
 				.send(formData)
 				.on 'progress', (ev) ->
@@ -107,6 +166,28 @@ exp.InfolinkClient = class InfolinkClient
 					onProgress ev
 				.end (err, res) ->
 					if err
-						return onError {fileIdx, err, file}
+						onError {fileIdx, err, file}
+						return done err
 					uri = res.headers.location
-					return onSuccess {fileIdx, file, uri}
+					onSuccess {fileIdx, file, uri}
+					done null, uri
+		, (err, uris) ->
+			if err
+				return onError arguments
+			return onComplete {uris}
+
+	extractText: (inputFiles, opts) ->
+		opts.execution =
+			algorithm: 'io.github.infolis.algorithm.TextExtractor'
+			inputFiles: inputFiles
+		return @execute opts
+
+	applyPatterns: (inputFiles, patterns, opts) ->
+		opts.execution =
+			algorithm: 'io.github.infolis.algorithm.PatternApplier'
+			inputFiles: inputFiles
+			patterns: patterns
+		return @execute opts
+
+exp.Bootstrap = new Bootstrap()
+exp.InfolinkClient = InfolinkClient

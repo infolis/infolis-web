@@ -1,38 +1,56 @@
 extends ./layout.jade
 
-block title 
-	title Datasetify your PDFs
+block title
+	| Datasetify your PDFs
+
+block help
+	p Demo, Demon, Demonstrate
 
 block libs
+	style.
+		.progress-bar a {
+			color:white;
+			font-size: 1.5em;
+			font-weight-bold;
+		}
 	script
 		:coffee-script
+			extractText = (ev) ->
+				infolinkClient.extractText ev.uris, {
+					onStarted : (ev) ->
+						bar = Bootstrap.createProgressBar(ev.uri, '#text-extractor-progress')
+						bar.append($("<a>").append(ev.uri))
+					onProgress : (ev) ->
+						console.log ev
+						Bootstrap.getProgressBar(ev.uri, '#text-extractor-progress').text(ev.uri)
+						$('#text-extractor-progress .progress-bar').css('width', ev.progress + '%')
+					onComplete : (err, execution) ->
+						console.log arguments
+						$('#text-execution-uri').append(
+							$("<div>").attr('class', "text-execution-#{execution._id}"))
+						$('#text-extractor-progress .progress-bar').css('width', execution.progress + '%')
+				}
+			uploadFiles = ->
+				$('.demo').empty()
+				infolinkClient.uploadFiles {
+					selector: "#file"
+					onStarted: (ev) ->
+						bar = Bootstrap.createProgressBar("file-#{ev.fileIdx}", '#upload-progress')
+						bar.html($("<a>")
+							.css('color', 'white')
+							.html(ev.file.name))
+					onProgress: (ev) ->
+						Bootstrap.setProgressBar("file-#{ev.fileIdx}", ev.percent)
+					onError: (ev) ->
+						Bootstrap.getProgressBar("file-#{ev.fileIdx}").addClass('progress-bar-danger')
+					onSuccess: (ev) ->
+						bar = Bootstrap.getProgressBar("file-#{ev.fileIdx}")
+						bar.addClass('progress-bar-success')
+						$("a", bar).attr('href', ev.uri)
+					onComplete: extractText
+				}
 			$ ->
-				$('#foo').on 'click', () ->
-					$('#file-progress-bar').empty()
-					$('#file-uri').empty()
-					infolinkClient.uploadFiles {
-						selector: "#file"
-						onStarted: (ev) ->
-							$('#file-progress-bar').append(
-								$("<div>")
-									.addClass("progress")
-									.css('margin-bottom', '0').append(
-										$("<div>")
-											.attr('class', "progress-bar file-#{ev.fileIdx}")
-											.attr("role", "progressbar")
-											.css('margin-bottom', '0')
-											.css('width', '0')
-											.text(ev.file.name)))
-							$("#file-uri").append(
-								$("<div>").attr('class', "file-#{ev.fileIdx}"))
-						onProgress: (ev) ->
-							$("#file-progress-bar .file-#{ev.fileIdx}").css('width', ev.percent + "%")
-						onError: (ev) ->
-							$("#file-progress-bar .file-#{ev.fileIdx}").addClass('progress-bar-danger')
-						onSuccess: (ev) ->
-							$("#file-progress-bar .file-#{ev.fileIdx}").addClass('progress-bar-success')
-							$("#file-uri .file-#{ev.fileIdx}").html $('<a>').attr('href', ev.uri).html(ev.uri)
-					}
+				$('#foo').on 'click', uploadFiles
 
 block content
 	.row
@@ -47,7 +65,11 @@ block content
 					input.form-control.btn.btn-success#foo(type="button",value="Analyze")
 	.row
 		.col-md-2 Upload Progress
-		.col-md-8#file-progress-bar
+		.col-md-8.demo#upload-progress
 	.row
-		.col-md-2 File URI
-		.col-md-8#file-uri
+		.col-md-2 Text Extraction Progress
+		.col-md-8.demo#text-extractor-progress
+	.row
+		.col-md-2 Text Extraction Output Files
+		.col-md-8.demo
+			ul#text-execution-output-uri
