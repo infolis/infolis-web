@@ -45,8 +45,6 @@ module.exports = (app, opts) ->
 					description: 'Upload failed'
 				503:
 					description: 'Backend is down.'
-				503:
-					description: 'Backend is down.'
 				500:
 					description: 'Backend failed.'
 
