@@ -9,7 +9,7 @@ module.exports = (app, opts) ->
 
 	app.swagger '/api/execute',
 		post:
-			tags: ['helper']
+			tags: ['essential']
 			summary: "Post an execution and run it on the backend."
 			consumes: ['application/json']
 			parameters: [

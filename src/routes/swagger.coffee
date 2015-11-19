@@ -12,12 +12,12 @@ module.exports = (app, opts) ->
 			title: 'Infolis YAY'
 		tags: [
 			{
-				name: 'rest-ld-all'
-				description: 'RESTfully access the data model'
+				name: 'advanced'
+				description: "Statistics and Tools"
 			}
 			{
-				name: 'helper'
-				description: "Helpers. RESTful they ain't but useful they ain'tn't."
+				name: 'essential'
+				description: "The Essential API calls to make use of InFoLiS"
 			}
 		]
 		paths: app.swagger()

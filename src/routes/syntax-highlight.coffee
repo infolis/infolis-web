@@ -8,7 +8,7 @@ module.exports = (app, opts) ->
 
 	app.swagger '/api/syntax-highlight', 
 		post:
-			tags: ['helper']
+			tags: ['advanced']
 			summary: "Post text and receive syntax highlighted text"
 			consumes: ['application/json']
 			produces: ['text/html']

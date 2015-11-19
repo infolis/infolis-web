@@ -11,7 +11,7 @@ module.exports = (app, opts) ->
 	
 	app.swagger '/api/upload',
 		post:
-			tags: ['helper']
+			tags: ['essential']
 			summary: "Upload a file"
 			consumes: ['multipart/form-data']
 			parameters: [

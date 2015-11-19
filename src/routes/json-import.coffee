@@ -70,7 +70,7 @@ module.exports = (app, opts) ->
 
 	app.swagger '/api/json-import',
 		post:
-			tags: ['helper']
+			tags: ['advanced']
 			summary: 'Import a database dump'
 			responses:
 				201:

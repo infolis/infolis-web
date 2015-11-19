@@ -10,7 +10,7 @@ module.exports = (app, opts) ->
 
 	app.swagger '/api/stats',
 		get:
-			tags: ['helper']
+			tags: ['advanced']
 			summary: 'Get some statistics about the data store'
 			responses:
 				200: description: "Retrieved the statistics"
@@ -35,7 +35,7 @@ module.exports = (app, opts) ->
 
 	app.swagger '/api/monitor',
 		get:
-			tags: ['helper']
+			tags: ['advanced']
 			summary: 'Get the status of executions live from the backend'
 			responses:
 				200: description: "Retrieved the executions by status"
