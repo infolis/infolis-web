@@ -133,22 +133,43 @@ Execution
 		type String
 	phraseSlop
 		@context
-			dc:description "Phrase Slop for Lucene query parser."
+			dc:description """
+				The slop for phrases used by the Lucene query parser. 
+				It determines how similar two phrases must be to be matched.
+				If zero, then only exact phrase matches, if 10 up to 10 edit
+				operations may be carried out.
+				Default: 10 
+				"""
 		index: true
 		type: Number
 	upperCaseConstraint
 		@context
-			dc:description "Indicates whether we require a term to contain at least one upper case character."
+			dc:description """
+				Indicates whether we require a term to contain
+				at least one upper case character.
+				The idea behind is that especially a study name is supposed to be a 
+				named entity and thus should contain at least one upper-case character.
+				Default: false 
+				"""
 		index: true
 		type Boolean
 	allowLeadingWildcards
 		@context
-			dc:description "Whether leading wildcards are allowed."
+			dc:description """
+				Determines whether the Lucene query parser is allowed to
+				use leading wildcard characters.
+				Default: true   
+				"""
 		index: true
 		type Boolean
 	maxClauseCount
 		@context
-			dc:description "Maximum Numb"
+			dc:description """
+				The  maximum number of clauses permitted per BooleanQuery (Lucence search).
+				A boolean query represents a query that matches documents
+				matching boolean combinations of other queries.
+				Default: Integer max value
+				"""
 		index: true
 		type: Number
 	searchTerm
@@ -163,11 +184,21 @@ Execution
 		type String
 	searchQuery
 		@context
-			dc:description "TODO"
+			dc:description """
+				Any kind of search query that can be used within the algorithms.
+				For example, it represtens the search query which is used
+				to perform a search in different repositories to find
+				fitting research data.
+				"""
 		refOne infolis:SearchQuery
 	textualReferences
 		@context
-			dc:description "References found"
+			dc:description """
+				A textual reference represents any kind of reference that
+				can be find in a text, e.g. a term like a study name has been found in a publication.
+				Besides the text and the term that has been found in the text,
+				it also contains the context, i.e. where the term has been detected.
+				"""
 		refMany infolis:TextualReference
 	matchingFiles
 		@context
@@ -175,7 +206,10 @@ Execution
 		refMany infolis:InfolisFile
 	patterns
 		@context
-			dc:description "Generated patterns"
+			dc:description """
+				A list of patterns (internally expressed as regular expression) 
+				that can be applied on texts, e.g. to find links to research data.
+				"""
 		refMany infolis:InfolisFile
 	seeds
 		@context
@@ -183,7 +217,11 @@ Execution
 		type ArrayOfStrings
 	maxIterations
 		@context
-			dc:description "Maximum number of iterations."
+			dc:description """
+				Maximum number of iterations during the bootstrapping process.
+				A high number of iterations can lead to a increased run time.       
+				Default: 10
+				"""
 		index: true
 		type Number
 	reliabilityThreshold
@@ -210,6 +248,14 @@ Execution
 		@context
 			dc:description "List of QueryService to use"
 		refMany infolis:QueryService
+	queryServiceClasses
+		@context
+			dc:description "Instead of a using a list of QueryService URIs(queryServices), the Java classes of the QueryServices can be used."
+		type: String
+		enum: [
+			'io.github.infolis.datasetMatcher.DaraHTMLQueryService'
+			'io.github.infolis.datasetMatcher.DaraSolrQueryService'
+		]
 	searchResults
 		@context
 			dc:description "Search results"
@@ -235,7 +281,7 @@ Entity
 		index: true
 	identifier
 		@context
-			dc:description "TODO"
+			dc:description "Identifier of the entity"
 		type String
 		index: true
 	tags
@@ -245,7 +291,7 @@ Entity
 		index: true
 	textualReferences
 		@context
-			dc:description "TODO"
+			dc:description "Textual references in which the entity refers to"
 		refMany infolis:TextualReference
 	file
 		@context
@@ -259,12 +305,12 @@ SearchResult
 			@id infolis:Entity
 	name
 		@context
-			dc:description "TODO"
+			dc:description "Name of the search result"
 		type String
 		index: true
 	identifier
 		@context
-			dc:description "TODO"
+			dc:description "Identifier of the search result"
 		type String
 		index: true
 	tags
@@ -274,7 +320,7 @@ SearchResult
 		index: true
 	textualReferences
 		@context
-			dc:description "TODO"
+			dc:description "Textual references where the search results origin from"
 		refMany TextualReference
 	listIndex
 		@context
@@ -297,11 +343,11 @@ SearchResult
 		type String
 	titles
 		@context
-			dc:description "TODO"
+			dc:description "All titles that have been found as names, can also be from different lanuages"
 		type ArrayOfStrings
 	numericInformation
 		@context
-			dc:description "TODO"
+			dc:description "Any kind of numeric information that we can extract from a search result, e.g. years, versions etc."
 		type ArrayOfStrings
 
 InfolisPattern
@@ -313,25 +359,25 @@ InfolisPattern
 		type String
 	luceneQuery
 		@context
-			dc:description "TODO"
+			dc:description "The Lucene query that can be used to query an index"
 		type String
 		index: true
 	minimal
 		@context
-			dc:description "TODO"
+			dc:description "Minimal notation of the pattern"
 		type String
 	words
 		@context
-			dc:description "TODO"
+			dc:description "The words surrounding the pattern, used to induce general patterns"
 		type ArrayOfStrings
 	threshold
 		@context
-			dc:description "TODO"
+			dc:description "Threshold which is applied to only filter relevant patterns"
 		type Number
 		index: true
 	reliability
 		@context
-			dc:description "TODO"
+			dc:description "Indicates how reliable a pattern is"
 		type Number
 		index: true
 	tags
