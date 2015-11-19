@@ -61,6 +61,7 @@ Execution
 			'io.github.infolis.algorithm.LocalResolver'
 			'io.github.infolis.algorithm.MetaDataExtractor'
 			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
+			'io.github.infolis.algorithm.RegexSearcher'
 			'io.github.infolis.algorithm.SearchTermPosition'
 			'io.github.infolis.algorithm.TagResolver'
 			'io.github.infolis.algorithm.VersionPatternApplier'
