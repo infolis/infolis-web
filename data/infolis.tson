@@ -230,7 +230,7 @@ Entity
 		index: true
 	tags
 		@context
-			dc:description "Tags of this entity"
+			dc:description "Tags to assign to this entity"
 		type ArrayOfStrings
 		index: true
 	textualReferences
@@ -259,7 +259,7 @@ SearchResult
 		index: true
 	tags
 		@context
-			dc:description "TODO"
+			dc:description "tags to assign to this entity"
 		type ArrayOfStrings
 		index: true
 	textualReferences
@@ -326,7 +326,7 @@ InfolisPattern
 		index: true
 	tags
 		@context
-			dc:description "Tags of this pattern"
+			dc:description "Tags to assign to this pattern"
 		type ArrayOfStrings
 		index: true
 
@@ -431,7 +431,7 @@ TextualReference
 
 TagMap
 	@context
-		dc:description "Class for declaring which tags to search for matching InfolisFiles or InfolisPatterns"
+		dc:description "Class for selecting InfolisFiles or InfolisPatterns based on their tags"
 	infolisFileTags
 		@context
 			dc:description "Find InfolisFiles with any of these tags"
