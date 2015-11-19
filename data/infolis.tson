@@ -424,7 +424,7 @@ TextualReference
 			dc:description "The term"
 		type: String
 		index: true
-	file
+	textFile
 		@context
 			dc:description "The file this reference came from"
 		refOne: infolis:InfolisFile
