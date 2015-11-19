@@ -381,13 +381,6 @@ InfolisFile
 		type ArrayOfStrings
 		required: no
 		index: true
-	created
-		@context
-			owl:sameAs
-				@id: dc:created
-			dc:description "Timestamp when this File was uploaded"
-		type Date
-		index: true
 
 QueryService
 	@context
