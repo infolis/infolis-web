@@ -484,7 +484,7 @@ TextualReference
 		@context
 			dc:description 'Text right of the term'
 		type: String
-	term
+	reference
 		@context
 			dc:description "The term"
 		type: String
