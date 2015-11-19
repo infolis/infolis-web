@@ -13,6 +13,7 @@ block content
 				tr
 					th Class
 					th Count
+					th Indexed Fields
 					th JSON
 				each stat,cls in stats
 					tr
@@ -20,4 +21,10 @@ block content
 							a(href="/infolink/schema/#{cls}")= cls
 						td
 							a(href="/infolink/api/#{cls[0].toLowerCase() + cls.substring(1)}")= stat.count
-						td= JSON.stringify(stat)
+						td
+							ul
+								each field in stat.indexedFields
+									li
+										a(href="/infolink/schema/#{field}")= field
+						td(style="font-family:monospace; font-size:x-small")
+							= JSON.stringify(stat,null,2)
