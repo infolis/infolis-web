@@ -52,6 +52,9 @@ block libs
 							hljs.highlightBlock e
 						$(".row", $(".swagger-section")).removeClass("row")
 						$(".form-control", $(".swagger-section")).removeClass("form-control").addClass("form-group")
+						$("#essential_post_api_upload_content h4:first-child").hide()
+						$("#essential_post_api_upload_content > p").hide()
+						$("#essential_post_api_upload_content .response-content-type").hide()
 						Docs.expandEndpointListForResource('essential')
 					onFailure: (data) -> console.log 'Unable to Load SwaggerUI'
 					docExpansion: 'none'
