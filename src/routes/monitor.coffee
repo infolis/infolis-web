@@ -19,9 +19,14 @@ module.exports = (app, opts) ->
 		stats = {}
 		Async.forEachOf app.schemo.models, (model, modelName, cb) ->
 			stats[modelName] = {}
-			model.count (err, nr) ->
-				stats[modelName].count = nr
-				cb()
+			model.collection.indexInformation (err, indexInfo) ->
+				stats[modelName].indexedFields = []
+				for k,v of indexInfo
+					continue if v[0][0] is '_id'
+					stats[modelName].indexedFields.push v[0][0]
+				model.count (err, nr) ->
+					stats[modelName].count = nr
+					cb()
 		, (err) ->
 			if Accepts(req).types().length > 0 and Accepts(req).types()[0] is 'text/html'
 				return res.render 'stats', { stats }
