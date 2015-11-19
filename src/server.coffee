@@ -21,6 +21,15 @@ CONFIG = require './config'
 
 log = require('./log')(module)
 
+
+notFoundHandler = (req, res, next) ->
+	res.status 404
+	if Accepts(req).type('text/html')
+		return res.render '404', {reqJSON: StringifySafe(req, null, 2)}
+	else
+		return res.end()
+	next()
+
 errorHandler = (err, req, res, next) ->
 	if typeof err is 'string'
 		err = {'message': err}
@@ -36,14 +45,6 @@ errorHandler = (err, req, res, next) ->
 		return res.render 'error', { err }
 	else
 		res.send StringifySafe err, null, 2
-
-notFoundHandler = (req, res) ->
-	if Accepts(req).type('text/html')
-		return res.render '404', {reqJSON: StringifySafe(req, null, 2)}
-	else
-		res.end()
-
-
 
 accessLogger = Morgan 'combined', stream: Fs.createWriteStream(__dirname + '/../data/logs/access.log', {flags: 'a'})
 accessLoggerDev = Morgan 'dev'
@@ -107,30 +108,32 @@ class InfolisWebservice
 		# Log access
 		@app.use accessLogger
 		@app.use accessLoggerDev
-		for controller in [
-				'header'
-				'restful'
-				'schemo'
-				'upload'
-				'execute'
-				'monitor'
-				'ldf'
-				'swagger'
-				'json-import'
-				'syntax-highlight'
-				'play'
-			]
-			do (controller) =>
-				log.info "Setting up route #{controller}"
-				require("./routes/#{controller}")(@app)
-		# root route
-		@app.get '/', (req, res, next) ->
-			res.status 302
-			res.header 'Location', 'http://infolis.github.io'
-			res.end()
-		# Error handler
-		@app.use errorHandler
-		@app.use notFoundHandler
+		controlers = [
+			'header'
+			'restful'
+			'schemo'
+			'upload'
+			'execute'
+			'monitor'
+			'ldf'
+			'swagger'
+			'json-import'
+			'syntax-highlight'
+			'play'
+		]
+		Async.eachSeries controlers, (controller, done) =>
+			log.info "Setting up route #{controller}"
+			done null, require("./routes/#{controller}")(@app)
+		, (err, next) =>
+			# root route
+			@app.get '/', (req, res, next) ->
+				res.status 302
+				res.header 'Location', 'http://infolis.github.io'
+				res.end()
+			# Error handler
+			@app.use errorHandler
+			# 404 handler
+			@app.use notFoundHandler
 
 	startServer : () ->
 		log.info "Setting up routes"
