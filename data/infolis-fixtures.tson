@@ -1,14 +1,4 @@
 # vim: ft=turtleson ts=2 sw=2 list :
-#
-# This file is the definitive source from which we generate
-#
-#   * the database schema (for Mongoose)
-#   * the ontology (described JSON-LD)
-#   * the REST API (GET/POST/PUT/DELETE /api/MyClass
-#   * the REST API documentation (Swagger)
-#
-
-
 @ns
 	infolis <http://infolis.gesis.org/infolink/schema/>
 	dc      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -28,6 +18,12 @@
 	omnom   <http://onto.dm2e.eu/omnom/>
 	dcat    <http://www.w3.org/ns/dcat#>
 
+@fixtures
+	infolis:Algorithm: [
+		"io.github.infolis.algorithm.TextExtractor":
+			dc:description: "The text extractor"
+	]
+
 @context
 	@id: infolis:
 	dc:description "Infolis Data model"
@@ -37,7 +33,7 @@
 
 Execution
 	@context
-		dc:description "The concrete execution of an Algorithm."
+		dc:description "The concrete execution of an Algorithm"
 		rdfs:subClassOf 
 			@id schema:Action
 		rdfs:seeAlso
@@ -50,7 +46,6 @@ Execution
 		type: String
 		enum: [
 			'io.github.infolis.algorithm.TextExtractor'
-			'io.github.infolis.algorithm.BibliographyExtractor'
 			'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
 			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
 			'io.github.infolis.algorithm.DaraLinker'
@@ -83,14 +78,14 @@ Execution
 		hideFromSwagger: true
 	log
 		@context
-			dc:description "Log messages of this execution."
+			dc:description "Log messages of this execution"
 		type: ArrayOfStrings
 		hideFromSwagger: true
 	startTime
 		@context
 			owl:sameAs schema:startTime
 			@type xsd:date
-			dc:description "Timestamp when execution started."
+			dc:description "Timestamp when execution started"
 		type Date
 		index: true
 		hideFromSwagger: true
@@ -98,13 +93,13 @@ Execution
 		@context
 			owl:sameAs schema:endTime
 			@type xsd:date
-			dc:description "Timestamp when execution ended."
+			dc:description "Timestamp when execution ended"
 		type Date
 		index: true
 		hideFromSwagger: true
 	progress
 		@context
-			dc:description "Numerical progress of the execution in the interval 0-100."
+			dc:description "Numerical progress of the execution in the interval 0-100"
 		type: Number
 		hideFromSwagger: true
 	#
@@ -133,17 +128,17 @@ Execution
 		type String
 	phraseSlop
 		@context
-			dc:description "Phrase Slop for Lucene query parser."
+			dc:description "Phrase Slop for Lucene indexer."
 		index: true
 		type: Number
 	upperCaseConstraint
 		@context
-			dc:description "Indicates whether we require a term to contain at least one upper case character."
+			dc:description "Upper Case Constraint"
 		index: true
 		type Boolean
 	allowLeadingWildcards
 		@context
-			dc:description "Whether leading wildcards are allowed."
+			dc:description "Whether leading wildcards are allowed"
 		index: true
 		type Boolean
 	maxClauseCount
@@ -188,20 +183,9 @@ Execution
 		type Number
 	reliabilityThreshold
 		@context
-			dc:description "Determines which patterns are the relevant ones."
+			dc:description "TODO"
 		index: true
 		type Number
-	bootstrapStrategy
-		@context
-			dc:description "Strategy to use for bootstrapping. Can either be: mergeCurrent, mergeNew, mergeAll, separate, reliability."
-		type: String
-		enum: [
-			'mergeCurrent'
-			'mergeNew'
-			'mergeAll'
-			'separate'
-			'reliability'
-		]
 	links
 		@context
 			dc:description "The found EntityLinks."
@@ -247,7 +231,7 @@ Entity
 		@context
 			dc:description "TODO"
 		refMany infolis:TextualReference
-	file
+	infolisFile
 		@context
 			dc:description "The InfolisFile that manifests this entity"
 		refOne infolis:InfolisFile
@@ -391,6 +375,13 @@ InfolisFile
 		type ArrayOfStrings
 		required: no
 		index: true
+	created
+		@context
+			owl:sameAs
+				@id: dc:created
+			dc:description "Timestamp when this File was uploaded"
+		type Date
+		index: true
 
 QueryService
 	@context
@@ -434,21 +425,7 @@ TextualReference
 			dc:description "The term"
 		type: String
 		index: true
-	textFile
+	file
 		@context
 			dc:description "The file this reference came from"
 		refOne: infolis:InfolisFile
-
-TagMap
-	@context
-		dc:description "Class for declaring which tags to search for matching InfolisFiles or InfolisPatterns"
-	infolisFileTags
-		@context
-			dc:description "Find InfolisFiles with any of these tags"
-		type: ArrayOfStrings
-	infolisPatternTags
-		@context
-			dc:description "Find InfolisPatterns with any of these tags"
-		type: ArrayOfStrings
-
-# EntityLink
