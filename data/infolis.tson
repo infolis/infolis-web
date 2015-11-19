@@ -184,7 +184,14 @@ Execution
 	bootstrapStrategy
 		@context
 			dc:description "Strategy to use for bootstrapping. Can either be: mergeCurrent, mergeNew, mergeAll, separate, reliability."
-		type BootStrapStrategy
+		type: String
+		enum: [
+			'mergeCurrent'
+			'mergeNew'
+			'mergeAll'
+			'separate'
+			'reliability'
+		]
 	links
 		@context
 			dc:description "The found EntityLinks."
@@ -197,19 +204,6 @@ Execution
 		@context
 			dc:description "Search results"
 		refMany infolis:SearchResult
-
-BootstrapStrategy
-		@context
-			dc:escription:"The strategies for the bootstrapping algorithm."
-		type: String
-		enum: [
-			'mergeCurrent'
-			'mergeNew'
-			'mergeAll'
-			'separate'
-			'reliability'
-		]
-		index: true
 
 SearchQuery
 	@context
