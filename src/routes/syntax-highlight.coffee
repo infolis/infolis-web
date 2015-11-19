@@ -29,18 +29,18 @@ module.exports = (app, opts) ->
 					description: 'Successfully highlighted'
 
 	mimetype2syntax =
-		'application/json':             'javascript'
-		'application/ld+json':          'javascript'
-		'application/n3+json':          'javascript'
-		'application/rdf+json':         'javascript'
-		'application/rdf-triples+json': 'javascript'
-		'application/rdf-triples':      'n3'
-		'application/x-turtle':         'n3'
-		'text/rdf+n3':                  'n3'
-		'application/trig':             'n3'
-		'text/turtle':                  'n3'
-		'application/nquads':           'n3'
-		'application/ntriples':         'n3'
+		'application/json':             'json'
+		'application/ld+json':          'json'
+		'application/n3+json':          'json'
+		'application/rdf+json':         'json'
+		'application/rdf-triples+json': 'json'
+		'application/rdf-triples':      'turtleson'
+		'application/x-turtle':         'turtleson'
+		'text/rdf+n3':                  'turtleson'
+		'application/trig':             'turtleson'
+		'text/turtle':                  'turtleson'
+		'application/nquads':           'turtleson'
+		'application/ntriples':         'turtleson'
 		'application/rdf+xml':          'xml'
 		'text/xml':                     'xml'
 		'text/html':                    'html'
@@ -50,11 +50,11 @@ module.exports = (app, opts) ->
 		mimetype = req.body.mimetype
 		if not mimetype or mimetype is ''
 			mimetype = 'application/json'
-		syntax = mimetype2syntax[mimetype] or 'javascript'
+		syntax = mimetype2syntax[mimetype] or 'json'
 		log.debug "highlighting format #{mimetype} as #{syntax}"
 		opts = {
 			syntax: syntax
-			colorscheme: 'legiblelight'
+			colorscheme: 'chrysoprase'
 			number_lines: 0
 			use_css: 0
 			pre_only: 1
