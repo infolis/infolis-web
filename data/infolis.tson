@@ -428,3 +428,16 @@ TextualReference
 		@context
 			dc:description "The file this reference came from"
 		refOne: infolis:InfolisFile
+
+TagMap
+	@context
+		dc:description "Class for declaring which tags to search for matching InfolisFiles or InfolisPatterns"
+	infolisFileTags
+		@context
+			dc:description "Find InfolisFiles with any of these tags"
+		type: ArrayOfStrings
+	infolisPatternTags
+		@context
+			dc:description "Find InfolisPatterns with any of these tags"
+		type: ArrayOfStrings
+
