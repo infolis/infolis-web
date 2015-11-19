@@ -8,8 +8,8 @@
     "compile": "coffee -c -o lib src",
     "client": "browserify -t coffeeify -o public/client.js src-client/index.coffee",
     "watch-client": "nodemon -w src-client -e 'coffee' --exec 'npm run client'",
-    "clean": "rm -r apidocs lib ; true",
-    "serve": "cd node_modules/express-jsonld/;npm run compile;cd -;nodemon src/server.coffee -w src -w data/infolis.tson -w ../mongoose-jsonld/src -w ../express-jsonld/src",
+    "start": "npm run rebuild-deps; supervisor -w src/,data/infolis.tson,../jsonld-rapper/src src/server.coffee",
+    "rebuild-deps": "cd node_modules/express-jsonld/;npm run compile;cd -;",
     "mongo": "mongod --dbpath data/mongodb --port 27018",
     "run": "npm run mongo & npm run serve",
     "prepublish": "npm run compile"
@@ -42,6 +42,7 @@
     "morgan": "^1.6.1",
     "multiparty": "^4.1.1",
     "superagent": "^1.4.0",
+    "supervisor": "^0.9.1",
     "swagger-ui": "^2.1.3",
     "tson": "^0.0.6",
     "vim2html": ">=0.0.6"
