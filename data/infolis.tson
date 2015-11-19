@@ -1,4 +1,4 @@
-# vim: ft=turtleson ts=2 sw=2 list :
+# vim: ft=turtleson ts=2 sw=2 list fdm=indent :
 #
 # This file is the definitive source from which we generate
 #
@@ -214,6 +214,10 @@ Execution
 		@context
 			dc:description "Search results"
 		refMany infolis:SearchResult
+	tagMap
+		@context
+			dc:description "The set of tags to search for"
+		refOne infolis:TagMap
 
 SearchQuery
 	@context
