@@ -49,19 +49,20 @@ Execution
 		index: true
 		type: String
 		enum: [
-			'io.github.infolis.algorithm.TextExtractor'
-			'io.github.infolis.algorithm.BibliographyExtractor'
-			'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
-			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
-			'io.github.infolis.algorithm.DaraLinker'
 			'io.github.infolis.algorithm.ApplyPatternAndResolve'
+			'io.github.infolis.algorithm.PatternApplier'
+			'io.github.infolis.algorithm.BibliographyExtractor'
+			'io.github.infolis.algorithm.TextExtractor'
+			'io.github.infolis.algorithm.DaraLinker'
 			'io.github.infolis.algorithm.FederatedSearcher'
+			'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
 			'io.github.infolis.algorithm.Indexer'
 			'io.github.infolis.algorithm.Learner'
 			'io.github.infolis.algorithm.LocalResolver'
 			'io.github.infolis.algorithm.MetaDataExtractor'
-			'io.github.infolis.algorithm.PatternApplier'
+			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
 			'io.github.infolis.algorithm.SearchTermPosition'
+			'io.github.infolis.algorithm.TagResolver'
 			'io.github.infolis.algorithm.VersionPatternApplier'
 		]
 	status
@@ -273,7 +274,6 @@ Execution
 		@context
 			dc:description "Find InfolisPatterns with any of these tags"
 		type: ArrayOfStrings
-
 
 SearchQuery
 	@context
