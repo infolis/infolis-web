@@ -417,7 +417,6 @@ InfolisFile
 		index: true
 	fileName
 		@context
-			@type @id
 			owl:sameAs
 				@id omnom:fileName
 		type String
