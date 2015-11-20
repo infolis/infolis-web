@@ -40,8 +40,6 @@ Execution
 		dc:description "The concrete execution of an Algorithm."
 		rdfs:subClassOf 
 			@id schema:Action
-		rdfs:seeAlso
-			@id: 'infolis:Algorithm'
 	algorithm
 		@context
 			dc:description "Java class of the algorthim which is supposed to be executed within this execution."
