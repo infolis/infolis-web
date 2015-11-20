@@ -500,6 +500,11 @@ TextualReference
 		@context
 			dc:description "The pattern that extracted this reference"
 		refOne infolis:InfolisPattern
+	term
+		@context
+			dc:description "TODO"
+		index: true
+		type String
 
 EntityLink
 	@context
