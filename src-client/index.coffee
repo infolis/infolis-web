@@ -10,8 +10,6 @@ else if typeof self isnt 'undefined'
 else
 	exp = module.exports
 
-
-
 _requireArg = (arg) -> "Must provide '#{arg}' argument"
 
 class Bootstrap
@@ -32,6 +30,20 @@ class Bootstrap
 
 	setProgressBar : (uri, percent) -> @getProgressBar(uri).css('width', percent + "%")
 	getProgressBar : (uri) -> $(".progress[data-uri='#{uri}'] .progress-bar")
+
+class Utils
+
+	@replaceExtension : (fname, ext) ->
+		fname.substring(0, fname.lastIndexOf(".")+1) + ext
+
+	@lastUriSegment : (uri) ->
+		if uri.indexOf('#') > -1
+			return uri.substr(uri.lastIndexOf('#') + 1)
+		else if uri.indexOf('/') > -1
+			return uri.substr(uri.lastIndexOf('/') + 1)
+		else
+			return uri
+
 
 class InfolinkClient
 
@@ -116,7 +128,8 @@ class InfolinkClient
 				if err
 					return onError {execution, err}
 				uri = res.headers.location
-				onStarted {execution, uri}
+				_id = Utils.lastUriSegment(uri)
+				onStarted {execution, uri, _id}
 				@pollExecutionStatus uri, { onProgress, onComplete }
 
 	pollExecutionStatus : (uri, opts) ->
@@ -128,11 +141,14 @@ class InfolinkClient
 				.end (err, res) ->
 					if err
 						clearTimeout pollId
-						return opts.onComplete err
+						execution = {err, uri}
+						opts.onProgress execution
+						return opts.onComplete execution
 					execution = res.body
 					if execution.status in ['FINISHED','FAILED']
 						clearTimeout pollId
-						return opts.onComplete null, execution
+						opts.onProgress execution
+						return opts.onComplete execution
 					return opts.onProgress execution
 		pollId = setTimeout poll, @pollInterval
 
@@ -191,3 +207,4 @@ class InfolinkClient
 
 exp.Bootstrap = new Bootstrap()
 exp.InfolinkClient = InfolinkClient
+exp.Utils = Utils

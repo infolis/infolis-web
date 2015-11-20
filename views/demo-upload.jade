@@ -8,49 +8,13 @@ block help
 
 block libs
 	style.
+		.progress-bar,
 		.progress-bar a {
-			color:white;
-			font-size: 1.5em;
+			color:white !important;
+			font-size: 1em;
 			font-weight-bold;
 		}
-	script
-		:coffee-script
-			extractText = (ev) ->
-				infolinkClient.extractText ev.uris, {
-					onStarted : (ev) ->
-						bar = Bootstrap.createProgressBar(ev.uri, '#text-extractor-progress')
-						bar.append($("<a>").append(ev.uri))
-					onProgress : (ev) ->
-						console.log ev
-						Bootstrap.getProgressBar(ev.uri, '#text-extractor-progress').text(ev.uri)
-						$('#text-extractor-progress .progress-bar').css('width', ev.progress + '%')
-					onComplete : (err, execution) ->
-						console.log arguments
-						$('#text-execution-uri').append(
-							$("<div>").attr('class', "text-execution-#{execution._id}"))
-						$('#text-extractor-progress .progress-bar').css('width', execution.progress + '%')
-				}
-			uploadFiles = ->
-				$('.demo').empty()
-				infolinkClient.uploadFiles {
-					selector: "#file"
-					onStarted: (ev) ->
-						bar = Bootstrap.createProgressBar("file-#{ev.fileIdx}", '#upload-progress')
-						bar.html($("<a>")
-							.css('color', 'white')
-							.html(ev.file.name))
-					onProgress: (ev) ->
-						Bootstrap.setProgressBar("file-#{ev.fileIdx}", ev.percent)
-					onError: (ev) ->
-						Bootstrap.getProgressBar("file-#{ev.fileIdx}").addClass('progress-bar-danger')
-					onSuccess: (ev) ->
-						bar = Bootstrap.getProgressBar("file-#{ev.fileIdx}")
-						bar.addClass('progress-bar-success')
-						$("a", bar).attr('href', ev.uri)
-					onComplete: extractText
-				}
-			$ ->
-				$('#foo').on 'click', uploadFiles
+	script(src="/infolink/demo1.js")
 
 block content
 	.row
@@ -62,14 +26,25 @@ block content
 				.form-group
 					input.form-control#file(type="file",multiple=true)
 				.form-group
-					input.form-control.btn.btn-success#foo(type="button",value="Analyze")
-	.row
-		.col-md-2 Upload Progress
-		.col-md-8.demo#upload-progress
-	.row
-		.col-md-2 Text Extraction Progress
-		.col-md-8.demo#text-extractor-progress
-	.row
-		.col-md-2 Text Extraction Output Files
-		.col-md-8.demo
-			ul#text-execution-output-uri
+					input.form-control.btn.btn-success#start-demo(type="button",value="Analyze")
+	.row.toggleable
+		.col-md-2 Text Progress
+		.col-md-8#upload-progress
+	.row.toggleable
+		.col-md-2 Text Extraction
+		.col-md-8#text-extractor-progress
+	.row.toggleable
+		.col-md-2 Text Files
+		.col-md-8
+			ul#text-output-uri
+	.row.toggleable
+		.col-md-2 Select Tags
+		.col-md-8#select-tags
+			form.form.form-horizontal
+				.form-group.col-md-4
+					select.form-control(name="tag")
+						option(value="ssoar") ssoar
+						option(value="econstor") econstor
+				.form-group.col-md-4
+					input.form-control.btn.btn-primary#apply-Patterns(type="button",value="Apply Patterns")
+
