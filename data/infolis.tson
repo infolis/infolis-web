@@ -63,6 +63,7 @@ Execution
 			'io.github.infolis.algorithm.SearchTermPosition'
 			'io.github.infolis.algorithm.TagResolver'
 			'io.github.infolis.algorithm.VersionPatternApplier'
+			'io.github.infolis.algorithm.Resolver'
 		]
 	status
 		@context
