@@ -253,7 +253,7 @@ Execution
 	queryServiceClasses
 		@context
 			dc:description "Instead of a using a list of QueryService URIs(queryServices), the Java classes of the QueryServices can be used."
-		type: String
+		type: ArrayOfStrings
 		enum: [
 			'io.github.infolis.datasetMatcher.DaraHTMLQueryService'
 			'io.github.infolis.datasetMatcher.DaraSolrQueryService'
