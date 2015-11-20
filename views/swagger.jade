@@ -50,6 +50,7 @@ block libs
 						$('ul.options li:nth-child(3)').hide()
 						$('pre code').each (i, e) ->
 							hljs.highlightBlock e
+						$(".heading h2", $(".swagger-section")).css("margin", "0")
 						$(".row", $(".swagger-section")).removeClass("row")
 						$(".form-control", $(".swagger-section")).removeClass("form-control").addClass("form-group")
 						$("#essential_post_api_upload_content h4:first-child").hide()
