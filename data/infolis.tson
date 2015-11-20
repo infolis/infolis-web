@@ -500,7 +500,7 @@ TextualReference
 		@context
 			dc:description "The pattern that extracted this reference"
 		refOne infolis:InfolisPattern
-	term
+	reference
 		@context
 			dc:description "TODO"
 		index: true
