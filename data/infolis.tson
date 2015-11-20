@@ -333,11 +333,6 @@ SearchResult
 		dc:description "A search result"
 		rdfs:subClassOf
 			@id infolis:Entity
-	name
-		@context
-			dc:description "Name of the search result"
-		type String
-		index: true
 	identifier
 		@context
 			dc:description "Identifier of the search result"
@@ -348,10 +343,6 @@ SearchResult
 			dc:description "tags to assign to this search result"
 		type ArrayOfStrings
 		index: true
-	textualReferences
-		@context
-			dc:description "Textual references where the search results origin from"
-		refMany TextualReference
 	listIndex
 		@context
 			dc:description "Position in the list of search results"
