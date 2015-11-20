@@ -505,22 +505,28 @@ TextualReference
 
 EntityLink
 	@context
-		dc:description "TODO"
+		dc:description """
+			An entity link desribes that two entities are linked, i.e. a publication is linked to the research data that is mentioned in 
+			the publication text.
+			"""
 	fromEntity
 		@context
-			dc:description "TODO"
+			dc:description "The entity from which the link originates from, this is typically the publication"
 		refOne infolis:Entity
 	toEntity
 		@context
-			dc:description "TODO"
+			dc:description "The entity to which is linked, this is typically the research data"
 		refOne infolis:Entity
 	confidence
 		@context
-			dc:description "TODO"
+			dc:description "Describes how likely it is that the link indeed holds"
 		type: Number
 		index: true
 	linkReason
 		@context
-			dc:description "TODO"
+			dc:description """
+				The explanation why the EntityLink has been generated, e.g. the name of the research data has been found in the publication 
+				text.
+				"""
 		type: String
 		index: true
