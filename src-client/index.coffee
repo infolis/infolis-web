@@ -160,6 +160,7 @@ class InfolinkClient
 		onSuccess  = opts.onSuccess  or @defaultHandler.success
 		onProgress = opts.onProgress or @defaultHandler.progress
 		onComplete = opts.onComplete or @defaultHandler.complete
+		tags       = opts.tags or []
 		if 'selector' not of opts
 			return onError _requireArg 'selector'
 		fileList = $(opts.selector).get(0).files
@@ -171,6 +172,7 @@ class InfolinkClient
 			onStarted {fileIdx, file}
 			formData = new FormData()
 			formData.append 'file', file
+			formData.append 'tags', tags.join(',')
 			formData.append 'mediaType', file.type
 			Request
 				.post(@apiUrl 'upload')

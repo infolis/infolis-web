@@ -10,8 +10,12 @@ class Demo1
 
 	uploadFiles: ->
 		self = this
+		tags = []
+		for tag in $("#upload-tags").val().trim().split(/\s*,\s*/)
+			tags.push tag
 		infolinkClient.uploadFiles
 			selector: "#file"
+			tags: tags
 			onStarted: (ev) =>
 				self.reveal("#upload-progress")
 				bar = Bootstrap.createProgressBar("file-#{ev.fileIdx}", '#upload-progress')
