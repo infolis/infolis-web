@@ -180,7 +180,7 @@ function applyPatterns(id) {
 }
 
 $("#upload-learn-pdf button").on('click', function() {
-  uploadFiles("#upload-learn-pdf", learnPdfUris); 
+  uploadFiles("#upload-learn-pdf", learnPdfUris);
 });
 
 $("#convert-learn-pdf button").on('click', function() {
@@ -193,7 +193,7 @@ $("#learning button").on('click', function() {
 });
 
 $("#upload-apply-pdf button").on('click', function() {
-  uploadFiles("#upload-apply-pdf", applyPdfUris); 
+  uploadFiles("#upload-apply-pdf", applyPdfUris);
 });
 
 $("#convert-apply-pdf button").on('click', function() {

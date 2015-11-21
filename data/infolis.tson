@@ -38,7 +38,7 @@
 Execution
 	@context
 		dc:description "The concrete execution of an Algorithm."
-		rdfs:subClassOf 
+		rdfs:subClassOf
 			@id schema:Action
 	algorithm
 		@context
@@ -135,11 +135,11 @@ Execution
 	phraseSlop
 		@context
 			dc:description """
-				The slop for phrases used by the Lucene query parser. 
+				The slop for phrases used by the Lucene query parser.
 				It determines how similar two phrases must be to be matched.
 				If zero, then only exact phrase matches, if 10 up to 10 edit
 				operations may be carried out.
-				Default: 10 
+				Default: 10
 				"""
 		index: true
 		type: Number
@@ -148,9 +148,9 @@ Execution
 			dc:description """
 				Indicates whether we require a term to contain
 				at least one upper case character.
-				The idea behind is that especially a study name is supposed to be a 
+				The idea behind is that especially a study name is supposed to be a
 				named entity and thus should contain at least one upper-case character.
-				Default: false 
+				Default: false
 				"""
 		index: true
 		type Boolean
@@ -159,7 +159,7 @@ Execution
 			dc:description """
 				Determines whether the Lucene query parser is allowed to
 				use leading wildcard characters.
-				Default: true   
+				Default: true
 				"""
 		index: true
 		type Boolean
@@ -208,7 +208,7 @@ Execution
 	patterns
 		@context
 			dc:description """
-				A list of patterns (internally expressed as regular expression) 
+				A list of patterns (internally expressed as regular expression)
 				that can be applied on texts, e.g. to find links to research data.
 				"""
 		refMany infolis:InfolisFile
@@ -220,7 +220,7 @@ Execution
 		@context
 			dc:description """
 				Maximum number of iterations during the bootstrapping process.
-				A high number of iterations can lead to a increased run time.       
+				A high number of iterations can lead to a increased run time.
 				Default: 10
 				"""
 		index: true
@@ -245,9 +245,9 @@ Execution
 		@context
 			dc:description """
 				When resolving the detected meta data by searching in repositories,
-				we need to knwo what we search for. The different strategies are:         
+				we need to knwo what we search for. The different strategies are:
 				title, doi, urn, bibliography.
-				If we chose for example title, we search the meta data within the 
+				If we chose for example title, we search the meta data within the
 				title field in a repository.
 				Default: MetaDataExtractingStrategy.titleStrategy to use for bootstrapping. Can either be: mergeCurrent, mergeNew, mergeAll, separate, reliability.
 				"""
@@ -513,7 +513,7 @@ TextualReference
 EntityLink
 	@context
 		dc:description """
-			An entity link desribes that two entities are linked, i.e. a publication is linked to the research data that is mentioned in 
+			An entity link desribes that two entities are linked, i.e. a publication is linked to the research data that is mentioned in
 			the publication text.
 			"""
 	fromEntity
@@ -532,7 +532,7 @@ EntityLink
 	linkReason
 		@context
 			dc:description """
-				The explanation why the EntityLink has been generated, e.g. the name of the research data has been found in the publication 
+				The explanation why the EntityLink has been generated, e.g. the name of the research data has been found in the publication
 				text.
 				"""
 		type: String

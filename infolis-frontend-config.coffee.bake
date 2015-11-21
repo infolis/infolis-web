@@ -1,4 +1,4 @@
-module.exports = 
+module.exports =
 	baseURI: 'http://infolis.gesis.org/infolink'
 	# baseURI: 'http://localhost:3000'
 	backendURI: 'http://spkosc03.gesis.org:8090/infoLink-1.0/infolis-api'

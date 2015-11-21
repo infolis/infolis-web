@@ -1,4 +1,4 @@
-class Demo1 
+class Demo1
 
 	constructor: () ->
 		$('#start-demo').on 'click', () =>

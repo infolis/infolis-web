@@ -5,7 +5,7 @@ log = require('../log')(module)
 
 module.exports = (app, done) ->
 
-	app.swagger '/api/syntax-highlight', 
+	app.swagger '/api/syntax-highlight',
 		post:
 			tags: ['advanced']
 			summary: "Post text and receive syntax highlighted text"

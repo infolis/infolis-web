@@ -34,7 +34,7 @@
 Execution
 	@context
 		dc:description "The concrete execution of an Algorithm"
-		rdfs:subClassOf 
+		rdfs:subClassOf
 			@id schema:Action
 		rdfs:seeAlso
 			@id: 'infolis:Algorithm'
