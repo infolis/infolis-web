@@ -1,0 +1,5 @@
+{
+  "algorithm": "io.github.infolis.algorithm.MetaDataExtractor",
+  "inputFile": ["http://infolis.gesis.org/infolink/api/infolisFile/84689690-8f84-11e5-8f21-f1fd95251505"],
+  "searchQuery": "http://infolis.gesis.org/infolink/api/searchQuery/a1aa04b0-8f83-11e5-8f21-f1fd95251505"
+}
