@@ -40,7 +40,7 @@ Execution
 			@id: 'infolis:Algorithm'
 	algorithm
 		@context
-			dc:description "Java class of the algorthim which is supposed to be executed within this execution."
+			dc:description "Java class of the algorithm which is supposed to be executed within this execution."
 		required true
 		index: true
 		type: String
@@ -388,7 +388,7 @@ QueryService
 		dc:description "A query service"
 	reliability
 		@context
-			dc:description "The reliablity of this QueryService"
+			dc:description "The reliability of this QueryService"
 		type: Number
 		required: yes
 		index: true
