@@ -195,9 +195,9 @@ class InfolinkClient
 			return onComplete {uris}
 
 	extractText: (inputFiles, opts) ->
-		opts.execution =
-			algorithm: 'io.github.infolis.algorithm.TextExtractor'
-			inputFiles: inputFiles
+		opts.execution or= {}
+		opts.execution.algorithm = 'io.github.infolis.algorithm.TextExtractor'
+		opts.execution.inputFiles = inputFiles
 		return @execute opts
 
 	applyPatterns: (inputFiles, patterns, opts) ->

@@ -4,18 +4,17 @@ class Demo1
 		$('#start-demo').on 'click', () =>
 			@reset()
 			@uploadFiles()
+			@uploadTags = []
+			for tag in $("#upload-tags").val().trim().split(/\s*,\s*/)
+				@uploadTags.push tag
 
 	reset: () ->
 		$(".toggleable").hide()
 
 	uploadFiles: ->
 		self = this
-		tags = []
-		for tag in $("#upload-tags").val().trim().split(/\s*,\s*/)
-			tags.push tag
 		infolinkClient.uploadFiles
 			selector: "#file"
-			tags: tags
 			onStarted: (ev) =>
 				self.reveal("#upload-progress")
 				bar = Bootstrap.createProgressBar("file-#{ev.fileIdx}", '#upload-progress')
@@ -43,6 +42,8 @@ class Demo1
 	extractText: (uris) ->
 		self = this
 		infolinkClient.extractText uris,
+			execution:
+				tags: @uploadTags
 			onStarted : (exec) ->
 				console.log 'Started text extraction', exec
 				self.reveal("#text-extractor-progress")
