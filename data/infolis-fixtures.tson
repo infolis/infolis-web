@@ -388,7 +388,7 @@ QueryService
 		dc:description "A query service"
 	reliability
 		@context
-			dc:description "The reliablity of this QueryService"
+			dc:description "The reliability of this QueryService"
 		type: Number
 		required: yes
 		index: true
