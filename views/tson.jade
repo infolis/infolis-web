@@ -1,0 +1,35 @@
+extends ./layout.jade
+
+block title
+	| InFoLiS Schemo
+
+block help
+	p Statistics Schmatistics
+
+mixin textContent(line)
+	- name = line
+	- name = name.replace(/&nbsp;/g, '')
+	- name = name.replace(/<.>/g, '')
+	- name = name.replace(/<\/.>/g, '')
+	- name = name.replace(/<font [^>]+>/g, '')
+	- name = name.replace(/<\/font>/g, '')
+	if name.indexOf('#') == 0
+		- name = ''
+	a(id=name)
+		!= line + "\n"
+
+block content
+	script
+		:coffee-script
+			$ ->
+				# if window.location.hash is '#Execution'
+	.row
+		.col-md-5
+			h1 TSON
+	.row
+		.col-md-12
+			for line in tson.split('\n')
+				if line.indexOf('<font ') == 0 || line.indexOf('<font ') == 24
+					+ textContent(line)
+				else
+					!= line + "\n"

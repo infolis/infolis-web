@@ -1,0 +1,134 @@
+extends ./layout.jade
+
+block title
+	| Datasetify your PDFs
+
+block help
+	p Demo, Demon, Demonstrate
+
+block libs
+	style.
+		//- .panel .panel-body.outer {
+		//-   padding: 0;
+		//- }
+		.panel {
+			margin-bottom: 0;
+		}
+		.panel.pre,
+		.panel.pre pre{
+			margin: 0;
+		}
+		.panel.pre .panel-body {
+			padding: 0;
+		}
+		.panel-heading span {
+			margin-top: -20px;
+			font-size: 15px;
+		}
+
+	script.
+		function collapse($this) {
+			console.log("collapse", $this);
+			$this.parents('.panel').first().find('.panel-body').first().slideUp();
+			$this.addClass('panel-collapsed');
+			$this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+		}
+		function collapseAll() {
+			$(".panel-heading:not(data-open)").each(function() { collapse($(this)) });
+		}
+		function expandAll() {
+			$(".panel-heading:not(data-open)").each(function() { expand($(this)) });
+		}
+
+		function expand($this) {
+			$this.parents('.panel').first().find('.panel-body').first().slideDown();
+			$this.removeClass('panel-collapsed');
+			$this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+		}
+		$('.panel-heading').on('click', function (e) {
+			var $this = $(this);
+			if ($this.hasClass('panel-collapsed')) {
+				expand($this)
+			} else {
+				collapse($this);
+			}
+		})
+		$("#collapse-all").on('click', collapseAll);
+		$("#expand-all").on('click', expandAll);
+		$(function(){
+			$(".panel-heading").append(
+				$("<span class='pull-right'><i class='glyphicon glyphicon-chevron-up'/></span>")
+			);
+			collapseAll();
+		})
+
+mixin defList(name)
+	ul.list-inline
+		li
+			a(href="/play/tson##{name}") TSON
+		li
+			a(href="/schema/#{name}?format=text/turtle") Turtle
+
+
+mixin clsDesc(clsName, panelOffset)
+	div(class="col-md-#{PANEL_SPAN} panel-md-offset-#{panelOffset}")
+		.panel.panel-default
+			.panel-heading
+				.panel-title
+					h3= clsName
+			.panel-body.outer
+				+ defList(clsName)
+				.panel.panel-default(data-open="")
+					.panel-heading
+						h4.panel-title Description
+					.panel-body
+						= tson[clsName]['@context']['dc:description']
+				.panel.panel-default.pre
+					.panel-heading
+						h4.panel-title
+							code @context
+					.panel-body
+						pre= JSON.stringify(tson[clsName]['@context'], null, 2)
+				.panel.panel-default
+					.panel-heading
+						h4.panel-title Properties
+					.panel-body
+						each propDef,propName in tson[clsName]
+							if propName.indexOf('@') == -1
+								+ propDesc(clsName, propName)
+
+mixin propDesc(clsName, propName)
+	.panel.panel-default
+		.panel-heading
+			.panel-title 
+				h5= propName
+		.panel-body
+			+ defList(propName)
+			.panel-heading
+				h4.panel-title Description
+			.panel-body
+				= tson[clsName][propName]['@context']['dc:description']
+
+
+block content
+	- PER_ROW = 3
+	- PANEL_SPAN = 12 / PER_ROW
+	.row
+		.grid.js-masonry(data-masonry-options='{ "itemSelector": ".grid-item", "columnWidth": 200 }')
+			.col-md-12
+				h2 Explore our data model
+				button.btn#collapse-all Collapse all
+				button.btn#expand-all Expand all
+		each clsName,clsIdx in tsonClasses
+			- panelOffset = clsIdx % PER_ROW
+			if panelOffset == 0
+				.row
+					- panelIdx = clsIdx
+					while panelIdx < clsIdx + PER_ROW
+						- panelIdx += 1
+						- console.log(panelIdx)
+						if tsonClasses[panelIdx]
+							+ clsDesc(tsonClasses[panelIdx], panelOffset)
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js")
+
+
