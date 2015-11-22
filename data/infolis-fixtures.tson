@@ -429,3 +429,7 @@ TextualReference
 		@context
 			dc:description "The file this reference came from"
 		refOne: infolis:InfolisFile
+	mentionsReference
+		@context
+			dc:description "The Entity which belongs to the file "
+		refOne: infolis:Entity
