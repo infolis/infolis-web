@@ -31,7 +31,7 @@ block content
 	.row
 		.col-md-12
 			h2
-				- uptonow = '/infolink/'
+				- uptonow = '/'
 				each segment,idx in title.split('/')
 					if idx > 0
 						| &nbsp;/&nbsp;
@@ -82,17 +82,6 @@ block content
 			#triples-container
 				pre#rdf
 					= rdf
-				div(style="margin-top: 5em")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
-					img(src="/infolink/spinner.gif")
 			script
 				:coffee-script
 					$ ->

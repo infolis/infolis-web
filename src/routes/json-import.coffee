@@ -25,7 +25,7 @@ _postFiles = (origDB, files, callback) ->
 		filePath = files[fileId][0].path
 		mediaType = if /.*txt$/.test(filePath) then 'text/plain' else 'application/pdf'
 		Request
-			.post("/infolink/api/upload")
+			.post("/api/upload")
 			.type('form')
 			.field('mediaType', mediaType)
 			.attach('file', filePath)
@@ -53,7 +53,7 @@ _postResource = (origDB, resourceEndpoint, callback) ->
 	mapping = {}
 	Async.forEachOf resMap, (obj, uuid, done) ->
 		Request
-			.post "/infolink/api/#{resourceEndpoint}"
+			.post "/api/#{resourceEndpoint}"
 			.send obj
 			.end (err, resp) ->
 				if err or resp.status isnt 201

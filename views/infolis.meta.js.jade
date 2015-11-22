@@ -1,10 +1,10 @@
 | // ==UserScript==
 | // @name        Infolis Greasemonkey
-| // @namespace   http://infolis.gesis.org
+| // @namespace   http://#{CONFIG.baseURI}
 | // @description Upload PDF to Infolis
-| // @require     http://infolis.gesis.org/client.js
+| // @require     http://#{CONFIG.baseURI}/client.js
 | // @include     *
-| // @updateURL   http://infolis.gesis.org/play/infolis.user.js
+| // @updateURL   http://#{CONFIG.baseURI}/play/infolis.user.js
 | // @version     1.#{new Date().getTime()}
 | // @grant       GM_xmlhttpRequest
 | // @grant       GM_getValue

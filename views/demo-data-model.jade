@@ -126,7 +126,7 @@ block libs
 mixin resourceLinks(name, def)
 	ul.list-inline.links
 		if tsonClasses.indexOf(name) > -1
-			a(href="/infolink/api#!/rest-ld-#{name[0].toLowerCase() + name.substring(1)}") API
+			a(href="/api#!/rest-ld-#{name[0].toLowerCase() + name.substring(1)}") API
 		li
 			a(href="/api/tson##{name}") TSON
 		li

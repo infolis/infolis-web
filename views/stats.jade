@@ -18,13 +18,13 @@ block content
 				each stat,cls in stats
 					tr
 						td
-							a(href="/infolink/schema/#{cls}")= cls
+							a(href="/schema/#{cls}")= cls
 						td
-							a(href="/infolink/api/#{cls[0].toLowerCase() + cls.substring(1)}")= stat.count
+							a(href="/api/#{cls[0].toLowerCase() + cls.substring(1)}")= stat.count
 						td
 							ul
 								each field in stat.indexedFields
 									li
-										a(href="/infolink/schema/#{field}")= field
+										a(href="/schema/#{field}")= field
 						td(style="font-family:monospace; font-size:x-small")
 							= JSON.stringify(stat,null,2)
