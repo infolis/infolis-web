@@ -100,8 +100,8 @@ class InfolisWebservice
 		# @app.http().io()
 		# Store site information
 		@app.use (req, res, next) ->
-			res.locals.site_api = "http://infolis.gesis.org/infolink"
-			res.locals.site_github = "http://infolis.github.io"
+			res.locals.site_api = CONFIG.site_api
+			res.locals.site_github = CONFIG.site_github
 			if req.query.site_github
 				res.locals.site_github = req.query.site_github
 			next()

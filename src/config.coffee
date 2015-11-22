@@ -19,6 +19,8 @@ C.logging      = {
 	# TODO
 }
 C.colorscheme = 'chrysoprase'
+C.site_api = "http://infolis.gesis.org/infolink"
+C.site_github = "http://infolis.github.io"
 
 loadPath = [
 	['system',      '/etc']
