@@ -20,8 +20,10 @@ module.exports = (app, done) ->
 			stats[modelName] = {}
 			model.collection.indexInformation (err, indexInfo) ->
 				stats[modelName].indexedFields = []
+				console.log indexInfo
 				for k,v of indexInfo
 					continue if v[0][0] is '_id'
+					continue if v[0][0] in stats[modelName].indexedFields
 					stats[modelName].indexedFields.push v[0][0]
 				model.count (err, nr) ->
 					stats[modelName].count = nr

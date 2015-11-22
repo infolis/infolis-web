@@ -37,7 +37,7 @@ var Ab=[G5,_c,md,td,Jd,ne,i0,h0,K$,L$,g0,f$,g$,B_,C_,Xk,mG,JP,a_,b_,G5,G5,G5,G5,
     var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
     var format = options.format === undefined ? "svg" : options.format;
     var engine = options.engine === undefined ? "dot" : options.engine;
-  
+
     if (format == "png-image-element") {
       return Viz.svgXmlToPngImageElement(render(src, "svg", engine));
     } else {
@@ -47,38 +47,38 @@ var Ab=[G5,_c,md,td,Jd,ne,i0,h0,K$,L$,g0,f$,g$,B_,C_,Xk,mG,JP,a_,b_,G5,G5,G5,G5,
 
   var graphviz;
   var errors;
-  
+
   function appendError(buf) {
     errors += graphviz["Pointer_stringify"](buf);
   }
-  
+
   function render(src, format, engine) {
     if (typeof graphviz === "undefined") {
       graphviz = Module();
     }
-    
+
     errors = "";
-    
+
     var resultPointer = graphviz["ccall"]("vizRenderFromString", "number", ["string", "string", "string"], [src, format, engine]);
     var resultString = graphviz["Pointer_stringify"](resultPointer);
     graphviz["_free"](resultPointer);
-    
+
     if (errors != "") {
       throw errors;
     }
-    
+
     return resultString;
   }
-  
+
   Viz.svgXmlToPngImageElement = function(svgXml) {
     var scaleFactor = 1;
-    
+
     if ("devicePixelRatio" in window) {
       if (window.devicePixelRatio > 1) {
         scaleFactor = window.devicePixelRatio;
       }
     }
-    
+
     var svgImage = new Image();
     svgImage.src = "data:image/svg+xml;utf8," + svgXml;
 
@@ -96,14 +96,14 @@ var Ab=[G5,_c,md,td,Jd,ne,i0,h0,K$,L$,g0,f$,g$,B_,C_,Xk,mG,JP,a_,b_,G5,G5,G5,G5,
       pngImage.width = svgImage.width;
       pngImage.height = svgImage.height;
     }
-    
+
     return pngImage;
   }
-  
+
   if (typeof module === "object" && module.exports) {
     module.exports = Viz;
   } else {
     global.Viz = Viz;
   }
-  
+
 })(this);

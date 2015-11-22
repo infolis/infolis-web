@@ -5,6 +5,8 @@ Fs     = require 'fs'
 CONFIG = require '../config'
 Request = require 'superagent'
 
+log = require('../log')(module)
+
 module.exports = (app, done) ->
 
 	app.swagger '/api/upload',
@@ -16,6 +18,11 @@ module.exports = (app, done) ->
 				{
 					name: 'file'
 					type: 'file'
+					in: 'formData'
+				}
+				{
+					name: 'tags'
+					type: 'string'
 					in: 'formData'
 				}
 				{
@@ -65,10 +72,15 @@ module.exports = (app, done) ->
 					fileModel.set algo, sum.digest('hex')
 					done()
 				, (err) ->
+					tags = []
+					if 'tags' of fields
+						tags = fields['tags']
 					fileModel.set 'size', fileField['size']
+					fileModel.set 'tags', tags
 					fileModel.set 'mediaType', fields['mediaType']
 					fileModel.set 'fileStatus', 'AVAILABLE'
 					fileModel.set 'fileName', fileField['originalFilename']
+					log.debug "Uploading File", fileModel.toJSON()
 					Request
 						.put("#{CONFIG.backendURI}/upload/#{fileModel.md5}")
 						.type('application/octet-stream')

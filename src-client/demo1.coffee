@@ -1,9 +1,12 @@
-class Demo1 
+class Demo1
 
 	constructor: () ->
 		$('#start-demo').on 'click', () =>
 			@reset()
 			@uploadFiles()
+			@uploadTags = []
+			for tag in $("#upload-tags").val().trim().split(/\s*,\s*/)
+				@uploadTags.push tag
 
 	reset: () ->
 		$(".toggleable").hide()
@@ -39,6 +42,8 @@ class Demo1
 	extractText: (uris) ->
 		self = this
 		infolinkClient.extractText uris,
+			execution:
+				tags: @uploadTags
 			onStarted : (exec) ->
 				console.log 'Started text extraction', exec
 				self.reveal("#text-extractor-progress")
