@@ -79,7 +79,9 @@ class InfolisWebservice
 		# JSON-LD Middleware
 		@app.jsonldMiddleware = @app.schemo.expressJsonldMiddleware
 		# JSON body serialization middleware
-		@app.use(BodyParser.json())
+		@app.use(BodyParser.json(
+			limit: 10 * 1024 * 1024
+		))
 		# CORS (Access-Control-Allow-Origin)
 		@app.use(Cors())
 		# Static files
