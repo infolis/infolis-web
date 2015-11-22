@@ -4,131 +4,326 @@ block title
 	| Datasetify your PDFs
 
 block help
-	p Demo, Demon, Demonstrate
+	include:markdown help/data-model-ui.md
 
 block libs
 	style.
-		//- .panel .panel-body.outer {
-		//-   padding: 0;
-		//- }
-		.panel {
-			margin-bottom: 0;
+		.greyed {
+			color: #ccc !important;
 		}
-		.panel.pre,
-		.panel.pre pre{
+		.panel {
 			margin: 0;
 		}
-		.panel.pre .panel-body {
+		.panel > .panel-body {
+			padding: 0 0 1em 1em;
+		}
+		.panel.context .panel-body {
 			padding: 0;
 		}
-		.panel-heading span {
-			margin-top: -20px;
-			font-size: 15px;
+		.highlighted > .panel-heading{
+			background-color: #ff4;
+		}
+		.highlighted-child > .panel-heading{
+			background-color: #ffe;
+		}
+		.grid-item > .panel > .panel-heading span {
+			margin-top: 20px;
+		}
+		div.awesomplete {
+		/*
+			display: block;
+			width: auto;
+			*/
 		}
 
-	script.
-		function collapse($this) {
-			console.log("collapse", $this);
-			$this.parents('.panel').first().find('.panel-body').first().slideUp();
-			$this.addClass('panel-collapsed');
-			$this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-		}
-		function collapseAll() {
-			$(".panel-heading:not(data-open)").each(function() { collapse($(this)) });
-		}
-		function expandAll() {
-			$(".panel-heading:not(data-open)").each(function() { expand($(this)) });
-		}
+	script
+		:coffee-script
+			layout = -> $('.grid').masonry 'layout'
 
-		function expand($this) {
-			$this.parents('.panel').first().find('.panel-body').first().slideDown();
-			$this.removeClass('panel-collapsed');
-			$this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-		}
-		$('.panel-heading').on('click', function (e) {
-			var $this = $(this);
-			if ($this.hasClass('panel-collapsed')) {
-				expand($this)
-			} else {
-				collapse($this);
-			}
-		})
-		$("#collapse-all").on('click', collapseAll);
-		$("#expand-all").on('click', expandAll);
-		$(function(){
-			$(".panel-heading").append(
-				$("<span class='pull-right'><i class='glyphicon glyphicon-chevron-up'/></span>")
-			);
-			collapseAll();
-		})
+			applyFilter = (input) ->
+				unless input
+					return 
+				if /^\s*$/.test input
+					return
+				[cls, panelClass] = input.split('/')
+				resetFilter()
+				$('.panel').removeClass('highlighted').removeClass('highlighted-child').hide()
+				re = new RegExp('.*' + cls + '.*', 'i')
+				$('[data-infolis-type]').each(->
+					$this = $(this)
+					toMatch = $this.attr('data-infolis-type')
+					console.log toMatch
+					if toMatch and toMatch.match re
+						if panelClass
+							$this = $this.find("." + panelClass).first()
+						expand($this)
+						$this.parents('.panel').addClass('highlighted-child').show().each -> expand(@)
+						$this.addClass('highlighted').show()
+						$this.find('.panel').addClass('highlighted-child').show()
+				)
+				layout()
+				# $(window).scrollTo(toHighlight)
 
-mixin defList(name)
-	ul.list-inline
+			resetFilter = (cls) ->
+				$('.panel').removeClass('highlighted').removeClass('highlighted-child').show()
+				collapseAll()
+
+			toggleCollapsed = () ->
+				$panel = $(this).parent('.panel')
+				if $panel.hasClass('panel-collapsed')
+					expand $panel
+				else
+					collapse $panel
+
+			collapse = ($panel, skipLayout) ->
+				$panel =  $($panel)
+				$heading = $panel.find(".panel-heading").first()
+				$panel.find('.panel-body').first().hide()
+				$panel.addClass 'panel-collapsed'
+				$heading.find('i').first().removeClass('glyphicon-chevron-up').addClass 'glyphicon-chevron-down'
+				layout() unless skipLayout
+
+			expand = ($panel, skipLayout) ->
+				$panel =  $($panel)
+				$heading = $panel.find(".panel-heading").first()
+				$panel.find('.panel-body').first().show()
+				$panel.removeClass 'panel-collapsed'
+				$heading.find('i').first().removeClass('glyphicon-chevron-down').addClass 'glyphicon-chevron-up'
+				layout() unless skipLayout
+
+			collapseAll = ->
+				$('.panel-default').each(->collapse($(@), true)).promise().done layout
+
+			expandAll = ->
+				$('.panel-default').each(->expand($(@), true)).promise().done layout
+
+			clearFilter = ->
+				$("#filter input").val('')
+				window.location.hash = ''
+				resetFilter()
+
+			$ ->
+				$('.panel-heading').on 'click', toggleCollapsed
+				$('#collapse-all').on 'click', collapseAll
+				$('#expand-all').on 'click', expandAll
+				$('.panel-heading').prepend $("<span class='pull-right'><i class='glyphicon glyphicon-chevron-up'/></span>")
+				$("#filter input").on 'keyup', () -> applyFilter($(this).val())
+				$(document).on 'keyup', (e) -> if e.keyCode == 27 then clearFilter()
+				$("#filter-reset").on 'click', clearFilter
+				$('.grid').masonry
+					columnWidth: '.grid-item'
+					itemSelector: '.grid-item'
+					transitionDuration: 0
+					gutter: 0
+				collapseAll()
+				$(window).on 'hashchange', ->
+					fragment = location.hash
+					if fragment
+						applyFilter(fragment.substring(1))
+				$(window).trigger 'hashchange'
+	link(rel="stylesheet",href="//cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.css")
+
+mixin resourceLinks(name, def)
+	ul.list-inline.links
+		if tsonClasses.indexOf(name) > -1
+			a(href="/infolink/api#!/rest-ld-#{name[0].toLowerCase() + name.substring(1)}") API
 		li
 			a(href="/play/tson##{name}") TSON
 		li
 			a(href="/schema/#{name}?format=text/turtle") Turtle
+		li
+			a(href="/schema/#{name}?format=text/vnd.graphviz") Visualize
+		if def['@context']['dcterms:source']
+			a(href="#{def['@context']['dcterms:source']['@id']}") Github
 
 
-mixin clsDesc(clsName, panelOffset)
-	div(class="col-md-#{PANEL_SPAN} panel-md-offset-#{panelOffset}")
-		.panel.panel-default
-			.panel-heading
-				.panel-title
-					h3= clsName
-			.panel-body.outer
-				+ defList(clsName)
-				.panel.panel-default(data-open="")
-					.panel-heading
-						h4.panel-title Description
-					.panel-body
-						= tson[clsName]['@context']['dc:description']
-				.panel.panel-default.pre
-					.panel-heading
-						h4.panel-title
-							code @context
-					.panel-body
-						pre= JSON.stringify(tson[clsName]['@context'], null, 2)
-				.panel.panel-default
-					.panel-heading
-						h4.panel-title Properties
-					.panel-body
-						each propDef,propName in tson[clsName]
-							if propName.indexOf('@') == -1
-								+ propDesc(clsName, propName)
-
-mixin propDesc(clsName, propName)
-	.panel.panel-default
+mixin resourceSummary(name, def)
+	.panel.panel-default.summary
 		.panel-heading
-			.panel-title 
-				h5= propName
-		.panel-body
-			+ defList(propName)
-			.panel-heading
-				h4.panel-title Description
-			.panel-body
-				= tson[clsName][propName]['@context']['dc:description']
+			h4.panel-title
+				a(href="##{name}/summary")
+					i.glyphicon.glyphicon-link &nbsp;
+				| Summary
+		.panel-body.summary
+			p= def['@context']['dc:description']
 
+mixin classProps(clsName, def)
+	.panel.panel-default.outer.props
+		.panel-heading
+			h4.panel-title
+				a(href="##{clsName}")
+					i.glyphicon.glyphicon-link &nbsp;
+				| Properties [#{Object.keys(def).length - 1}]
+		.panel-body
+			each propDef,propName in def
+				if tsonProps.indexOf(propName) > -1
+					+ propDesc(propName, def[propName])
+
+mixin resourceContext(name, def)
+	.panel.panel-default.context
+		.panel-heading
+			h4.panel-title
+				a(href="##{name}/context")
+					i.glyphicon.glyphicon-link &nbsp;
+				code @context
+		.panel-body
+			table.table
+				if def['@context']['@type'] || def['type']
+					tr
+						th
+							if tsonProps.indexOf(name) > -1
+								+ splitCURIE("rdfs:range")
+							else
+								+ splitCURIE("rdfs:subClassOf")
+						td
+							if def['@context']['@type']
+								+ splitCURIE(def['@context']['@type'])
+							else if def.type == "String"
+								+ splitCURIE('xsd:string')
+							else if def.type == "ArrayOfStrings"
+								+ splitCURIE('xsd:string')
+				each obj,pred in def['@context']
+					if pred.indexOf('@') == -1
+						tr
+							th
+								+ splitCURIE(pred)
+							td
+								if typeof obj === 'object'
+									if obj['@id']
+										- link = obj['@id']
+										if link.indexOf('http') == 0
+											a(href="#{link}")= link.substring(link.lastIndexOf('/')+1)
+										else
+											+ splitCURIE(link)
+									else if obj['@value']
+										| "#{obj['@value']}"
+										if obj['@type']
+											br
+											+ splitCURIE('rdf:datatype')
+											|&nbsp;
+											+ splitCURIE(obj['@type'])
+								else
+									= obj
+
+mixin resName(name)
+	span.greyed infolis:
+	= name
+
+mixin clsDesc(clsName, def)
+	.panel.panel-default.outer(data-infolis-type="#{clsName}")
+		.panel-heading.clearfix
+			.panel-title.pull-left
+				h3
+					a(href="##{clsName}")
+						i.glyphicon.glyphicon-link &nbsp;
+					+ resName(clsName)
+		.panel-body
+			+ resourceLinks(clsName, def)
+			+ resourceSummary(clsName, def)
+			+ resourceContext(clsName, def)
+			if clsName !== '#dataset'
+				+ classProps(clsName, def)
+
+mixin propDesc(propName, def)
+	.panel.panel-default(data-infolis-type="#{propName}")
+		.panel-heading
+			h4.panel-title 
+				a(href="##{propName}")
+					i.glyphicon.glyphicon-link &nbsp;
+				+ resName(propName)
+		.panel-body
+			+ resourceLinks(propName, def)
+			+ resourceSummary(propName, def)
+			+ resourceContext(propName, def)
+			+ propSchema(propName, def)
+
+mixin propSchema(name, def)
+	.panel.panel-default.db
+		.panel-heading
+			h4.panel-title
+				a(href="##{name}/db")
+					i.glyphicon.glyphicon-link &nbsp;
+				| Database Schema
+		.panel-body
+			table.table
+				if def.type
+					tr
+						th Type
+						td= def.type
+				if def.hideFromSwagger
+					tr
+						th Hidden
+						td= def.hideFromSwagger
+				if def.index
+					tr
+						th Indexed
+						td #{def.index ? 'yes' : 'no'}
+				if def.refOne
+					tr
+						th has one
+						td
+							+ splitCURIE(def.refOne)
+				if def.refMany
+					tr
+						th has many
+						td
+							+ splitCURIE(def.refMany)
+				tr
+					th Required
+					td= def.required ? 'yes' : 'no'
+				if def.validate
+					tr 
+						th Validation method
+						td= def.validate
+
+mixin splitCURIE(dbref)
+	- pfx = dbref.split(':')[0]
+	- cls = dbref.split(':')[1]
+	if pfx !== 'infolis'
+		- href = tson['@ns'][pfx] + cls
+	else
+		- href = '#' + cls
+	span.greyed #{pfx}:
+	a(href="#{href}")= cls
 
 block content
-	- PER_ROW = 3
-	- PANEL_SPAN = 12 / PER_ROW
 	.row
-		.grid.js-masonry(data-masonry-options='{ "itemSelector": ".grid-item", "columnWidth": 200 }')
-			.col-md-12
-				h2 Explore our data model
-				button.btn#collapse-all Collapse all
-				button.btn#expand-all Expand all
-		each clsName,clsIdx in tsonClasses
-			- panelOffset = clsIdx % PER_ROW
-			if panelOffset == 0
-				.row
-					- panelIdx = clsIdx
-					while panelIdx < clsIdx + PER_ROW
-						- panelIdx += 1
-						- console.log(panelIdx)
-						if tsonClasses[panelIdx]
-							+ clsDesc(tsonClasses[panelIdx], panelOffset)
-		script(src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js")
+		.col-md-12.col-md-offset-3
+			h2 Discover the InFoLiS data model
+	.row
+		.col-md-4.col-sm-6
+			.form-inline
+				.col-md-12
+				.form-group
+					button.hidden-xs.form-control.btn.btn-default#collapse-all
+						| Collapse all
+						span.glyphicon.glyphicon-menu-up
+					button.hidden-xs.form-control.btn.btn-default#expand-all
+						| Expand all
+						span.glyphicon.glyphicon-menu-down
+					span.dropdown
+						a.form-control.btn.btn-default#foopi(data-toggle="dropdown")
+							| Examples
+							span.caret
+						ul.dropdown-menu(aria-labelledby='foopi')
+							li
+								a(href="#/props") All properties
+							li
+								a(href="#/context") All RDF information
+							li
+								a(href="#/db") All DB data
+		.col-sm-6
+			#filter.form-inline
+				.form-group
+					input.awesomplete.form-control(type="text",placeholder="class or instance name", data-list="#{tsonAll}")
+					button#filter-reset.form-control.btn.btn-primary Reset
+	.row
+		.grid
+			.grid-item.col-xs-12.col-sm-6.col-md-6.col-lg-4
+					+ clsDesc('#dataset', tson)
+			each clsName,clsIdx in tsonClasses
+				.grid-item.col-xs-12.col-sm-6.col-md-6.col-lg-4
+					+ clsDesc(clsName, tson[clsName])
 
-
+	script(src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js")
+	script(src="//cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.js")

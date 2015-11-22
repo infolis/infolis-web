@@ -18,6 +18,8 @@ C.schemaPrefix = '/schema'
 C.logging      = {
 	# TODO
 }
+C.colorscheme = 'chrysoprase'
+
 loadPath = [
 	['system',      '/etc']
 	['home',        process.env.HOME]

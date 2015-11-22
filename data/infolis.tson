@@ -6,8 +6,8 @@
 #   * the ontology (described JSON-LD)
 #   * the REST API (GET/POST/PUT/DELETE /api/MyClass
 #   * the REST API documentation (Swagger)
+#   * the data model explorer (http://infolis.gesis.org/work/data-model
 #
-
 
 @ns
 	infolis <http://infolis.gesis.org/infolink/schema/>
@@ -29,7 +29,8 @@
 	dcat    <http://www.w3.org/ns/dcat#>
 
 @context
-	@id: infolis:
+	@id infolis:
+	@type owl:Ontology
 	dc:description "Infolis Data model"
 	dc:version
 		@value "2015-11-20T00:18:23Z"
@@ -40,9 +41,13 @@ Execution
 		dc:description "The concrete execution of an Algorithm."
 		rdfs:subClassOf
 			@id schema:Action
+		dcterms:source
+			@id <https://github.com/infolis/infoLink/blob/master/src/main/java/io/github/infolis/model/Execution.java>
 	algorithm
 		@context
 			dc:description "Java class of the algorithm which is supposed to be executed within this execution."
+			dcterms:source
+				@id <https://github.com/infolis/infoLink/blob/master/src/main/java/io/github/infolis/model/Execution.java>
 		required true
 		index: true
 		type: String
@@ -89,7 +94,8 @@ Execution
 		hideFromSwagger: true
 	startTime
 		@context
-			owl:sameAs schema:startTime
+			owl:sameAs 
+				@id schema:startTime
 			@type xsd:date
 			dc:description "Timestamp when execution started."
 		type Date
@@ -97,7 +103,8 @@ Execution
 		hideFromSwagger: true
 	endTime
 		@context
-			owl:sameAs schema:endTime
+			owl:sameAs 
+				@id schema:endTime
 			@type xsd:date
 			dc:description "Timestamp when execution ended."
 		type Date
@@ -377,7 +384,9 @@ InfolisPattern
 		dc:description 'A Regular Expression pattern'
 	patternRegex
 		@context
-			@id dqm:regex
+			dc:description "A string containing a Java Regular Expression pattern"
+			owl:sameAs
+				@id dqm:regex
 		type String
 	luceneQuery
 		@context
@@ -431,7 +440,8 @@ InfolisFile
 		index: true
 	mediaType
 		@context
-			owl:sameAs dcat:mediaType
+			owl:sameAs 
+				@id dcat:mediaType
 			dc:description "The IANA media type of this file"
 		type String
 		enum: [

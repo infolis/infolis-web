@@ -9,7 +9,7 @@
     "client": "browserify -t coffeeify -o public/client.js src-client/index.coffee",
     "demos": "coffee -wc -o public/ src-client/demo*.coffee",
     "watch-client": "nodemon -w src-client -e 'coffee' --exec 'npm run client'",
-    "start": "npm run rebuild-deps; supervisor -w src/,data/infolis.tson,../jsonld-rapper/src,../express-jsonld/src src/server.coffee",
+    "start": "npm run rebuild-deps; supervisor -w src/,data/infolis.tson,../jsonld-rapper/src,../express-jsonld/src,../mongoose-jsonld/src src/server.coffee",
     "rebuild-deps": "cd node_modules/express-jsonld/;npm run compile;cd -;",
     "mongo": "mongod --dbpath data/mongodb --port 27018",
     "run": "npm run mongo & npm run serve",

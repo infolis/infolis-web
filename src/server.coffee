@@ -119,6 +119,8 @@ class InfolisWebservice
 			'swagger'
 			'json-import'
 			'syntax-highlight'
+			'tson'
+			'greasemonkey'
 			'play'
 		]
 		Async.eachSeries controllers, (controller, done) =>
