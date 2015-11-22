@@ -21,7 +21,6 @@ CONFIG = require './config'
 
 log = require('./log')(module)
 
-
 notFoundHandler = (req, res, next) ->
 	res.status 404
 	if Accepts(req).type('text/html')
@@ -54,6 +53,7 @@ class InfolisWebservice
 	constructor: (@port) ->
 		log.silly "Configuration", CONFIG
 		@app = Express()
+		# Very important, that next one
 		@app.set('case sensitive routing', true)
 		# Start DB
 		@app.mongoose = Mongoose.createConnection(
@@ -100,6 +100,7 @@ class InfolisWebservice
 		# @app.http().io()
 		# Store site information
 		@app.use (req, res, next) ->
+			res.locals.CONFIG = CONFIG
 			res.locals.site_api = CONFIG.site_api
 			res.locals.site_github = CONFIG.site_github
 			if req.query.site_github
@@ -130,7 +131,7 @@ class InfolisWebservice
 			# root route
 			@app.get '/', (req, res, next) ->
 				res.status 302
-				res.header 'Location', 'http://infolis.github.io'
+				res.header 'Location', CONFIG.site_github
 				res.end()
 			# Error handler
 			@app.use errorHandler

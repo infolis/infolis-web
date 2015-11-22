@@ -22,18 +22,19 @@ C.colorscheme = 'chrysoprase'
 C.site_api = "http://infolis.gesis.org/infolink"
 C.site_github = "http://infolis.github.io"
 
-loadPath = [
-	['system',      '/etc']
-	['home',        process.env.HOME]
-	['current dir', process.cwd()]
-]
-for [type, path] in loadPath
-	try
-		C = Merge C, require path + '/infolis-frontend-config'
-		console.log "Loaded #{type} configuration"
-	catch
-		console.log "No #{type} configuration found"
+if process.env.NODE_ENV is 'production'
+	path = __dirname + '/../config.prod'
+else
+	path = __dirname + '/../config.dev'
 
+C = Merge C, require path
+try
+	console.log "Loaded configuration: #{path}"
+catch
+	console.log "No configuration found: #{path}"
+
+
+# context expansion must come last
 C.expandContexts = ['basic', {
 	# infolis: 'http://localhost:3000/schema/'
 	# infolis: 'http://www-test.bib.uni-mannheim.de/infolis/schema/'
