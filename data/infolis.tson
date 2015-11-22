@@ -419,7 +419,8 @@ InfolisPattern
 
 InfolisFile
 	@context
-		owl:sameAs
+		dc:description "A resource representing a file on the server."
+		owl:sameAs.
 			@id omnom:File
 	md5
 		@context
@@ -433,6 +434,7 @@ InfolisFile
 		index: true
 	fileName
 		@context
+			dc:description "The name of a file in the senseof what the `basename(1)` would return."
 			owl:sameAs
 				@id omnom:fileName
 		type String
@@ -440,7 +442,7 @@ InfolisFile
 		index: true
 	mediaType
 		@context
-			owl:sameAs 
+			owl:sameAs
 				@id dcat:mediaType
 			dc:description "The IANA media type of this file"
 		type String
@@ -452,7 +454,9 @@ InfolisFile
 		index: true
 	fileStatus
 		@context
-			@id omnom:fileStatus
+			dc:description "The status of the bytestream of a file on the server, indicating whether it is still there or has been deleted"
+			owl:sameAs
+				@id omnom:fileStatus
 		type: String
 		enum: [
 			'AVAILABLE'
