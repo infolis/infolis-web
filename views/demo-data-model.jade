@@ -1,7 +1,7 @@
 extends ./layout.jade
 
 block title
-	| Datasetify your PDFs
+	| InFoLiS Data Model Explorer
 
 block help
 	include:markdown help/data-model-ui.md
@@ -128,7 +128,7 @@ mixin resourceLinks(name, def)
 		if tsonClasses.indexOf(name) > -1
 			a(href="/infolink/api#!/rest-ld-#{name[0].toLowerCase() + name.substring(1)}") API
 		li
-			a(href="/play/tson##{name}") TSON
+			a(href="/api/tson##{name}") TSON
 		li
 			a(href="/schema/#{name}?format=text/turtle") Turtle
 		li
