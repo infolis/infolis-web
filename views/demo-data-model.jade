@@ -4,7 +4,7 @@ block title
 	| InFoLiS Data Model Explorer
 
 block help
-	include:markdown help/data-model-ui.md
+	include:markdown ../help/data-model-ui.md
 
 block libs
 	style.
@@ -151,7 +151,7 @@ mixin classProps(clsName, def)
 	.panel.panel-default.outer.props
 		.panel-heading
 			h4.panel-title
-				a(href="##{clsName}")
+				a(href="##{clsName}/props")
 					i.glyphicon.glyphicon-link &nbsp;
 				| Properties [#{Object.keys(def).length - 1}]
 		.panel-body
