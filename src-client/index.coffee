@@ -1,6 +1,5 @@
 $        = require 'jquery'
-_        = require 'lodash'
-Async    = require 'async'
+_        = require 'lodash' Async    = require 'async'
 Request  = require 'superagent'
 
 if typeof window isnt 'undefined'
@@ -11,6 +10,15 @@ else
 	exp = module.exports
 
 _requireArg = (arg) -> "Must provide '#{arg}' argument"
+
+_parseHeaders = (str) ->
+	ret = {}
+	for line in str.split(/\n/)
+		colonIndex = line.indexOf(':')
+		k = line.substr(0, colonIndex).trim().toLowerCase()
+		v = line.substr(colonIndex + 1).trim()
+		ret[k] = v
+	return ret
 
 class Bootstrap
 
@@ -29,7 +37,7 @@ class Bootstrap
 		return inner
 
 	setProgressBar : (uri, percent) -> @getProgressBar(uri).css('width', percent + "%")
-	getProgressBar : (uri) -> $(".progress[data-uri='#{uri}'] .progress-bar")
+	getProgressBar : (uri) -> $(".progress[data-uri='#{uri}'] > .progress-bar")
 
 class Utils
 
@@ -149,6 +157,59 @@ class InfolinkClient
 						return opts.onComplete execution
 					return opts.onProgress execution
 		pollId = setTimeout poll, @pollInterval
+ 
+	GM_downloadBlob: (uri, opts) ->
+		onError    = opts.onError    or @defaultHandler.error
+		onStarted  = opts.onStarted  or @defaultHandler.started
+		onSuccess  = opts.onSuccess  or @defaultHandler.success
+		onProgress = opts.onProgress or @defaultHandler.progress
+		GM_xmlhttpRequest
+			url: uri
+			method: 'GET'
+			onprogress: (e) =>
+				onProgress e
+			onload: (e) ->
+				console.log 'Finished downloading PDF'
+				responseText = e.responseText
+				responseLength = responseText.length
+				console.log "It is #{responseLength} bytes long"
+				console.log "Parsing headers"
+				headers = _parseHeaders e.responseHeaders
+				if e.status == 200 and headers['content-type'] is 'application/pdf'
+					console.log 'PDF Download successful'
+					blob = new Blob([e.response], {type: headers['content-type']})
+					console.log 'Created Blob from PDF'
+					success = true
+					onSuccess blob
+				else
+					console.error headers
+					onError e, headers
+
+	uploadBlob: (blob, opts) ->
+		unless blob instanceof Blob
+			return @defaultHandler.error("Argument must be a Blob")
+		onError    = opts.onError    or @defaultHandler.error
+		onStarted  = opts.onStarted  or @defaultHandler.started
+		onSuccess  = opts.onSuccess  or @defaultHandler.success
+		onProgress = opts.onProgress or @defaultHandler.progress
+		tags       = opts.tags or []
+		formData = new FormData()
+		formData.append 'file', blob
+		formData.append 'tags', tags.join(',')
+		formData.append 'mediaType', blob.type
+		Request
+			.post(@apiUrl 'upload')
+			.set 'accept', 'application/json'
+			.send(formData)
+			.on 'progress', (ev) ->
+				onProgress ev
+			.end (err, res) ->
+				if err
+					console.error error
+					return onError {err}
+				uri = res.headers.location
+				console.log 'finished'
+				return onSuccess uri
 
 	uploadFiles: (opts = {}) ->
 		if typeof opts isnt 'object'
@@ -208,3 +269,4 @@ class InfolinkClient
 exp.Bootstrap = new Bootstrap()
 exp.InfolinkClient = InfolinkClient
 exp.Utils = Utils
+exp.jQuery = $
