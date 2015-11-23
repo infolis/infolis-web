@@ -11,9 +11,7 @@ block help
 block content
 	.row
 		.col-md-10
-			h1 Execution&nbsp;
-				a(href="#{CONFIG.baseURI}/api/#{execution._id}")
-					| #{CONFIG.basePath}/api/#{execution._id}
+			h1 Execution #{execution._id}
 	.row
 		.col-md-12
 			+ executionTable(execution)
