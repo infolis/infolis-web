@@ -165,7 +165,7 @@ class InfolinkClient
 		if not fileList
 			return onError 'No files specified'
 		fileArray = (file for file in fileList)
-		Async.map fileArray, (file, done) =>
+		Async.mapLimit fileArray, 20, (file, done) =>
 			fileIdx = fileArray.indexOf(file)
 			onStarted {fileIdx, file}
 			formData = new FormData()
