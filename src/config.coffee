@@ -34,8 +34,8 @@ else
 	paths.push 'development'
 paths.push HOSTNAME
 for path in paths
-	C = Merge C, require __dirname + "/../config.#{path}"
 	try
+		C = Merge C, require __dirname + "/../config.#{path}"
 		console.log "Loaded configuration: #{path}"
 	catch
 		console.log "No configuration found: #{path}"
