@@ -1,4 +1,5 @@
 module.exports =
+	basePath: '/infolink'
 	baseURI: 'http://infolis.gesis.org/infolink'
 	site_api: 'http://infolis.gesis.org/infolink'
 	site_github: 'http://infolis.github.io'
