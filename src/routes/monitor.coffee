@@ -52,6 +52,15 @@ module.exports = (app, done) ->
 				]
 			]
 
+	app.get '/api/monitor-one', (req, res, next) ->
+		execUri = req.query.uri
+		Request
+			.get execUri
+			.set 'Accept', 'application/json'
+			.end (err, execRes) ->
+				return next err  if err
+				res.render 'monitor-single', {execution: execRes.body}
+
 	app.get '/api/monitor', (req, res, next) ->
 		Request
 			.get("#{CONFIG.backendURI}/executor?status=#{req.query.status}")

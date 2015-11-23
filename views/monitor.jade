@@ -6,44 +6,7 @@ block title
 block help
 	include:markdown ../help/monitor.md
 
-mixin executionTable(execution)
-	table(class="table status-#{execution.status}")
-		tr
-			th.col-md-2 ID
-			td
-				a(href="#{execution.uri}")= execution._id
-		tr
-			th.col-md-2 Progress
-			td
-				.progress
-					.progress-bar(style="width: #{execution.progress}%")
-						= execution.progress
-		each field in ["algorithm", "startTime", "endTime"]
-			tr
-				th= field
-				td= execution[field]
-		tr.outputFiles
-			th.col-md-2 outputFiles
-			td
-				ul
-					each outputFile in execution.outputFiles
-						li
-							a(href="#{outputFile}")= outputFile
-		tr.log
-			th.col-md-2 log
-			td.col-md-10
-				ul.list-unstyled(style="max-width: 700px")
-					each logEntry in execution.log
-						if logEntry.indexOf("INFO") === 0
-							li.btn-success.logEntry= logEntry
-						else if logEntry.indexOf("FATAL") === 0
-							li.btn-danger.logEntry= logEntry
-						else
-							li.btn-info.logEntry= logEntry
-						//- if logEntry.indexOf('{') > -1 && logEntry.indexOf('}') > -1
-						//-   - toparse = logEntry.substring(logEntry.indexOf('{'), logEntry.lastIndexOf('}')+1)
-						//-   li.logEntry
-						//-     pre.col-md-5= JSON.stringify(JSON.parse(toparse), null, 2)
+include ./mixins/executionTable.jade
 
 mixin executionPane(status, executions)
 	.tab-pane(id="executions-#{status}")
