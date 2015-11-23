@@ -17,6 +17,7 @@ html
 		script(src="#{site_api}/client.js")
 		script.
 			infolinkClient = new InfolinkClient({
+				"baseURI": "#{CONFIG.baseURI}",
 				"debug": true
 			})
 		style.

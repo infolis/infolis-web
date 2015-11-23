@@ -2,11 +2,11 @@ class Demo1
 
 	constructor: () ->
 		$('#start-demo').on 'click', () =>
-			@reset()
-			@uploadFiles()
 			@uploadTags = []
 			for tag in $("#upload-tags").val().trim().split(/\s*,\s*/)
 				@uploadTags.push tag
+			@reset()
+			@uploadFiles()
 
 	reset: () ->
 		$(".toggleable").hide()

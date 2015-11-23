@@ -1,4 +1,5 @@
 Merge = require 'merge'
+HOSTNAME = require('os').hostname()
 
 C = {}
 
@@ -16,22 +17,28 @@ C.baseURI      = "http://localhost:#{C.port}"
 C.apiPrefix    = '/api'
 C.schemaPrefix = '/schema'
 C.logging      = {
-	# TODO
+	transports: [ 'console', 'file' ]
+	level: 'debug'
+	file:
+		'filename': 'infolis-web.log'
+		'logdir': __dirname + '/../data/logs/'
 }
 C.colorscheme = 'chrysoprase'
 C.site_api = "http://infolis.gesis.org/infolink"
 C.site_github = "http://infolis.github.io"
 
+paths = []
 if process.env.NODE_ENV is 'production'
-	path = __dirname + '/../config.prod'
+	paths.push 'production'
 else
-	path = __dirname + '/../config.dev'
-
-C = Merge C, require path
-try
-	console.log "Loaded configuration: #{path}"
-catch
-	console.log "No configuration found: #{path}"
+	paths.push 'development'
+paths.push HOSTNAME
+for path in paths
+	C = Merge C, require __dirname + "/../config.#{path}"
+	try
+		console.log "Loaded configuration: #{path}"
+	catch
+		console.log "No configuration found: #{path}"
 
 
 # context expansion must come last
