@@ -26,7 +26,7 @@ block libs
 		:coffee-script
 			$ ->
 				window.swaggerUi = new SwaggerUi(
-					url: '/infolink/swagger.json'
+					url: '#{site_api}/swagger.json'
 					dom_id: 'swagger-ui-container'
 					supportedSubmitMethods: [
 						'get'

@@ -20,11 +20,6 @@ html
 				"debug": true
 			})
 		style.
-			#help {
-				-webkit-box-shadow: 0px 0px 78px 35px rgba(0,0,0,0.64);
-				-moz-box-shadow: 0px 0px 78px 35px rgba(0,0,0,0.64);
-				box-shadow: 0px 0px 78px 35px rgba(0,0,0,0.64);
-			}
 
 		block css
 
@@ -32,6 +27,8 @@ html
 
 	body
 		include ./header.jade
+		a.btn.btn-lg.btn-danger#help-button(role="button",data-toggle="collapse",data-target="#help")
+			span.glyphicon.glyphicon-question-sign
 		div.container-fluid
 			.row.collapse#help
 				.col-md-12

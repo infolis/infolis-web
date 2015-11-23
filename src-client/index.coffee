@@ -49,7 +49,7 @@ class InfolinkClient
 
 	constructor: (opts = {}) ->
 		@[k] = v for k,v of opts
-		@baseURI or= 'http://infolis.gesis.org/infolink'
+		@baseURI or= window.location.origin
 		@apiPrefix or= '/api'
 		@schemaPrefix or= '/schema'
 		@pollInterval = 1000
@@ -59,6 +59,8 @@ class InfolinkClient
 		# @io.emit('ready')
 		# @io.on 'talk', (data) ->
 		#     console.log(data)
+
+	apiUrl: (endpoint) -> "#{@baseURI}#{@apiPrefix}/#{endpoint}"
 
 	defaultHandler:
 		no_op: ->
@@ -78,10 +80,6 @@ class InfolinkClient
 					if 'errors' of err.cause
 						return console.error 'ERROR (errors)', err.cause.errors
 					return console.error 'ERROR (cause)', err.cause
-			return console.error 'ERROR', err
-
-
-	apiUrl: (endpoint) -> "#{@baseURI}#{@apiPrefix}/#{endpoint}"
 
 	syntaxHighlight: (opts = {}) ->
 		onError   = opts.onError   or @defaultHandler.error

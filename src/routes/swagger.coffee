@@ -1,3 +1,4 @@
+CONFIG = require '../config'
 module.exports = (app, done) ->
 
 	# Swagger interface
@@ -6,7 +7,7 @@ module.exports = (app, done) ->
 
 	# swagger handler
 	app.schemo.handlers.swagger.inject app, {
-		basePath: "/infolink"
+		basePath: CONFIG.basePath
 		info:
 			title: 'Infolis YAY'
 		tags: [
