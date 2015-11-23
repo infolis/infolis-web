@@ -182,6 +182,8 @@ mixin resourceContext(name, def)
 								+ splitCURIE('xsd:string')
 							else if def.type == "ArrayOfStrings"
 								+ splitCURIE('xsd:string')
+							else if def.type == "Number"
+								+ splitCURIE('xsd:float')
 				each obj,pred in def['@context']
 					if pred.indexOf('@') == -1
 						tr
