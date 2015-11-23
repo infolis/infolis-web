@@ -16,7 +16,11 @@ C.baseURI      = "http://localhost:#{C.port}"
 C.apiPrefix    = '/api'
 C.schemaPrefix = '/schema'
 C.logging      = {
-	# TODO
+	transports: [ 'console', 'file' ]
+	level: 'debug'
+	file:
+		'filename': 'infolis-web.log'
+		'logdir': __dirname + '/../data/logs/'
 }
 C.colorscheme = 'chrysoprase'
 C.site_api = "http://infolis.gesis.org/infolink"
