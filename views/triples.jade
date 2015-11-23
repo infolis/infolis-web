@@ -56,6 +56,8 @@ block content
 					.form-group
 						.col-md-2.col-md-offset-2
 							input.btn.btn-success.form-control(type="submit",value="Query")
+			if title.indexOf('api/execution') > -1
+				a(href="/api/monitor-one?uri=#{CONFIG.baseURI}#{title}") Monitor this execution
 			ul.nav.nav-pills
 				li(data-format="text/html") #[a(href="?format=text/html") HTML Table]
 				li.dropdown

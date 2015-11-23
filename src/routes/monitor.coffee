@@ -59,6 +59,7 @@ module.exports = (app, done) ->
 			.set 'Accept', 'application/json'
 			.end (err, execRes) ->
 				return next err  if err
+				execRes.body.uri = execUri
 				res.render 'monitor-single', {execution: execRes.body}
 
 	app.get '/api/monitor', (req, res, next) ->
