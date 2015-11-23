@@ -73,7 +73,13 @@ Execution
 	status
 		@context
 			dc:description """
-				Status of the execution (PENDING, STARTED, FINISHED, FAILED).
+				Status of the execution
+
+				* PENDING
+				* STARTED
+				* FINISHED
+				* FAILED
+
 				Default (when starting): ExecutionStatus.PENDING
 				"""
 			dc:example 'SUCCESS'
