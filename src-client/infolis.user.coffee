@@ -1,5 +1,5 @@
 client = new InfolinkClient(
-	baseURI: 'http://infolis.gesis.org/infolink'
+	baseURI: 'http://localhost:3000'
 )
 
 $('head').append(
@@ -47,16 +47,20 @@ runOnElem = () ->
 				onSuccess : (uri) ->
 					notie.alert(1, 'Upload to ', 0.5)
 					Bootstrap.setProgressBar('upload', 100).text("100%")
-					client.applyPatternAndResolve [uri], 'demo3', {
+					client.applyPatternAndResolve [uri], 'mda_en_test', {
 						onProgress : (ev) ->
 							if ev.percent
 								Bootstrap.setProgressBar('apar', ev.percent).text(ev.percent + "%")
 						onError: ->
 							console.error arguments
-						onSuccess : (ev) ->
+						onComplete : (execution) ->
 							notie.alert(1, 'ApplyPatternAndResolve ', 0.5)
 							Bootstrap.setProgressBar('apar', 100).text("100%")
-							$("#infolis-modal").append(JSON.stringify(ev, null, 2))
+							list = $("<ul>")
+							console.log execution
+							for link in execution.links
+								list.append($("<a>").attr('href', link).text(link))
+							$("#infolis-modal").append($("<div>Links:</div>")).append(list)
 					}
 
 infolisTo = (elem) ->
