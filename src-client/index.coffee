@@ -1,5 +1,6 @@
 $        = require 'jquery'
-_        = require 'lodash' Async    = require 'async'
+_        = require 'lodash'
+Async    = require 'async'
 Request  = require 'superagent'
 
 if typeof window isnt 'undefined'
@@ -140,23 +141,26 @@ class InfolinkClient
 
 	pollExecutionStatus : (uri, opts) ->
 		pollId = null
+		console.log 'start polling', pollId
 		poll = ->
 			Request
 				.get(uri)
 				.set 'Accept', 'application/json'
 				.end (err, res) ->
 					if err
-						clearTimeout pollId
+						log.error err
+						clearInterval pollId
 						execution = {err, uri}
 						opts.onProgress execution
 						return opts.onComplete execution
 					execution = res.body
 					if execution.status in ['FINISHED','FAILED']
-						clearTimeout pollId
+						clearInterval pollId
 						opts.onProgress execution
 						return opts.onComplete execution
-					return opts.onProgress execution
-		pollId = setTimeout poll, @pollInterval
+					opts.onProgress execution
+					console.log 'end poll loop', pollId
+		pollId = setInterval poll, @pollInterval
  
 	GM_downloadBlob: (uri, opts) ->
 		onError    = opts.onError    or @defaultHandler.error
@@ -264,6 +268,16 @@ class InfolinkClient
 			algorithm: 'io.github.infolis.algorithm.PatternApplier'
 			inputFiles: inputFiles
 			patterns: patterns
+		return @execute opts
+
+	applyPatternAndResolve : (inputFiles, tag, opts) ->
+		opts.execution =
+			algorithm: 'io.github.infolis.algorithm.ApplyPatternAndResolve'
+			inputFiles: inputFiles
+			infolisPatternTags: [tag]
+			queryServiceClasses: [
+				"io.github.infolis.resolve.DaraHTMLQueryService"
+			]
 		return @execute opts
 
 exp.Bootstrap = new Bootstrap()

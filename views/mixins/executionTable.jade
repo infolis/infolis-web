@@ -11,10 +11,21 @@ mixin executionTable(execution)
 				.progress
 					.progress-bar(style="width: #{execution.progress}%")
 						= execution.progress
-		each field in ["algorithm", "startTime", "endTime"]
-			tr
-				th= field
-				td= execution[field]
+		each val,field in execution
+			if field !== 'log' && field !== '_id' && field !== 'progress' && field !== '__v'
+				tr
+					th= field
+					td
+						if typeof val === 'object'
+							ul
+								each link in val
+									if link.indexOf('http') == 0
+										li
+											a(href="#{link}")= link
+									else
+										li= val
+						else
+							= val
 		tr.outputFiles
 			th.col-md-2 outputFiles
 			td

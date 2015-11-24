@@ -31,3 +31,4 @@ apidocs/
 /lib/
 public/client.js
 public/demo*.js
+public/swib-sample/

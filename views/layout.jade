@@ -10,6 +10,7 @@ html
 
 		script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js")
 		script(src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.0/jquery.scrollTo.min.js")
+		script(src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js")
 		link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css")
 		link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css")
 		link(rel="stylesheet", href="http://getbootstrap.com/assets/css/docs.min.css")
@@ -20,9 +21,10 @@ html
 				"baseURI": "#{CONFIG.baseURI}",
 				"debug": true
 			})
-		style.
 
 		block css
+
+		block libs
 
 		link(rel="stylesheet", href="#{site_github}/css/style.css")
 
@@ -36,6 +38,5 @@ html
 					.bs-callout.bs-callout-info
 						block help
 			block content
-	script(src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js")
-	script(src="#{site_api}/vendor/notie.js/notie.js")
-	block libs
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js")
+		script(src="#{site_api}/vendor/notie.js/notie.js")

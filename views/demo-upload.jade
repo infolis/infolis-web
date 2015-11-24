@@ -4,7 +4,7 @@ block title
 	| Datasetify your PDFs
 
 block help
-	p Demo, Demon, Demonstrate
+	p This demo allows you to upload PDF and extract and resolve datasets
 
 block libs
 	style.
@@ -40,13 +40,6 @@ block content
 		.col-md-8
 			ul#text-output-uri
 	.row.toggleable
-		.col-md-2 Select Tags
-		.col-md-8#select-tags
-			form.form.form-horizontal
-				.form-group.col-md-4
-					select.form-control(name="tag")
-						option(value="ssoar") ssoar
-						option(value="econstor") econstor
-				.form-group.col-md-4
-					input.form-control.btn.btn-primary#apply-Patterns(type="button",value="Apply Patterns")
+		.col-md-2 Apply Pattern And Resolve
+		.col-md-8#apar-progress
 

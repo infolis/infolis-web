@@ -20,6 +20,8 @@ $('body').prepend(
 		.append($("<div>").addClass('download'))
 		.append("<span>Upload:</span>")
 		.append($("<div>").addClass('upload'))
+		.append("<span>ApplyPatternAndResolve:</span>")
+		.append($("<div>").addClass('apar'))
 		.hide())
 
 runOnElem = () ->
@@ -27,6 +29,7 @@ runOnElem = () ->
 	uri = $(this).attr('data-infolis')
 	Bootstrap.createProgressBar('download', '#infolis-modal .download')
 	Bootstrap.createProgressBar('upload', '#infolis-modal .upload')
+	Bootstrap.createProgressBar('apar', '#infolis-modal .apar')
 	client.GM_downloadBlob uri,
 		onStarted: ->
 		onProgress: (ev) ->
@@ -41,9 +44,20 @@ runOnElem = () ->
 						Bootstrap.setProgressBar('upload', ev.percent).text(ev.percent + "%")
 				onError: ->
 					console.error arguments
-				onSuccess : (ev) ->
+				onSuccess : (uri) ->
 					notie.alert(1, 'Upload to ', 0.5)
 					Bootstrap.setProgressBar('upload', 100).text("100%")
+					client.applyPatternAndResolve [uri], 'demo3', {
+						onProgress : (ev) ->
+							if ev.percent
+								Bootstrap.setProgressBar('apar', ev.percent).text(ev.percent + "%")
+						onError: ->
+							console.error arguments
+						onSuccess : (ev) ->
+							notie.alert(1, 'ApplyPatternAndResolve ', 0.5)
+							Bootstrap.setProgressBar('apar', 100).text("100%")
+							$("#infolis-modal").append(JSON.stringify(ev, null, 2))
+					}
 
 infolisTo = (elem) ->
 	link = $(elem).closest('a[href]').attr('href')

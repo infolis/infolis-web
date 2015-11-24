@@ -7,6 +7,7 @@ block help
 	include:markdown ../help/data-model-ui.md
 
 block libs
+	script(src="//cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.js")
 	style.
 		.greyed {
 			color: #ccc !important;
@@ -110,11 +111,11 @@ block libs
 				$("#filter input").on 'keyup', () -> applyFilter($(this).val())
 				$(document).on 'keyup', (e) -> if e.keyCode == 27 then clearFilter()
 				$("#filter-reset").on 'click', clearFilter
-				$('.grid').masonry
+				$('.grid').masonry(
 					columnWidth: '.grid-item'
 					itemSelector: '.grid-item'
 					transitionDuration: 0
-					gutter: 0
+					gutter: 0)
 				collapseAll()
 				$(window).on 'hashchange', ->
 					fragment = location.hash
@@ -327,5 +328,3 @@ block content
 				.grid-item.col-xs-12.col-sm-6.col-md-6.col-lg-4
 					+ clsDesc(clsName, tson[clsName])
 
-	script(src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js")
-	script(src="//cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.js")

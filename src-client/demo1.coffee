@@ -65,7 +65,29 @@ class Demo1
 				for uri in execution.outputFiles
 					$("#text-output-uri").append(
 						$("<li>").append($("<a>").attr("href", uri).html(uri)))
-				self.reveal("#select-tags")
+				zebar = null
+				infolinkClient.applyPatternAndResolve execution.outputFiles, "demo3",
+					onStarted : ({ execution }) ->
+						console.log 'Started ApplyPatternAndResolve', exec
+						self.reveal("#apar-progress")
+						zebar = Bootstrap.createProgressBar(exec._id, '#apar-progress')
+						zebar.html($("<a>").attr("href",exec.uri).append(exec._id))
+						console.log 'foo'
+					onError: (exec) ->
+						console.error exec
+						notie.alert(3, 'apar error', 0.5)
+					onProgress : (exec) ->
+						console.log 'Progress', exec.progress
+						Bootstrap.setProgressBar(exec._id, exec.progress)
+					onComplete : (execution) ->
+						console.log 'foo'
+						if execution.status is 'FAILED'
+							console.error "APAR failed", execution
+							notie.alert(6, 'APAR failed :(', 0.5)
+							Bootstrap.getProgressBar(execution._id).addClass('progress-bar-danger')
+							return
+						notie.alert(1, 'APAR complete :)', 0.5)
+						Bootstrap.getProgressBar(execution._id).addClass('progress-bar-success')
 
 $ ->
 	demo1 = new Demo1()
