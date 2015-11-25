@@ -134,10 +134,10 @@ class InfolinkClient
 			.end (err, res) =>
 				if err
 					return onError {execution, err}
-				uri = res.headers.location
-				_id = Utils.lastUriSegment(uri)
-				onStarted {execution, uri, _id}
-				@pollExecutionStatus uri, { onProgress, onComplete }
+				execution.uri = res.headers.location
+				execution._id = Utils.lastUriSegment(execution.uri)
+				onStarted execution
+				@pollExecutionStatus execution.uri, { onProgress, onComplete }
 
 	pollExecutionStatus : (uri, opts) ->
 		pollId = null
