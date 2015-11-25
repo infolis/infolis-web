@@ -213,7 +213,8 @@ class InfolinkClient
 					return onError {err}
 				uri = res.headers.location
 				console.log 'finished'
-				return onSuccess uri
+				_id = Utils.lastUriSegment(uri)
+				return onSuccess {uri, _id}
 
 	uploadFiles: (opts = {}) ->
 		if typeof opts isnt 'object'
@@ -250,7 +251,8 @@ class InfolinkClient
 						onError {fileIdx, err, file}
 						return done err
 					uri = res.headers.location
-					onSuccess {fileIdx, file, uri}
+					_id = Utils.lastUriSegment(uri)
+					onSuccess {fileIdx, file, uri, _id}
 					done null, uri
 		, (err, uris) ->
 			if err
