@@ -28,7 +28,7 @@ class Demo1
 			onSuccess: (ev) ->
 				bar = Bootstrap.getProgressBar("file-#{ev.fileIdx}")
 				bar.addClass('progress-bar-success')
-				$("a", bar).attr('href', ev.uri).append(" -> #{ev.uri}")
+				$("a", bar).attr('href', ev.uri).append(" -> #{ev._id}")
 			onComplete: (ev) ->
 				notie.alert(1, 'Upload complete', 0.5)
 				setTimeout () ->
