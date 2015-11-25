@@ -1,5 +1,7 @@
 extends ./layout.jade
 
+include ./mixin/triples.jade
+
 block title
 	if is_ldf
 		| InFoLiS Linked Data Fragments
@@ -24,7 +26,7 @@ block end-of-head
 block content
 
 	.row
-		.col-md-12
+		.col-md-11.col-md-offset-1
 			h2
 				- uptonow = '/'
 				each segment,idx in title.split('/')
@@ -75,5 +77,5 @@ block content
 				li(data-format="text/vnd.graphviz") #[a(href="?format=text/vnd.graphviz") GraphViz]
 
 	.row
-		.col-md-10
-			mixin tripleView
+		.col-md-10.col-md-offset-1
+			+ tripleView()
