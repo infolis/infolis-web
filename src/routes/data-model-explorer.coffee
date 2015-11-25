@@ -24,7 +24,7 @@ TSON_ALL = Object.keys temp
 module.exports = (app, done) ->
 
 	app.get '/play/data-model-explorer', (req, res, next) ->
-		res.render 'demo-data-model',
+		res.render 'play/data-model-explorer',
 			tson: TSON_AS_JSON,
 			tsonClasses: TSON_CLASSES,
 			tsonProps: TSON_PROPS,

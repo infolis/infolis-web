@@ -1,16 +1,16 @@
-extends ./layout.jade
+extends ../layout.jade
 
 block title
 	| InFoLiS Data Model Explorer
 
 block help
-	include:markdown ../help/data-model-ui.md
+	include:markdown ../../help/data-model-ui.md
 
 block footer
 	script(src="#{CONFIG.site_github}/vendor/masonry.pkgd.min.js")
 	script(src="//cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.js")
 	script
-		include:coffee-script ../src-client/data-model-explorer.coffee
+		include:coffee-script ../../src-client/data-model-explorer.coffee
 
 block end-of-head
 	link(rel="stylesheet",href="//cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.css")

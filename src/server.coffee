@@ -122,9 +122,9 @@ class InfolisWebservice
 			'swagger'
 			'json-import'
 			'syntax-highlight'
-			'tson'
 			'greasemonkey'
 			'play/datasetifier'
+			'data-model-explorer'
 		]
 		Async.eachSeries controllers, (controller, done) =>
 			log.info "Setting up route #{controller}"
