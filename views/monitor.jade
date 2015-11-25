@@ -1,24 +1,12 @@
 extends ./layout.jade
 
+include ./mixin/execution.jade
+
 block title
 	| Monitor backend
 
 block help
 	include:markdown ../help/monitor.md
-
-include ./mixins/executionTable.jade
-
-mixin executionPane(status, executions)
-	.tab-pane(id="executions-#{status}")
-		each execution in executions
-			+ executionTable(execution)
-
-mixin executionTab(status, size)
-	li
-		a(href="#executions-#{status}",id="executions-#{status}-tab",class="btn btn-#{status2bootstrap[status] || 'ALL'}",data-toggle="tab")
-			= status
-			|&nbsp[#{size}]
-
 
 block content
 	- status2bootstrap = {"FINISHED": "success", "FAILED": 'danger', "PENDING": "warning", "STARTED": "info"}

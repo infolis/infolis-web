@@ -1,0 +1,32 @@
+mixin tripleView
+	#triples-container
+		pre#rdf
+			= rdf
+	script
+		:coffee-script
+			profile = "#{profile}"
+			format = "#{format}"
+			$ ->
+				rdfElem = document.getElementById("rdf")
+				if format is 'text/html'
+					table = $("table", $("<div/>").html($("#rdf").text()))
+					table.addClass('table')
+					table.removeAttr('border')
+					$("a", table).each () ->
+						linkText = $(@).text()
+						linkText = linkText.substring(linkText.lastIndexOf('#')+1)
+						linkText = linkText.substring(linkText.lastIndexOf('/')+1)
+						$(@).text(linkText)
+					$("#triples-container").html(table)
+				else if format == 'text/vnd.graphviz'
+					svg = Viz(rdfElem.textContent, format:"svg", engine:"dot")
+					document.getElementById('triples-container').innerHTML = svg
+					$("#triples-container svg>g>text").remove()
+					$("#triples-container svg").attr('width', '100%')
+					$("#triples-container svg").attr('height', '100%')
+				else
+					infolinkClient.syntaxHighlight {
+						text: document.getElementById("rdf").textContent
+						mimetype: '#{format}'
+						selector: "#triples-container"
+					}
