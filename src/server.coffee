@@ -24,7 +24,7 @@ log = require('./log')(module)
 notFoundHandler = (req, res, next) ->
 	res.status 404
 	if Accepts(req).type('text/html')
-		return res.render '404', {reqJSON: StringifySafe(req, null, 2)}
+		return res.render 'error/404', {reqJSON: StringifySafe(req, null, 2)}
 	else
 		return res.end()
 	next()
@@ -41,7 +41,7 @@ errorHandler = (err, req, res, next) ->
 	delete err.arguments
 	res.status 400
 	if Accepts(req).type('text/html')
-		return res.render 'error', { err }
+		return res.render 'error/400', { err }
 	else
 		res.send StringifySafe err, null, 2
 
