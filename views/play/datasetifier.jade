@@ -1,4 +1,4 @@
-extends ./layout.jade
+extends ../layout.jade
 
 block title
 	| Datasetify your PDFs
@@ -15,7 +15,7 @@ block end-of-head
 			font-weight-bold;
 		}
 	script
-		include:coffee-script ../src-client/demo1.coffee
+		include:coffee-script ../../src-client/datasetifier.coffee
 
 block content
 	.row

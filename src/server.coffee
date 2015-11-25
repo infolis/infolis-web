@@ -124,7 +124,7 @@ class InfolisWebservice
 			'syntax-highlight'
 			'tson'
 			'greasemonkey'
-			'play'
+			'play/datasetifier'
 		]
 		Async.eachSeries controllers, (controller, done) =>
 			log.info "Setting up route #{controller}"
