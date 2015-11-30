@@ -8,9 +8,9 @@ block title
 
 block help
 	if is_ldf
-		p Them tasty fragments is tasty
+		include:markdown ../help/ldf.md
 	else
-		p I sure like me my triples
+		include:markdown ../help/schema.md
 
 block libs
 	script(src="#{site_api}/vendor/viz.js")

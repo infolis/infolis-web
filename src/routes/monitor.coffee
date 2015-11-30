@@ -20,7 +20,7 @@ module.exports = (app, done) ->
 			stats[modelName] = {}
 			model.collection.indexInformation (err, indexInfo) ->
 				stats[modelName].indexedFields = []
-				console.log indexInfo
+				log.silly indexInfo
 				for k,v of indexInfo
 					continue if v[0][0] is '_id'
 					continue if v[0][0] in stats[modelName].indexedFields
