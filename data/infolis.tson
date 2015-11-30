@@ -426,7 +426,7 @@ InfolisPattern
 InfolisFile
 	@context
 		dc:description "A resource representing a file on the server."
-		owl:sameAs.
+		owl:sameAs
 			@id omnom:File
 	md5
 		@context
