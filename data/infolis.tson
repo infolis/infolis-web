@@ -4,9 +4,9 @@
 #
 #   * the database schema (for Mongoose)
 #   * the ontology (described JSON-LD)
-#   * the REST API (GET/POST/PUT/DELETE /api/MyClass
+#   * the REST API (GET/POST/PUT/DELETE /api/MyClass)
 #   * the REST API documentation (Swagger)
-#   * the data model explorer (http://infolis.gesis.org/work/data-model
+#   * the data model explorer @ http://infolis.gesis.org/play/data-model-explorer
 #
 
 @ns
@@ -36,6 +36,7 @@
 		@value "2015-11-20T00:18:23Z"
 		@type xsd:dateTime
 
+
 Execution
 	@context
 		dc:description "The concrete execution of an Algorithm."
@@ -43,6 +44,7 @@ Execution
 			@id schema:Action
 		dcterms:source
 			@id <https://github.com/infolis/infoLink/blob/master/src/main/java/io/github/infolis/model/Execution.java>
+
 	algorithm
 		@context
 			dc:description "Java class of the algorithm which is supposed to be executed within this execution."
@@ -70,6 +72,7 @@ Execution
 			'io.github.infolis.algorithm.VersionPatternApplier'
 			'io.github.infolis.algorithm.Resolver'
 		]
+
 	status
 		@context
 			dc:description """
@@ -93,11 +96,13 @@ Execution
 			"FINISHED"
 		]
 		hideFromSwagger: true
+
 	log
 		@context
 			dc:description "Log messages of this execution."
 		type: ArrayOfStrings
 		hideFromSwagger: true
+
 	startTime
 		@context
 			owl:sameAs 
@@ -107,6 +112,7 @@ Execution
 		type Date
 		index: true
 		hideFromSwagger: true
+
 	endTime
 		@context
 			owl:sameAs 
@@ -116,14 +122,17 @@ Execution
 		type Date
 		index: true
 		hideFromSwagger: true
+
 	progress
 		@context
 			dc:description "Numerical progress of the execution in the interval 0-100."
 		type: Number
 		hideFromSwagger: true
+
 	#
 	# Parameters
 	#
+
 	inputFiles
 		@context
 			dc:description """
@@ -132,19 +141,23 @@ Execution
 				They are for example used to search patterns within the Pattern Applier algorithm.
 				"""
 		refMany: infolis:InfolisFile
+
 	outputFiles
 		@context
 			dc:description "List of URIs of output files. Output files to save the output files (txt files) of algorithms."
 		refMany: infolis:InfolisFile
+
 	removeBib
 		@context
 			dc:description "Whether to remove the bibliography from text/plain document."
 		type Boolean
 		index: true
+
 	outputDirectory
 		@context
 			dc:description "Output directory of the indexer."
 		type String
+
 	phraseSlop
 		@context
 			dc:description """
@@ -156,6 +169,7 @@ Execution
 				"""
 		index: true
 		type: Number
+
 	upperCaseConstraint
 		@context
 			dc:description """
@@ -167,6 +181,7 @@ Execution
 				"""
 		index: true
 		type Boolean
+
 	allowLeadingWildcards
 		@context
 			dc:description """
@@ -176,6 +191,7 @@ Execution
 				"""
 		index: true
 		type Boolean
+
 	maxClauseCount
 		@context
 			dc:description """
@@ -186,6 +202,7 @@ Execution
 				"""
 		index: true
 		type: Number
+
 	searchTerm
 		@context
 			dc:description """
@@ -196,6 +213,7 @@ Execution
 				"""
 		index: true
 		type String
+
 	searchQuery
 		@context
 			dc:description """
@@ -205,6 +223,7 @@ Execution
 				fitting research data.
 				"""
 		refOne infolis:SearchQuery
+
 	textualReferences
 		@context
 			dc:description """
@@ -214,10 +233,12 @@ Execution
 				it also contains the context, i.e. where the term has been detected.
 				"""
 		refMany infolis:TextualReference
+
 	matchingFiles
 		@context
 			dc:description "Matching files"
 		refMany infolis:InfolisFile
+
 	patterns
 		@context
 			dc:description """
@@ -225,10 +246,12 @@ Execution
 				that can be applied on texts, e.g. to find links to research data.
 				"""
 		refMany infolis:InfolisFile
+
 	seeds
 		@context
 			dc:description "The initial seeds for learning."
 		type ArrayOfStrings
+
 	maxIterations
 		@context
 			dc:description """
@@ -238,11 +261,13 @@ Execution
 				"""
 		index: true
 		type Number
+
 	reliabilityThreshold
 		@context
 			dc:description "Determines which patterns are the relevant ones."
 		index: true
 		type Number
+
 	bootstrapStrategy
 		@context
 			dc:description "Strategy to use for bootstrapping. Can either be: mergeCurrent, mergeNew, mergeAll, separate, reliability."
@@ -254,6 +279,7 @@ Execution
 			'separate'
 			'reliability'
 		]
+
 	metaDataExtractingStrategy
 		@context
 			dc:description """
@@ -271,14 +297,17 @@ Execution
 			'urn'
 			'bibliography'
 		]
+
 	links
 		@context
 			dc:description "The found EntityLinks."
 		refMany infolis:EntityLink
+
 	queryServices
 		@context
 			dc:description "List of QueryService to use"
 		refMany infolis:QueryService
+
 	queryServiceClasses
 		@context
 			dc:description "Instead of a using a list of QueryService URIs(queryServices), the Java classes of the QueryServices can be used."
@@ -287,23 +316,28 @@ Execution
 			'io.github.infolis.resolve.DaraHTMLQueryService'
 			'io.github.infolis.resolve.DaraSolrQueryService'
 		]
+
 	searchResults
 		@context
 			dc:description "Search results"
 		refMany infolis:SearchResult
+
 	tags
 		@context
 			dc:description "Tags to assign to the results of this execution"
 		type ArrayOfStrings
 		index: true
+
 	infolisFileTags
 		@context
 			dc:description "Find InfolisFiles with any of these tags"
 		type: ArrayOfStrings
+
 	infolisPatternTags
 		@context
 			dc:description "Find InfolisPatterns with any of these tags"
 		type: ArrayOfStrings
+
 
 SearchQuery
 	@context
