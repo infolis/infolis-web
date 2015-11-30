@@ -1,5 +1,5 @@
 client = new InfolinkClient(
-	baseURI: 'http://localhost:3000'
+	baseURI: 'http://infolis.gesis.org/infolink'
 )
 
 $('head').append(
@@ -59,7 +59,7 @@ runOnElem = () ->
 							list = $("<ul>")
 							console.log execution
 							for link in execution.links
-								list.append($("<a>").attr('href', link).text(link))
+								list.append($("<li>").append($("<a>").attr('href', link).text(link)))
 							$("#infolis-modal").append($("<div>Links:</div>")).append(list)
 					}
 
