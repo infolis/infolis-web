@@ -69,20 +69,22 @@ class Demo1
 				infolinkClient.applyPatternAndResolve execution.outputFiles, "demo3",
 					onStarted : ({ execution }) ->
 						console.log 'Started ApplyPatternAndResolve', execution
+						self.reveal("#links")
+						self.reveal("#apar-uri")
 						self.reveal("#apar-progress")
 						zebar = Bootstrap.createProgressBar('apar', '#apar-progress')
 						zebar.html($("<a>").attr("href",execution.uri).append(execution._id))
 					onError: (exec) ->
 						notie.alert(3, 'apar error', 0.5)
 					onProgress : (exec) ->
-						Bootstrap.setProgressBar('apar', exec.progress)
+						$("#apar-uri").html($("<a>").attr('href',exec.uri).text(exec.uri))
+						Bootstrap.setProgressBar('apar', exec.progress).text(exec.progress)
 					onComplete : (execution) ->
 						if execution.status is 'FAILED'
 							console.error "APAR failed", execution
 							notie.alert(6, 'Apply Pattern And Resolve failed :(', 0.5)
 							Bootstrap.getProgressBar('apar').addClass('progress-bar-danger')
 							return
-						self.reveal("#links")
 						Bootstrap.setProgressBar('apar', 100)
 						Bootstrap.getProgressBar('apar').addClass('progress-bar-success')
 						notie.alert(1, 'Apply Pattern And Resolve complete :)', 0.5)
