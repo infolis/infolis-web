@@ -154,6 +154,7 @@ class InfolinkClient
 						opts.onProgress execution
 						return opts.onComplete execution
 					execution = res.body
+					execution.uri = uri
 					if execution.status in ['FINISHED','FAILED']
 						clearInterval pollId
 						opts.onProgress execution
