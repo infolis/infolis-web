@@ -53,8 +53,10 @@ class InfolisWebservice
 	constructor: (@port) ->
 		log.silly "Configuration", CONFIG
 		@app = Express()
-		# Very important, that next one
-		@app.set('case sensitive routing', true)
+		@app.on 'error', (e) ->
+			log.error "Express error:", e
+
+	setupMongoose: (doneSetupMongoose) ->
 		# Start DB
 		@app.mongoose = Mongoose.createConnection(
 			CONFIG.mongoURI
@@ -62,9 +64,14 @@ class InfolisWebservice
 		)
 		if not @app.mongoose
 			throw new Error("Must set the MongoDB connection for API")
+		@app.mongoose.on 'connected', doneSetupMongoose
 		@app.mongoose.on 'error', (e) =>
 			log.error "ERROR starting MongoDB"
 			throw e
+
+	setupExpress : (doneSetupExpress) ->
+		# Very important, that next one
+		@app.set('case sensitive routing', true)
 		# Schemo!
 		@app.schemo = new Schemo(
 			mongoose: @app.mongoose
@@ -76,29 +83,31 @@ class InfolisWebservice
 			htmlView: 'triples'
 			schemo: TSON.load __dirname + '/../data/infolis.tson'
 		)
-		# JSON-LD Middleware
-		@app.jsonldMiddleware = @app.schemo.expressJsonldMiddleware
-		# JSON body serialization middleware
-		@app.use(BodyParser.json(
-			limit: 10 * 1024 * 1024
-		))
-		# CORS (Access-Control-Allow-Origin)
-		@app.use(Cors())
-		# Static files
-		@app.use(Express.static('public'))
-		# Jade
-		@app.set('views', './views')
-		@app.set('view engine', 'jade')
-		# Forward proxy remote address
-		@app.set("trust proxy", 'loopback')
-		# Make it easy for routes to add swagger docs
-		@app._swagger = {}
-		@app.swagger = (endpoint, def) ->
-			return @_swagger if not (endpoint and def)
-			log.debug "Adding swagger for #{endpoint}"
-			@_swagger[endpoint] = def
+		@app.schemo.once 'ready', =>
+			# JSON-LD Middleware
+			@app.jsonldMiddleware = @app.schemo.expressJsonldMiddleware
+			# JSON body serialization middleware
+			@app.use(BodyParser.json(
+				limit: 10 * 1024 * 1024
+			))
+			# CORS (Access-Control-Allow-Origin)
+			@app.use(Cors())
+			# Static files
+			@app.use(Express.static('public'))
+			# Jade
+			@app.set('views', './views')
+			@app.set('view engine', 'jade')
+			# Forward proxy remote address
+			@app.set("trust proxy", 'loopback')
+			# Make it easy for routes to add swagger docs
+			@app._swagger = {}
+			@app.swagger = (endpoint, def) ->
+				return @_swagger if not (endpoint and def)
+				log.debug "Adding swagger for #{endpoint}"
+				@_swagger[endpoint] = def
+			doneSetupExpress()
 
-	setupRoutes : () ->
+	setupRoutes : (doneSetupRoutes) ->
 		# @app.http().io()
 		# Store site information
 		@app.use (req, res, next) ->
@@ -139,14 +148,17 @@ class InfolisWebservice
 			@app.use errorHandler
 			# 404 handler
 			@app.use notFoundHandler
+			doneSetupRoutes()
 
 	startServer : () ->
-		log.info "Setting up routes"
-		@setupRoutes()
-		log.info "Starting server on #{CONFIG.port}"
-		@app.on 'error', (e) ->
-			log.error e
-		@app.listen CONFIG.port
+		log.info "Setting up Mongoose"
+		@setupMongoose =>
+			log.info "Setting up express"
+			@setupExpress =>
+				log.info "Setting up routes"
+				@setupRoutes =>
+					log.info "Starting server on #{CONFIG.port}"
+					@app.listen CONFIG.port
 
 server = new InfolisWebservice()
 server.startServer()
