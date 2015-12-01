@@ -58,14 +58,16 @@ nav.navbar.navbar-inverse.navbar-static-top
 	script
 		:coffee-script
 			$ ->
-					path = window.location.pathname
-					if path isnt '/'
-						$('nav li a[href$="' + path + '"]').parents('li').addClass('active')
-					else
-						$('nav li a.home').parents('li').addClass('active')
-					$(document).on 'keydown', (e) ->
-						if e.keyCode == 27
-							$('#help').collapse 'hide'
+				path = window.location.pathname
+				if path isnt '/'
+					$('nav li a[href$="' + path + '"]').parents('li').addClass('active')
+				else
+					$('nav li a.home').parents('li').addClass('active')
+			$ ->
+				$(document).on 'keydown', (e) ->
+					if e.keyCode == 27
+						if $('#help').hasClass('in')
+							$('#help-button span').trigger 'click'
 
 	.container-fluid
 		.row
