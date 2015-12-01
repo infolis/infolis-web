@@ -1,5 +1,5 @@
 Feel free to look around and test our API. Basically, there are only two
-essential methods for uploading files and executing a linking algorithm. Note
+essential methods for uploading files and executing an algorithm. Note
 that uploaded files will not be available for download for copyright reasons.
 
 Check out some [example URI
@@ -13,6 +13,5 @@ links. To create these resources and get access to them afterwards, we provide
 many additional methods that you probably do not need to know about at the
 beginning.
 
-Note: This API is under heavy development and far from stable. If you have
-problems using it or find a bug, please
-[create an issue](https://github.com/infolis/infoLink/issues).
+Note: This API is in rapid development. If you have problems using it or find a
+bug, please [create an issue](https://github.com/infolis/infoLink/issues).
