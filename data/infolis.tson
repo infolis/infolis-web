@@ -167,7 +167,7 @@ Execution
 				operations may be carried out.
 				Default: 10
 				"""
-		index: true
+		index: false
 		type: Number
 
 	upperCaseConstraint
@@ -189,7 +189,7 @@ Execution
 				use leading wildcard characters.
 				Default: true
 				"""
-		index: true
+		index: false
 		type Boolean
 
 	maxClauseCount
@@ -200,7 +200,7 @@ Execution
 				matching boolean combinations of other queries.
 				Default: Integer max value
 				"""
-		index: true
+		index: false
 		type: Number
 
 	searchTerm
@@ -259,13 +259,13 @@ Execution
 				A high number of iterations can lead to a increased run time.
 				Default: 10
 				"""
-		index: true
+		index: false
 		type Number
 
 	reliabilityThreshold
 		@context
 			dc:description "Determines which patterns are the relevant ones."
-		index: true
+		index: false
 		type Number
 
 	bootstrapStrategy
