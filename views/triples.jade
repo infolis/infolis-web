@@ -27,15 +27,14 @@ block end-of-head
 block content
 	.row
 		.col-md-11.col-md-offset-1
-			h2
+			h2(style="margin: 0")
 				- uptonow = '/'
 				each segment,idx in title.split('/')
 					if idx > 0
 						| &nbsp;/&nbsp;
 						a(href="#{uptonow}#{segment}")= segment
 						- uptonow = uptonow + segment + "/"
-				code.small
-					code [#{format}]
+				code(style="font-size:12pt !important") [#{format}]
 			if is_ldf
 				form.form-horizontal
 					.form-group

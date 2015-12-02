@@ -2,6 +2,7 @@ mixin tripleView
 	#triples-container
 		pre#rdf
 			= rdf
+	script(src="#{site_api}/vendor/svg-pan-zoom.js")
 	script.
 		profile = "#{profile}"
 		format = "#{format}"
@@ -25,7 +26,14 @@ mixin tripleView
 					document.getElementById('triples-container').innerHTML = svg
 					$("#triples-container svg>g>text").remove()
 					$("#triples-container svg").attr('width', '100%')
-					$("#triples-container svg").attr('height', '100%')
+					$("#triples-container svg").attr('height', '400px')
+					$("#triples-container").css('border', '1px solid #ccc')
+					svgPanZoom 'svg',
+						zoomEnabled: true
+						controlIconsEnabled: true
+						fit: true
+						center: true
+						maxZoom: 100
 				else
 					infolinkClient.syntaxHighlight {
 						text: document.getElementById("rdf").textContent
