@@ -44,6 +44,7 @@ Execution
 			@id schema:Action
 		dcterms:source
 			@id <https://github.com/infolis/infoLink/blob/master/src/main/java/io/github/infolis/model/Execution.java>
+		@type owl:Class
 
 	algorithm
 		@context
@@ -342,6 +343,7 @@ Execution
 SearchQuery
 	@context
 		dc:description "A search query"
+		@type owl:Class
 	query
 		@context
 			dc:description "The query string"
@@ -352,6 +354,7 @@ SearchQuery
 Entity
 	@context
 		dc:description "An entity to be linked from or to, a Dataset or a Publication or a SearchResult"
+		@type owl:Class
 	name
 		@context
 			dc:description "Name of the entity"
@@ -381,6 +384,7 @@ SearchResult
 		dc:description "A search result"
 		rdfs:subClassOf
 			@id infolis:Entity
+		@type owl:Class
 	identifier
 		@context
 			dc:description "Identifier of the search result"
@@ -422,6 +426,7 @@ SearchResult
 InfolisPattern
 	@context
 		dc:description 'A Regular Expression pattern'
+		@type owl:Class
 	patternRegex
 		@context
 			dc:description "A string containing a Java Regular Expression pattern"
@@ -460,6 +465,7 @@ InfolisPattern
 InfolisFile
 	@context
 		dc:description "A resource representing a file on the server."
+		@type owl:Class
 		owl:sameAs
 			@id omnom:File
 	md5
@@ -516,6 +522,7 @@ InfolisFile
 QueryService
 	@context
 		dc:description "A query service"
+		@type owl:Class
 	reliability
 		@context
 			dc:description "The reliability of this QueryService"
@@ -534,6 +541,7 @@ QueryService
 TextualReference
 	@context
 		dc:description "Class for saving contexts (= surrounding words of a term)."
+		@type owl:Class
 	leftWords
 		@context
 			dc:description "Words left of the term"
@@ -574,6 +582,7 @@ EntityLink
 			An entity link desribes that two entities are linked, i.e. a publication is linked to the research data that is mentioned in
 			the publication text.
 			"""
+		@type owl:Class
 	fromEntity
 		@context
 			dc:description "The entity from which the link originates from, this is typically the publication"
