@@ -12,7 +12,6 @@ applyFilter = (input) ->
 	$('[data-infolis-type]').each(->
 		$this = $(this)
 		toMatch = $this.attr('data-infolis-type')
-		console.log toMatch
 		if toMatch and toMatch.match re
 			if panelClass
 				$this = $this.find("." + panelClass).first()
