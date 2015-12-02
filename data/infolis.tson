@@ -21,18 +21,17 @@
 	schema  <http://schema.org/>
 	bibo    <http://purl.org/ontology/bibo/>
 	foaf    <http://xmlns.com/foaf/0.1/>
-	science <http://semanticscience.org/resource/>
 	dqm     <http://purl.org/dqm-vocabulary/v1/dqm#>
-	uri4uri <http://uri4uri.net/vocab#>
-	dm2e    <http://onto.dm2e.eu/schema/dm2e/>
 	omnom   <http://onto.dm2e.eu/omnom/>
+	doap    <http://usefulinc.com/ns/doap#>
+	vann    <http://purl.org/vocab/vann/>
 	dcat    <http://www.w3.org/ns/dcat#>
 
 @context
 	@id infolis:
 	@type owl:Ontology
 	dc:description "Infolis Data model"
-	dc:version
+	doap:version
 		@value "2015-11-20T00:18:23Z"
 		@type xsd:dateTime
 
@@ -40,6 +39,8 @@
 Execution
 	@context
 		dc:description "The concrete execution of an Algorithm."
+		vann:example
+			@id <http://infolis.gesis.org/infolink/api#!/rest-ld-execution>
 		rdfs:subClassOf
 			@id schema:Action
 		dcterms:source
@@ -86,7 +87,7 @@ Execution
 
 				Default (when starting): ExecutionStatus.PENDING
 				"""
-			dc:example 'SUCCESS'
+			vann:example 'SUCCESS'
 		required true
 		type String
 		index: true
@@ -343,6 +344,8 @@ Execution
 SearchQuery
 	@context
 		dc:description "A search query"
+		vann:example
+			@id <http://infolis.gesis.org/infolink/api#!/rest-ld-searchQuery>
 		@type owl:Class
 	query
 		@context
