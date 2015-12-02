@@ -112,7 +112,13 @@ mixin resourceContext(name, def)
 								+ splitCURIE(pred)
 							td
 								if typeof obj === 'object'
-									if obj['@id']
+									if obj.length
+										ul
+										each subobj in obj
+											- link = subobj['@id']
+											li
+												a(href="#{link}")= link.substring(link.lastIndexOf('/')+1)
+									else if obj['@id']
 										- link = obj['@id']
 										if link.indexOf('http') == 0
 											a(href="#{link}")= link.substring(link.lastIndexOf('/')+1)
@@ -244,6 +250,8 @@ block content
 								a(href="http://vowl.visualdataweb.org/webvowl/#iri=http://infolis.gesis.org/infolink/schema") @ WebVOWL
 							li
 								a(href="http://ontorule-project.eu/parrot/parrot?&mimetype=default&profile=technical&language=en&documentUri=http://infolis.gesis.org/infolink/schema") @ OntoRule
+							li
+								a(href='http://owlgred.lumii.lv/online_visualization/il19#') @ OWLGrED
 		.col-sm-6
 			#filter.form-inline
 				.form-group

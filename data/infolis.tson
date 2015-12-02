@@ -38,8 +38,7 @@
 		@type xsd:dateTime
 	doap:implements
 		@id <https://github.com/infolis/infoLink>
-	rdfs:seeAlso
-		'@list': [{
+	'rdfs:seeAlso': [{
 			@id <https://github.com/infolis>
 			@type doap:Project
 			doap:shortdesc "Github organization containing all the software developed by InFoLiS"
