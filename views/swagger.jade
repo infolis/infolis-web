@@ -4,10 +4,10 @@ block title
 	| Infolis API Explorer
 
 block end-of-head
-	link(href='#{site_api}/vendor/swagger-ui/dist/css/reset.css', media='screen', rel='stylesheet', type='text/css')
+	//- link(href='#{site_api}/vendor/swagger-ui/dist/css/reset.css', media='screen', rel='stylesheet', type='text/css')
 	link(href='#{site_api}/vendor/swagger-ui/dist/css/typography.css', media='screen', rel='stylesheet', type='text/css')
 	link(href='#{site_api}/vendor/swagger-ui/dist/css/screen.css', media='screen', rel='stylesheet', type='text/css')
-	link(href='#{site_api}/vendor/swagger-ui/dist/css/print.css', media='print', rel='stylesheet', type='text/css')
+	//- link(href='#{site_api}/vendor/swagger-ui/dist/css/print.css', media='print', rel='stylesheet', type='text/css')
 	script(src='#{site_api}/vendor/swagger-ui/dist/lib/jquery.ba-bbq.min.js', type='text/javascript')
 
 block footer
@@ -35,7 +35,11 @@ block footer
 						'patch'
 					]
 					onComplete: (swaggerApi, swaggerUi) ->
-						$('.container-fluid .container').removeClass 'container'
+						swaggerElem = $(".swagger-section")
+						$('.container', swaggerElem).removeClass 'container'
+						$('.swagger-ui-wrap', swaggerElem).css('max-width', 'inherit')
+						$('.swagger-ui-wrap', swaggerElem).css('margin-left', '')
+						$('.swagger-ui-wrap', swaggerElem).css('margin-right', '')
 						$('#api_info').hide()
 						#$('.options').hide()
 						$('th').removeAttr 'style'
@@ -49,9 +53,9 @@ block footer
 						$('ul.options li:nth-child(3)').hide()
 						$('pre code').each (i, e) ->
 							hljs.highlightBlock e
-						$(".heading h2", $(".swagger-section")).css("margin", "0")
-						$(".row", $(".swagger-section")).removeClass("row")
-						$(".form-control", $(".swagger-section")).removeClass("form-control").addClass("form-group")
+						$(".heading h2", swaggerElem).css("margin", "0")
+						$(".row", swaggerElem).removeClass("row")
+						$(".form-control", swaggerElem).removeClass("form-control").addClass("form-group")
 						$("#essential_post_api_upload_content h4:first-child").hide()
 						$("#essential_post_api_upload_content > p").hide()
 						$("#essential_post_api_upload_content .response-content-type").hide()
@@ -71,6 +75,6 @@ block help
 
 block content
 	.row
-		.col-md-offset-1.col-md-11
+		.col-md-offset-1.col-md-10
 			.swagger-section
 				#swagger-ui-container.swagger-ui-wrap
