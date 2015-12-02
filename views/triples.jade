@@ -79,10 +79,11 @@ block content
 				:coffee-script
 					queryString = window.location.search
 					if queryString.indexOf('?') == 0
+						queryString = queryString.replace(/format=.+&?/, '')
+						queryString = queryString.replace(/profile=.+&?/, '')
 						queryString = '&' + queryString.substring(1)
 					$("li[data-profile] a, li[data-format] a").each ->
 						$(@).attr('href', $(@).attr('href') + queryString)
-						console.log $(@).attr('href')
 
 	.row
 		.col-md-10.col-md-offset-1

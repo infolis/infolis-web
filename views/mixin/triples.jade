@@ -2,10 +2,12 @@ mixin tripleView
 	#triples-container
 		pre#rdf
 			= rdf
+	script.
+		profile = "#{profile}"
+		format = "#{format}"
 	script
 		:coffee-script
-			profile = "#{profile}"
-			format = "#{format}"
+			console.log format
 			$ ->
 				rdfElem = document.getElementById("rdf")
 				if format is 'text/html'
