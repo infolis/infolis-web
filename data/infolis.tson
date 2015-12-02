@@ -30,11 +30,38 @@
 @context
 	@id infolis:
 	@type owl:Ontology
-	dc:description "Infolis Data model"
-	doap:version
-		@value "2015-11-20T00:18:23Z"
+	@type doap:Project
+	dc:title "Infolis Data model"
+	dc:description "This ontology is the normative source for the semantics and structure of the domain of the InFoLiS project"
+	dc:modified
+		@value "2015-12-02T13:53:09+0100"
 		@type xsd:dateTime
-
+	doap:implements
+		@id <https://github.com/infolis/infoLink>
+	rdfs:seeAlso
+		'@list': [{
+			@id <https://github.com/infolis>
+			@type doap:Project
+			doap:shortdesc "Github organization containing all the software developed by InFoLiS"
+		},{
+			@id <https://github.com/infolis/infoLink>
+			@type doap:Project
+			doap:shortdesc "The software implementing all the algorithms, doing the text mining, linking the entities and much more"
+			doap:programming-language "Java"
+		},{
+			@id <https://github.com/infolis/infolis-datasets>
+			@type doap:Project
+			doap:shortdesc "Project containing all the data and tools to run learning and linking in bulk in a Linux environment."
+			doap:programming-language "Shell"
+			doap:programming-language "Python"
+		},{
+			@id <https://github.com/infolis/infolis-web>
+			@type doap:Project
+			doap:shortdesc "Project that implements the HTTP-based RESTful Linked Data infrastructure for InFoLiS"
+			doap:programming-language "CoffeeScript"
+			doap:programming-language "Javascript"
+			doap:implements infolis:
+		}]
 
 Execution
 	@context
