@@ -1,0 +1,23 @@
+title
+	block title
+		title Default title
+
+link(rel="icon",type="image/png",href="#{site_github}/img/logo-circle.png")
+
+script(src="#{CONFIG.site_github}/vendor/jquery-2.1.4.min.js")
+script(src="#{CONFIG.site_github}/vendor/jquery.scrollTo.min.js")
+// CORS not enabled on github, load from cdnjs
+link(rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css")
+link(rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css")
+link(rel="stylesheet", href="#{CONFIG.site_github}/vendor/bootstrap.docs.min.css")
+
+script(src="#{site_api}/client.js")
+link(rel="stylesheet", href="#{CONFIG.site_github}/css/style.css")
+
+script.
+	infolinkClient = new InfolinkClient({
+		"baseURI": "#{CONFIG.baseURI}",
+		"debug": true
+	})
+
+block end-of-head

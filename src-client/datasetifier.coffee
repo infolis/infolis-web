@@ -28,7 +28,7 @@ class Demo1
 			onSuccess: (ev) ->
 				bar = Bootstrap.getProgressBar("file-#{ev.fileIdx}")
 				bar.addClass('progress-bar-success')
-				$("a", bar).attr('href', ev.uri).append(" -> #{ev.uri}")
+				$("a", bar).attr('href', ev.uri).append(" -> #{ev._id}")
 			onComplete: (ev) ->
 				notie.alert(1, 'Upload complete', 0.5)
 				setTimeout () ->
@@ -44,15 +44,15 @@ class Demo1
 		infolinkClient.extractText uris,
 			execution:
 				tags: @uploadTags
-			onStarted : (exec) ->
-				console.log 'Started text extraction', exec
+			onStarted : (execution) ->
+				console.log 'Started text extraction', execution
 				self.reveal("#text-extractor-progress")
-				bar = Bootstrap.createProgressBar(exec._id, '#text-extractor-progress')
-				bar.html($("<a>").attr("href",exec.uri).append(exec._id))
-			onError: (exec) ->
+				bar = Bootstrap.createProgressBar(execution._id, '#text-extractor-progress')
+				bar.html($("<a>").attr("href",execution.uri).append(execution._id))
+			onError: (execution) ->
 				notie.alert(3, 'Text extraction error', 0.5)
-			onProgress : (exec) ->
-				Bootstrap.setProgressBar(exec._id, exec.progress)
+			onProgress : (execution) ->
+				Bootstrap.setProgressBar(execution._id, execution.progress)
 			onComplete : (execution) ->
 				if execution.status is 'FAILED'
 					console.error "Text extraction failed", execution
@@ -67,14 +67,14 @@ class Demo1
 						$("<li>").append($("<a>").attr("href", uri).html(uri)))
 				zebar = null
 				infolinkClient.applyPatternAndResolve execution.outputFiles, "demo3",
-					onStarted : ({ execution }) ->
+					onStarted : (execution) ->
 						console.log 'Started ApplyPatternAndResolve', execution
 						self.reveal("#links")
 						self.reveal("#apar-uri")
 						self.reveal("#apar-progress")
 						zebar = Bootstrap.createProgressBar('apar', '#apar-progress')
 						zebar.html($("<a>").attr("href",execution.uri).append(execution._id))
-					onError: (exec) ->
+					onError: (execution) ->
 						notie.alert(3, 'apar error', 0.5)
 					onProgress : (exec) ->
 						$("#apar-uri").html($("<a>").attr('href',exec.uri).text(exec.uri))

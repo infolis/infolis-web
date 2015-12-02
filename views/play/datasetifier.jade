@@ -1,4 +1,4 @@
-extends ./layout.jade
+extends ../layout.jade
 
 block title
 	| Datasetify your PDFs
@@ -6,7 +6,7 @@ block title
 block help
 	include:markdown ../help/demo1.md
 
-block libs
+block end-of-head
 	style.
 		.progress-bar,
 		.progress-bar a {
@@ -14,7 +14,8 @@ block libs
 			font-size: 1em;
 			font-weight-bold;
 		}
-	script(src="/demo1.js")
+	script
+		include:coffee-script ../../src-client/datasetifier.coffee
 
 block content
 	.row

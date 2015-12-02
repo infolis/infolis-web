@@ -134,10 +134,10 @@ class InfolinkClient
 			.end (err, res) =>
 				if err
 					return onError {execution, err}
-				uri = res.headers.location
-				_id = Utils.lastUriSegment(uri)
-				onStarted {execution, uri, _id}
-				@pollExecutionStatus uri, { onProgress, onComplete }
+				execution.uri = res.headers.location
+				execution._id = Utils.lastUriSegment(execution.uri)
+				onStarted execution
+				@pollExecutionStatus execution.uri, { onProgress, onComplete }
 
 	pollExecutionStatus : (uri, opts) ->
 		pollId = null
@@ -214,7 +214,8 @@ class InfolinkClient
 					return onError {err}
 				uri = res.headers.location
 				console.log 'finished'
-				return onSuccess uri
+				_id = Utils.lastUriSegment(uri)
+				return onSuccess {uri, _id}
 
 	uploadFiles: (opts = {}) ->
 		if typeof opts isnt 'object'
@@ -251,7 +252,8 @@ class InfolinkClient
 						onError {fileIdx, err, file}
 						return done err
 					uri = res.headers.location
-					onSuccess {fileIdx, file, uri}
+					_id = Utils.lastUriSegment(uri)
+					onSuccess {fileIdx, file, uri, _id}
 					done null, uri
 		, (err, uris) ->
 			if err
