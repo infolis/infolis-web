@@ -1,6 +1,7 @@
 class Demo1
 
 	constructor: () ->
+		$('.toggleable').hide()
 		$('#start-demo').on 'click', () =>
 			@uploadTags = []
 			for tag in $("#upload-tags").val().trim().split(/\s*,\s*/)
