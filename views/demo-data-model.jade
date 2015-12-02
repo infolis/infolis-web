@@ -315,6 +315,15 @@ block content
 								a(href="#/context") All RDF information
 							li
 								a(href="#/db") All DB data
+					span.dropdown
+						a.form-control.btn.btn-default#extlinks(data-toggle="dropdown")
+							| Visualize
+							span.caret
+						ul.dropdown-menu(aria-labelledby='extlinks')
+							li
+								a(href="http://vowl.visualdataweb.org/webvowl/#iri=http://infolis.gesis.org/infolink/schema") @ WebVOWL
+							li
+								a(href="http://ontorule-project.eu/parrot/parrot?&mimetype=default&profile=technical&language=en&documentUri=http://infolis.gesis.org/infolink/schema") @ OntoRule
 		.col-sm-6
 			#filter.form-inline
 				.form-group
