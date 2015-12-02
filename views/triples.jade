@@ -26,8 +26,8 @@ block libs
 				if profile
 					profile = profile.substring(profile.lastIndexOf('#')+1)
 					$('li[data-profile="' + profile + '"] a').parents('li').addClass('active')
-block content
 
+block content
 	.row
 		.col-md-12
 			h2
@@ -78,6 +78,14 @@ block content
 						li(data-profile="expanded") #[a(href="?profile=expand") JSON-LD (expanded)]
 						li(data-profile="compacted") #[a(href="?profile=compact") JSON-LD (compact)]
 				li(data-format="text/vnd.graphviz") #[a(href="?format=text/vnd.graphviz") GraphViz]
+			script
+				:coffee-script
+					queryString = window.location.search
+					if queryString.indexOf('?') == 0
+						queryString = '&' + queryString.substring(1)
+					$("li[data-profile] a, li[data-format] a").each ->
+						$(@).attr('href', $(@).attr('href') + queryString)
+						console.log $(@).attr('href')
 
 	.row
 		.col-md-10
