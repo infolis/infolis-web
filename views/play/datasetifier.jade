@@ -20,34 +20,36 @@ block end-of-head
 block content
 	.row
 		.col-md-10.col-md-offset-1
-			h1 Upload a PDF, Get Datasets
-	.row
-		.col-md-4.col-md-offset-2
-			form.form
+			form.form-horizontal(role="form")
 				.form-group
-					input.form-control#file(type="file",multiple=true)
+					label.control-label.col-sm-3(for="file") Choose some PDF files
+					.col-sm-4
+						input.form-control#file(type="file",multiple=true)
 				.form-group
-					input.form-control#upload-tags(type="text",placeholder="Tag")
+					label.control-label.col-sm-3(for="upload-tags") Tag these files
+					.col-sm-4
+						input.form-control#upload-tags(type="text",placeholder="Tag")
 				.form-group
-					input.form-control.btn.btn-success#start-demo(type="button",value="Analyze")
+					.col-sm-3.col-sm-offset-3
+						input.form-control.btn.btn-success#start-demo(type="button",value="Analyze")
 	.row.toggleable
-		.col-md-2 Text Progress
-		.col-md-8#upload-progress
+		.col-md-3 Upload Progress
+		.col-md-9#upload-progress
 	.row.toggleable
-		.col-md-2 Text Extraction
-		.col-md-8#text-extractor-progress
+		.col-md-3 Text Extraction Progress
+		.col-md-9#text-extractor-progress
 	.row.toggleable
-		.col-md-2 Text Files
-		.col-md-8
+		.col-md-3 Extracted texts
+		.col-md-9
 			ul#text-output-uri
 	.row.toggleable
-		.col-md-2 Apply Pattern And Resolve
-		.col-md-8#apar-uri
+		.col-md-3 ApplyPatternAndResolve Execution
+		.col-md-9#apar-uri
 	.row.toggleable
-		.col-md-2 Apply Pattern And Resolve
-		.col-md-8#apar-progress
-	.row
-		.col-md-2 Entity Links
-		.col-md-8
+		.col-md-3 ApplyPatternAndResolve Progress
+		.col-md-9#apar-progress
+	.row.toggleable
+		.col-md-3 Generated Publication-Dataset Links
+		.col-md-9
 			ul#links
 
