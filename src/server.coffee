@@ -14,8 +14,8 @@ Cors          = require 'cors'
 StringifySafe = require 'json-stringify-safe'
 Morgan        = require 'morgan'
 
-ExpressJSONLD  = require 'express-jsonld/src'
-Schemo = require 'mongoose-jsonld/src'
+ExpressJSONLD  = require 'express-jsonld'
+Schemo = require 'mongoose-jsonld'
 
 CONFIG = require './config'
 
