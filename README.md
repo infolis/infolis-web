@@ -3,18 +3,12 @@ infolis-web
 
 Infolis Web services
 
-Licenses
---------
-
 This software is licensed under the [MIT license](./LICENSE) terms.
 
-These are the licenses of the bundled libraries, for those pulled in using
-`npm` please refer to the individual packages.
-
-The following guide will enable you to set up and reuse the infolis web services on your local system.
+Deployment
+----------
 
 We recommend to set up your environment on a linux system.
-
 
 ### Step 1: Set up your Working environment for InFoLiS-Web
 
