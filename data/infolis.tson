@@ -178,7 +178,7 @@ Execution
 			dc:description """
 				Status of the execution
 
-				* PENDINGhttp://usefulinc.com/ns/doap#
+				* PENDING
 				* STARTED
 				* FINISHED
 				* FAILED
@@ -277,7 +277,7 @@ Execution
 				at least one upper case character.
 				The idea behind is that especially a study name is supposed to be a
 				named entity and thus should contain at least one upper-case character.
-				Default: falsewarteten Parts hier und dort oder unvorhersehbaren Breaks hätte ich mir gewünscht. Nichtsdestotrotz verdient das Album eine ganz klare Kaufempfehlung. Freunde des modernen, melodischen Death Metal, aus dem einige Elemente der schwedischen Schule sowie ein guter Schuss Progressivität vernehmbar sind, sollten sich "For Aeons Past" unbedingt zulegen.
+				Default: false
 				"""
 		index: true
 		type Boolean
