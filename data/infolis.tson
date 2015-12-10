@@ -43,6 +43,65 @@
 			@type doap:Project
 			doap:shortdesc "Github organization containing all the software developed by InFoLiS"
 		},{
+			@id <https://github.com/kba/jsonld-common-contexts>
+			@type doap:Project
+			doap:shortdesc "Cached versions of commonly used namespaces"
+			doap:Programming-language "CoffeeScript"
+			doap:Programming-language "JavaScript"
+		},{
+			@id <https://github.com/infolis/express-jsonld>
+			@type doap:Project
+			doap:shortdesc "JSON-LD content-negotiating middleware for Express based on node-jsonld and rapper"
+			doap:programming-language "CoffeeScript"
+			'dcterms:requires':[{
+				@id <https://github.com/infolis/infolis-logging>
+			},{
+				@id <https://github.com/infolis/jsonld-rapper>
+			}]
+		},{
+			@id <https://github.com/infolis/jsonld-rapper>
+			@type doap:Project
+			doap:shortdesc "Convert between RDF and JSON-LD using rapper"
+			doap:programming-language "CoffeeScript"
+			'dcterms:requires': [{
+				@id <https://github.com/kba/jsonld-common-contexts>
+			},{
+				@id <https://github.com/infolis/infolis-logging>
+			}]
+		},{
+			@id <https://github.com/kba/turtleson>
+			@type doap:Project
+			doap:shortdesc "Concise, permissive, TURTLE-like dialect of JSON"
+			doap:programming-language "CoffeeScript"
+			doap:programming-language "JavaScript"
+		},{
+			@id <https://github.com/infolis/infolis-logging>
+			@type doap:Project
+			doap:shortdesc "Module-specific Winston logging"
+			doap:programming-language "JavaScript"
+		},{
+			@id <https://github.com/infolis/mongoose-jsonld>
+			@type doap:Project
+			doap:shortdesc "Add JSON-LD context to a Mongoose schema"
+			doap:programming-language "CoffeeScript"
+			'dcterms:requires': [{
+				@id <https://github.com/infolis/jsonld-rapper>
+			},{
+				@id <https://github.com/infolis/express-jsonld>
+			},{
+				@id <https://github.com/kba/turtleson>
+			},{
+				@id <https://github.com/kba/jsonld-common-contexts>
+			},{
+				@id <https://github.com/infolis/infolis-logging>
+			}]
+		},{
+			@id <https://github.com/kba/node-vim2html>
+			@type doap:Project
+			doap:shortdesc "Create HTML highlighted by Vim's 2html script"
+			doap:programming-language "CoffeeScript"
+			doap:programming-language "Makefile"
+		},{
 			@id <https://github.com/infolis/infoLink>
 			@type doap:Project
 			doap:shortdesc "The software implementing all the algorithms, doing the text mining, linking the entities and much more"
@@ -59,12 +118,18 @@
 			doap:shortdesc "Project that implements the HTTP-based RESTful Linked Data infrastructure for InFoLiS"
 			doap:programming-language "CoffeeScript"
 			doap:programming-language "Javascript"
-			doap:implements @id <http://infolis.gesis.org/infolink/schema>
+			doap:implements 
+				@id infolis:
 			'dcterms:requires': [{
 				@id <https://github.com/infolis/express-jsonld>
-				@type doap:Project
-				doap:shortdesc "JSON-LD content-negotiating middleware for Express based on node-jsonld and rapper"
-				doap:programming-language "CoffeeScript"
+			},{
+				@id <https://github.com/infolis/mongoose-jsonld>
+			},{
+				@id <https://github.com/kba/turtleson>
+			},{
+				@id <https://github.com/kba/node-vim2html>
+			},{
+				@id <https://github.com/infolis/infolis-logging>
 			}]
 				
 		}]
@@ -212,7 +277,7 @@ Execution
 				at least one upper case character.
 				The idea behind is that especially a study name is supposed to be a
 				named entity and thus should contain at least one upper-case character.
-				Default: false
+				Default: falsewarteten Parts hier und dort oder unvorhersehbaren Breaks hätte ich mir gewünscht. Nichtsdestotrotz verdient das Album eine ganz klare Kaufempfehlung. Freunde des modernen, melodischen Death Metal, aus dem einige Elemente der schwedischen Schule sowie ein guter Schuss Progressivität vernehmbar sind, sollten sich "For Aeons Past" unbedingt zulegen.
 				"""
 		index: true
 		type Boolean
