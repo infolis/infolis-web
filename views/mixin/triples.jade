@@ -21,6 +21,10 @@ mixin tripleView
 						linkText = linkText.substring(linkText.lastIndexOf('/')+1)
 						$(@).text(linkText)
 					$("#triples-container").html(table)
+					$("span.value").each ->
+						if $(@).text().indexOf('10.') == 0
+							doi = $(@).text()
+							$(@).html($("<a>").attr('href', 'http://dx.doi.org/' + doi).text(doi))
 				else if format == 'text/vnd.graphviz'
 					svg = Viz(rdfElem.textContent, format:"svg", engine:"dot")
 					document.getElementById('triples-container').innerHTML = svg
