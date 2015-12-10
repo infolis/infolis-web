@@ -21,16 +21,21 @@ wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 echo 'deb https://deb.nodesource.com/4.0 trusty main' > /etc/apt/sources.list.d/nodesource.list
 echo 'deb-src https://deb.nodesource.com/4.0 trusty main' >> /etc/apt/sources.list.d/nodesource.list
 apt-get update
-apt-get install curl git nodejs raptor2-utils mongodb
-```
-
-To start the service:
-
-```
+apt-get install curl git nodejs raptor2-utils mongodb jekyll
 git clone https://github.com/infolis/infolis-web
-cd infolis-web
-npm install
+git clone https://github.com/infolis/infolis.github.io
+```
+
+To start the infolis-web service:
+
+```
 npm start
+```
+
+To start the infolis.github.io site locally
+
+```
+npm jekyll
 ```
 
 ### Step 1: Set up your Working environment for InFoLiS-Web
@@ -154,7 +159,7 @@ Open your browser. `infolis.github.io` will be available under `localhost:4000`.
 #### Infolis-web
 Infolis-web contains all the web services of InFoLiS.
 
-cd to your `infolis-web`directory and type
+cd to your `infolis-web` directory and type
 
 `npm run start`
 
@@ -167,6 +172,3 @@ The following services are available:
 * Linked Data Fragments: `localhost:3000/api/ldf`
 * Monitor: `http://localhost:3000/api/monitor`
 * Datastore stats: `localhost:3000/api/stats`
-
-
-
