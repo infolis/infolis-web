@@ -59,35 +59,12 @@
 			doap:shortdesc "Project that implements the HTTP-based RESTful Linked Data infrastructure for InFoLiS"
 			doap:programming-language "CoffeeScript"
 			doap:programming-language "Javascript"
-			doap:implements infolis:
+			doap:implements @id <http://infolis.gesis.org/infolink/schema>
 			'dcterms:requires': [{
 				@id <https://github.com/infolis/express-jsonld>
 				@type doap:Project
 				doap:shortdesc "JSON-LD content-negotiating middleware for Express based on node-jsonld and rapper"
 				doap:programming-language "CoffeeScript"
-			},{
-				@id <https://github.com/infolis/mongoose-jsonld>
-				@type doap:Project
-				doap:shortdesc "Add JSON-LD context to a Mongoose schema"
-				doap:programming-language "CoffeeScript"
-				'dcterms:requires 
-			},{
-				@id <https://github.com/kba/turtleson>
-				@type doap:Project
-				doap:shortdesc: "Concise, permissive, TURTLE-like dialect of JSON"
-				doap:programming-language "CoffeeScript"
-				doap:programming-language "JavaScript"
-			},{
-				@id <https://github.com/kba/node-vim2html>
-				@type doap:Project
-				doap:shortdesc "Create HTML highlighted by Vim's 2html script"
-				doap:programming-language "CoffeeScript"
-				doap:programming-language "Makefile"
-			},{
-				@id <https://github.com/infolis/infolis-logging"
-				@type doap:Project
-				doap:shortdesc "Module-specific Winston logging"
-				doap:programming-language "JavaScript"
 			}]
 				
 		}]
@@ -136,7 +113,7 @@ Execution
 			dc:description """
 				Status of the execution
 
-				* PENDING
+				* PENDINGhttp://usefulinc.com/ns/doap#
 				* STARTED
 				* FINISHED
 				* FAILED
