@@ -22,11 +22,11 @@ block content
 		.col-md-10.col-md-offset-1
 			form.form-horizontal(role="form")
 				.form-group
-					label.control-label.col-sm-3(for="file") Choose some PDF files
+					label.control-label.col-sm-3(for="file") Choose PDF files
 					.col-sm-4
 						input.form-control#file(type="file",multiple=true)
 				.form-group
-					label.control-label.col-sm-3(for="upload-tags") Tag these files
+					label.control-label.col-sm-3(for="upload-tags") Assign tags
 					.col-sm-4
 						input.form-control#upload-tags(type="text",placeholder="Tag")
 				.form-group
@@ -34,22 +34,22 @@ block content
 						input.form-control.btn.btn-success#start-demo(type="button",value="Analyze")
 	.row.toggleable
 		.col-md-3 Upload Progress
-		.col-md-9#upload-progress
+		.col-md-8#upload-progress
 	.row.toggleable
 		.col-md-3 Text Extraction Progress
-		.col-md-9#text-extractor-progress
+		.col-md-8#text-extractor-progress
 	.row.toggleable
 		.col-md-3 Extracted texts
-		.col-md-9
+		.col-md-8
 			ul#text-output-uri
 	.row.toggleable
-		.col-md-3 ApplyPatternAndResolve Execution
-		.col-md-9#apar-uri
+		.col-md-3 #[a(href='https://github.com/infolis/infolis-web/wiki/API-calls-to-algorithms#applypatternandresolve') APAR] Execution
+		.col-md-8#apar-uri
 	.row.toggleable
-		.col-md-3 ApplyPatternAndResolve Progress
-		.col-md-9#apar-progress
+		.col-md-3 #[a(href='https://github.com/infolis/infolis-web/wiki/API-calls-to-algorithms#applypatternandresolve') APAR] Progress
+		.col-md-8#apar-progress
 	.row.toggleable
 		.col-md-3 Generated Publication-Dataset Links
-		.col-md-9
+		.col-md-8
 			ul#links
 
