@@ -11,12 +11,6 @@ This software is licensed under the [MIT license](./LICENSE) terms.
 These are the licenses of the bundled libraries, for those pulled in using
 `npm` please refer to the individual packages.
 
-| Library                                     | License      |
-+---------------------------------------------+--------------|
-| [Viz.js](https://github.com/mdaines/viz.js) | BSD 3-Clause |
-| [Bootstrap](https://getbootstrap.com)       | MIT          |
-
-
 The following guide will enable you to set up and reuse the infolis web services on your local system.
 
 We recommend to set up your environment on a linux system.
