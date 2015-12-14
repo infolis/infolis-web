@@ -82,7 +82,7 @@ module.exports = (app, done) ->
 					fileModel.set 'fileName', fileField['originalFilename']
 					log.debug "Uploading File", fileModel.toJSON()
 					Request
-						.put("#{CONFIG.backendURI}/upload/#{fileModel.md5}")
+						.put("#{CONFIG.backendURI}/#{CONFIG.backendApiPath}/upload/#{fileModel.md5}")
 						.type('application/octet-stream')
 						.send(fileData)
 						.end (err, res2) ->

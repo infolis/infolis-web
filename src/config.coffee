@@ -10,7 +10,9 @@ C.mongoServerOptions = {
 			# The time in milliseconds to attempt a connection before timing out.
 			connectTimeoutMS: 5000
 }
-C.backendURI   = 'http://localhost:8081/infoLink/infolis-api'
+C.backendURI   = 'http://localhost:8081'
+C.backendStaticPath = 'static'
+C.backendApiPath   = 'infoLink/infolis-api'
 C.port         = 3000
 # C.baseURI      = "http://www-test.bib.uni-mannheim.de/infolis/ws"
 C.baseURI      = "http://localhost:#{C.port}"

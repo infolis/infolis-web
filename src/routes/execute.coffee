@@ -50,7 +50,7 @@ module.exports = (app, done) ->
 					return next err
 				executionUri = postResp.headers['location']
 				Request
-					.post("#{CONFIG.backendURI}/executor?id=#{executionUri}")
+					.post("#{CONFIG.backendURI}/#{CONFIG.backendApiPath}/executor?id=#{executionUri}")
 					.end (err, startResp) ->
 						if err
 							return next err

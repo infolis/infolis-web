@@ -64,7 +64,7 @@ module.exports = (app, done) ->
 
 	app.get '/api/monitor', (req, res, next) ->
 		Request
-			.get("#{CONFIG.backendURI}/executor?status=#{req.query.status}")
+			.get("#{CONFIG.backendURI}/#{CONFIG.backendApiPath}/executor?status=#{req.query.status}")
 			.set 'Accept', 'application/json'
 			.end (err, getAllResp) ->
 				if err
