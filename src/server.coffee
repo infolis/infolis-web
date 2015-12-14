@@ -14,8 +14,8 @@ Cors          = require 'cors'
 StringifySafe = require 'json-stringify-safe'
 Morgan        = require 'morgan'
 
-ExpressJSONLD  = require 'express-jsonld'
-Schemo = require 'mongoose-jsonld'
+ExpressJSONLD  = require 'express-jsonld/src'
+Schemo = require 'mongoose-jsonld/src'
 
 CONFIG = require './config'
 
@@ -134,6 +134,7 @@ class InfolisWebservice
 			'greasemonkey'
 			'play/datasetifier'
 			'data-model-explorer'
+			'backend-static'
 		]
 		Async.eachSeries controllers, (controller, done) =>
 			log.info "Setting up route #{controller}"
