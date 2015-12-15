@@ -33,9 +33,9 @@
 	@type doap:Project
 	dc:title "Infolis Data model"
 	dc:description "This ontology is the normative source for the semantics and structure of the domain of the InFoLiS project"
-	dc:modified
+	dcterms:modified
 		@value "2015-12-02T13:53:09+0100"
-		@type xsd:dateTime
+		@type xsd:datetime
 	doap:implements
 		@id <https://github.com/infolis/infoLink>
 	'rdfs:seeAlso': [{
