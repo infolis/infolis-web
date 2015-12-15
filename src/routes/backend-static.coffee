@@ -7,8 +7,10 @@ module.exports = (app, done) ->
 		Request
 			.get("#{CONFIG.backendURI}/#{CONFIG.backendStaticPath}/#{req.params.id}")
 			.end (err, backendResp) ->
-				console.log backendResp
-				res.send backendResp
+				if backendResp.headers['content-type']
+					res.header 'content-type', backendResp.headers['content-type']
+				res.status backendResp.statusCode
+				res.send backendResp.text
 
 	done()
 
