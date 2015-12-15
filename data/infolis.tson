@@ -46,8 +46,8 @@
 			@id <https://github.com/kba/jsonld-common-contexts>
 			@type doap:Project
 			doap:shortdesc "Cached versions of commonly used namespaces"
-			doap:Programming-language "CoffeeScript"
-			doap:Programming-language "JavaScript"
+			doap:programming-language "CoffeeScript"
+			doap:programming-language "JavaScript"
 		},{
 			@id <https://github.com/infolis/express-jsonld>
 			@type doap:Project
@@ -98,7 +98,7 @@
 		},{
 			@id <https://github.com/kba/node-vim2html>
 			@type doap:Project
-			doap:shortdesc "Create HTML highlighted by Vim's 2html script"
+			doap:shortdesc "Create HTML highlighted by Vim`s 2html script"
 			doap:programming-language "CoffeeScript"
 			doap:programming-language "Makefile"
 		},{
