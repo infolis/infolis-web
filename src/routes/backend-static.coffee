@@ -1,11 +1,16 @@
 CONFIG = require '../config'
 Request = require 'superagent'
+
+log = require('../log')(module)
+
 module.exports = (app, done) ->
 
 	# Swagger interface
-	app.get '/backend/:id*?', (req, res, next) ->
+	app.get '/backend/*', (req, res, next) ->
+		uri = "#{CONFIG.backendURI}/#{CONFIG.backendStaticPath}/#{req.params[0]}"
+		log.debug "Retrieving static backend asset '#{uri}'"
 		Request
-			.get("#{CONFIG.backendURI}/#{CONFIG.backendStaticPath}/#{req.params.id}")
+			.get(uri)
 			.end (err, backendResp) ->
 				if backendResp.headers['content-type']
 					res.header 'content-type', backendResp.headers['content-type']
