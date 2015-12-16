@@ -65,8 +65,11 @@ nav.navbar.navbar-inverse.navbar-static-top
 					$('nav li a.home').parents('li').addClass('active')
 			$ ->
 				$(document).on 'keydown', (e) ->
-					if e.keyCode == 27
-						if $('#help').hasClass('in')
+					if $('#help').hasClass('in')
+						if e.keyCode == 27
+							$('#help-button span').trigger 'click'
+				$("div.row[id!='help']").on 'click', ->
+					if $('#help').hasClass('in')
 							$('#help-button span').trigger 'click'
 
 	.container-fluid
