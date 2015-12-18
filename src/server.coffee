@@ -73,6 +73,8 @@ class InfolisWebservice
 		# Very important, that next one
 		@app.set('case sensitive routing', true)
 		# Schemo!
+		tson = TSON.load __dirname + '/../data/infolis.tson'
+		tson['@ns']['infolis'] = CONFIG.baseURI + CONFIG.schemaPrefix + '/'
 		@app.schemo = new Schemo(
 			mongoose: @app.mongoose
 			baseURI: CONFIG.baseURI
@@ -81,7 +83,7 @@ class InfolisWebservice
 			expandContexts: CONFIG.expandContexts
 			htmlFormat: 'text/html'
 			htmlView: 'triples'
-			schemo: TSON.load __dirname + '/../data/infolis.tson'
+			schemo: tson
 		)
 		@app.schemo.once 'ready', =>
 			# JSON-LD Middleware
