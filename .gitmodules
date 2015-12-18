@@ -1,6 +1,6 @@
 [submodule "public/vendor/swagger-ui"]
 	path = public/vendor/swagger-ui
-    branch = a5f7281
+	branch = a5f72814cfc2a4327267c2125988035a613bd0f1
 	url = https://github.com/swagger-api/swagger-ui
 [submodule "public/vendor/notie.js"]
 	path = public/vendor/notie.js
