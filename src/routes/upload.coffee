@@ -13,10 +13,12 @@ module.exports = (app, done) ->
 		post:
 			tags: ['essential']
 			summary: "Upload a file"
-			consumes: ['multipart/form-data']
+			description: "Upload a file and store it as an InfolisFile resource."
+			consumes: ['multipart/formx-data']
 			parameters: [
 				{
 					name: 'file'
+					required: true
 					type: 'file'
 					in: 'formData'
 				}
@@ -28,6 +30,7 @@ module.exports = (app, done) ->
 				{
 					name: 'mediaType'
 					type: 'string'
+					required: true
 					in: 'formData'
 					enum: [
 						'application/pdf'
