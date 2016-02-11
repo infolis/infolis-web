@@ -39,7 +39,7 @@ module.exports = (app, done) ->
 		'application/trig':             'turtleson'
 		'text/turtle':                  'turtleson'
 		'application/nquads':           'turtleson'
-		'application/ntriples':         'turtleson'
+		'application/n-triples':        'turtleson'
 		'application/rdf+xml':          'xml'
 		'text/xml':                     'xml'
 		'text/html':                    'html'
