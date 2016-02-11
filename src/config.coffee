@@ -21,9 +21,7 @@ C.schemaPrefix = '/schema'
 C.logging      = {
 	transports: [ 'console', 'file' ]
 	level: 'debug'
-	file:
-		'filename': 'infolis-web.log'
-		'logdir': __dirname + '/../data/logs/'
+	logdir: __dirname + '/../data/logs/'
 }
 C.colorscheme = 'chrysoprase'
 C.site_api = "http://infolis.gesis.org/infolink"
