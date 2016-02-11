@@ -12,6 +12,7 @@
     "jekyll": "cd ../infolis.github.io; jekyll serve --config _config.yml,_config-dev.yml",
     "start": "supervisor -w src/,data/infolis.tson,../jsonld-rapper/src,../express-jsonld/src,../mongoose-jsonld/src src/server.coffee",
     "mongo": "mongod --dbpath data/mongodb --port 27018",
+    "lint": "coffeelint -f dist/coffeelint.json src src-client",
     "run": "npm run mongo & npm run serve",
     "prepublish": "npm run compile"
   },

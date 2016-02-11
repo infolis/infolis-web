@@ -1,5 +1,7 @@
+Request    = require 'superagent'
+BodyParser = require 'body-parser'
+
 CONFIG = require '../config'
-Request = require 'superagent'
 
 log = require('../log')(module)
 
@@ -11,6 +13,7 @@ module.exports = (app, done) ->
 		log.debug "Retrieving static backend asset '#{uri}'"
 		Request
 			.get(uri)
+			.buffer()
 			.end (err, backendResp) ->
 				if backendResp.headers['content-type']
 					res.header 'content-type', backendResp.headers['content-type']

@@ -88,9 +88,9 @@ module.exports = (app, done) ->
 				}
 			]
 
-	app.post '/api/json-import', (req, res, next) =>
+	app.post '/api/json-import', (req, res, next) ->
 		form = new Form()
-		form.parse req, (err, fields, files) =>
+		form.parse req, (err, fields, files) ->
 			if not fields.db
 				return next "Must pass 'db'"
 			_postFiles fields.db.toString(), files, (err, serializedDB) ->

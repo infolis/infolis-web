@@ -2,7 +2,7 @@ layout = -> window.masonry.layout()
 
 applyFilter = (input) ->
 	unless input
-		return 
+		return
 	if /^\s*$/.test input
 		return
 	[cls, panelClass] = input.split('/')
