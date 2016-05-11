@@ -154,23 +154,32 @@ Execution
 		index: true
 		type: String
 		enum: [
-			'io.github.infolis.algorithm.ApplyPatternAndResolve'
-			'io.github.infolis.algorithm.PatternApplier'
+			# TODO fix this for updated version
+			'io.github.infolis.algorithm.BestMatchLinker'
 			'io.github.infolis.algorithm.BibliographyExtractor'
-			'io.github.infolis.algorithm.TextExtractor'
-			'io.github.infolis.algorithm.DaraLinker'
+			'io.github.infolis.algorithm.DoiExtractor'
 			'io.github.infolis.algorithm.FederatedSearcher'
 			'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
 			'io.github.infolis.algorithm.Indexer'
+			'io.github.infolis.algorithm.InfolisPatternSearcher'
+			'io.github.infolis.algorithm.KeywordTagger'
+			'io.github.infolis.algorithm.LearnPatternsAndCreateLinks'
 			'io.github.infolis.algorithm.Learner'
-			'io.github.infolis.algorithm.LocalResolver'
+			'io.github.infolis.algorithm.LocalSearcher'
+			'io.github.infolis.algorithm.LuceneSearcher'
 			'io.github.infolis.algorithm.MetaDataExtractor'
-			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
+			'io.github.infolis.algorithm.MultiMatchesLinker'
+			'io.github.infolis.algorithm.ReferenceLinker'
 			'io.github.infolis.algorithm.RegexSearcher'
-			'io.github.infolis.algorithm.SearchTermPosition'
-			'io.github.infolis.algorithm.TagResolver'
-			'io.github.infolis.algorithm.VersionPatternApplier'
-			'io.github.infolis.algorithm.Resolver'
+			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
+			'io.github.infolis.algorithm.SearchPatternsAndCreateLinks'
+			'io.github.infolis.algorithm.SearchResultLinker'
+			'io.github.infolis.algorithm.SpringerImporter'
+			'io.github.infolis.algorithm.TagSearcher'
+			'io.github.infolis.algorithm.TextExtractor'
+			'io.github.infolis.algorithm.Tokenizer'
+			'io.github.infolis.algorithm.TokenizerOpenNLP'
+			'io.github.infolis.algorithm.TokenizerStanford'
 		]
 
 	status
@@ -413,8 +422,8 @@ Execution
 			dc:description "Instead of a using a list of QueryService URIs(queryServices), the Java classes of the QueryServices can be used."
 		type: ArrayOfStrings
 		enum: [
-			'io.github.infolis.resolve.DaraHTMLQueryService'
-			'io.github.infolis.resolve.DaraSolrQueryService'
+			'io.github.infolis.infolink.querying.DaraHTMLQueryService'
+			'io.github.infolis.infolink.querying.DaraSolrQueryService'
 		]
 
 	searchResults
@@ -438,6 +447,10 @@ Execution
 			dc:description "Find InfolisPatterns with any of these tags"
 		type: ArrayOfStrings
 
+	tokenize
+		@context
+			dc:description "Whether to tokenize input files"
+		type Boolean
 
 SearchQuery
 	@context
@@ -459,6 +472,25 @@ Entity
 	name
 		@context
 			dc:description "Name of the entity"
+		type String
+		index: true
+	versionInfo
+		@context
+			dc:description "Version of a datafile"
+			owl:sameAs
+				@id owl:versionInfo
+		type String
+		index true
+	spatial
+		@context
+			owl:sameAs
+				@id dcterms:spatial 
+		type String
+		index: true
+	language
+		@context
+			owl:sameAs
+				@id dc:language 
 		type String
 		index: true
 	identifier
@@ -539,10 +571,6 @@ InfolisPattern
 			dc:description "The Lucene query that can be used to query an index"
 		type String
 		index: true
-	minimal
-		@context
-			dc:description "Minimal notation of the pattern"
-		type String
 	words
 		@context
 			dc:description "The words surrounding the pattern, used to induce general patterns"
