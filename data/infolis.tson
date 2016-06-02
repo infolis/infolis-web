@@ -671,11 +671,11 @@ TextualReference
 	@context
 		dc:description "Class for saving contexts (= surrounding words of a term)."
 		@type owl:Class
-	leftText
+	leftContext
 		@context
 			dc:description 'Text left of the term'
 		type: String
-	rightText
+	rightContext
 		@context
 			dc:description 'Text right of the term'
 		type: String
