@@ -671,14 +671,6 @@ TextualReference
 	@context
 		dc:description "Class for saving contexts (= surrounding words of a term)."
 		@type owl:Class
-	leftWords
-		@context
-			dc:description "Words left of the term"
-		type: ArrayOfStrings
-	rightWords
-		@context
-			dc:description "Words right of the term"
-		type: ArrayOfStrings
 	leftText
 		@context
 			dc:description 'Text left of the term'
@@ -722,7 +714,7 @@ EntityLink
 		refOne infolis:Entity
 	confidence
 		@context
-			dc:description "Describes how likely it is that the link indeed holds"
+			dc:description "Describes how likely it is that the link indeed holds, xsd:double"
 		type: Number
 		index: true
 	linkReason
