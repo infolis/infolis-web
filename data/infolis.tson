@@ -652,12 +652,6 @@ QueryService
 	@context
 		dc:description "A query service"
 		@type owl:Class
-	reliability
-		@context
-			dc:description "The reliability of this QueryService"
-		type: Number
-		required: yes
-		index: true
 	target
 		@context
 			dc:description "The target of this QueryService, in most cases a URI"
@@ -666,6 +660,29 @@ QueryService
 		type: String
 		required: yes
 		index: true
+	reliability
+		@context
+			dc:description "The reliability of this QueryService"
+		type: Number
+		required: yes
+		index: true
+	maxNumber
+		@context
+			dc:description "Maximum number of results"
+		type: Number
+		required: no
+		default: 1000
+	queryStrategy
+		@context
+			dc:description "Fields that can be used in a query."
+		type: ArrayOfStrings
+		enum: [
+			'title'
+			'publicationDate'
+			'numericInfoInTitle'
+			'doi'
+		]
+		required no
 
 TextualReference
 	@context
