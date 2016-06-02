@@ -513,6 +513,16 @@ Execution
 		type ArrayOfStrings
 		index: true
 
+	overwriteTextFiles
+		@context
+			dc:description """<F6>
+				Flag used by TextExtractor: if set to false, pdfs for which corresponding text 
+				files already exist in the specified text directory will not be converted again, instead 
+				the existing text files will be returned as InfolisFile instances. If set to true, all 
+				pdfs will be converted regardless of any existing files in the text directory. 
+				"""
+		type Boolean
+		default: yes
 SearchQuery
 	@context
 		dc:description "A search query"
