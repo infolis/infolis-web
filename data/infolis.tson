@@ -532,6 +532,13 @@ Execution
 		type Boolean
 		default yes
 
+	ptb3Escaping
+		@context
+			dc:description """
+				Enable all traditional PTB3 token transforms (like parentheses becoming -LRB-, -RRB-).
+				"""
+		type Boolean
+		default yes
 SearchQuery
 	@context
 		dc:description "A search query"
