@@ -436,6 +436,19 @@ Execution
 			'reliability'
 		]
 
+	searchResultLinkerClass
+		@context
+			dc:description """
+				The SearchResultLinkerClass determines the SearchResultLinker to 
+				use. That class is responsible for deciding which SearchResults to 
+				select for creating links.
+				"""
+		type: String
+		enum: [
+			'io.github.infolis.algorithm.BestMatchLinker'
+			'io.github.infolis.algorithm.MultiMatchesLinker'
+		]
+
 	links
 		@context
 			dc:description "The found EntityLinks."
