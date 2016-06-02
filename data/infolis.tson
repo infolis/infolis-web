@@ -436,24 +436,6 @@ Execution
 			'reliability'
 		]
 
-	metaDataExtractingStrategy
-		@context
-			dc:description """
-				When resolving the detected meta data by searching in repositories,
-				we need to know what we search for. The different strategies are:
-				title, doi, urn, bibliography.
-				If we chose for example title, we search the meta data within the
-				title field in a repository.
-				Default: MetaDataExtractingStrategy.titleStrategy to use for bootstrapping. Can either be: mergeCurrent, mergeNew, mergeAll, separate, reliability.
-				"""
-		type: String
-		enum: [
-			'title'
-			'doi'
-			'urn'
-			'bibliography'
-		]
-
 	links
 		@context
 			dc:description "The found EntityLinks."
