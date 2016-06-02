@@ -344,11 +344,26 @@ Execution
 		@context
 			dc:description: """
 				Group numbers to use for RegexSearcher: group of reference term.
-
 				number of the group which contains the doi. This number depends on the used doiRegex
 				"""
 		type: Number
 		default: 3
+
+	leftContextGroup
+		@context
+			dc:description: """
+				Group numbers to use for RegexSearcher: group of left context.
+				"""
+		type: Number
+		default: 1
+
+	rightContextGroup
+		@context
+			dc:description: """
+				Group numbers to use for RegexSearcher: group of right context.
+				"""
+		type: Number
+		default: 5
 
 	textualReferences
 		@context
