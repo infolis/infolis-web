@@ -262,6 +262,20 @@ Execution
 		type Boolean
 		index: true
 
+	tokenize
+		@context
+			dc:description """
+				Whether to tokenize text input.
+				
+				Bootstrapping requires tokenized input texts to perform well. It can
+				either be called on tokenized input texts or it can be called on
+				untokenized text or pdf files and perform tokenization itself. If
+				unspecified, defaults to false for TextExtractor. For Bootstrapping,
+				this field has to be set explicitly as this information is crucial for
+				good performance.
+				"""
+		type Boolean
+
 	outputDirectory
 		@context
 			dc:description "Output directory of the indexer."
@@ -446,11 +460,6 @@ Execution
 		@context
 			dc:description "Find InfolisPatterns with any of these tags"
 		type: ArrayOfStrings
-
-	tokenize
-		@context
-			dc:description "Whether to tokenize input files"
-		type Boolean
 
 SearchQuery
 	@context
@@ -738,7 +747,6 @@ EntityLink
 				"""
 		type: String
 		index: true
-
 
 Keyword
 	@context
