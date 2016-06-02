@@ -539,6 +539,15 @@ Execution
 				"""
 		type Boolean
 		default yes
+
+	startPage
+		@context
+			dc:description """
+				Index (starting at 1 rather than 0) of the first page to extract. 
+				Useful to ignore title pages if present.
+				"""
+		type Number
+		default 1
 SearchQuery
 	@context
 		dc:description "A search query"
