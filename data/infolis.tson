@@ -11,7 +11,7 @@
 
 @ns
 	infolis <http://infolis.gesis.org/infolink/schema/>
-	rdf      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+	rdf     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 	dc      <http://purl.org/dc/elements/1.1/>
 	owl     <http://www.w3.org/2002/07/owl#>
 	rdfs    <http://www.w3.org/2000/01/rdf-schema#>
@@ -515,7 +515,7 @@ Execution
 
 	overwriteTextFiles
 		@context
-			dc:description """<F6>
+			dc:description """
 				Flag used by TextExtractor: if set to false, pdfs for which corresponding text 
 				files already exist in the specified text directory will not be converted again, instead 
 				the existing text files will be returned as InfolisFile instances. If set to true, all 
@@ -904,10 +904,7 @@ EntityLink
 		index: true
 	linkReason
 		@context
-			dc:description """
-				The explanation why the EntityLink has been generated, e.g. the name of
-				the research data has been found in the publication text.
-				"""
+			dc:description "TODO @dommii @bolandka"
 		type: String
 		index: true
 
