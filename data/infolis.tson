@@ -375,11 +375,6 @@ Execution
 				"""
 		refMany infolis:TextualReference
 
-	matchingFiles
-		@context
-			dc:description "Matching files"
-		refMany infolis:InfolisFile
-
 	patterns
 		@context
 			dc:description """
