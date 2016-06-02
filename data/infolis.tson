@@ -523,6 +523,15 @@ Execution
 				"""
 		type Boolean
 		default: yes
+
+	tokenizeNLs
+		@context
+			dc:description """
+				Determines whether new line characters are to be tokenized.
+				"""
+		type Boolean
+		default yes
+
 SearchQuery
 	@context
 		dc:description "A search query"
