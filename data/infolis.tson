@@ -671,6 +671,10 @@ Entity
 		@context
 			dc:description "TODO @dommii @bolandka"
 		type ArrayOfStrings
+	abstractText
+		@context
+			dc:description "TODO @dommii @bolandka"
+		type: String		
 
 SearchResult
 	@context
