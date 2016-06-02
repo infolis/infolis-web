@@ -688,10 +688,6 @@ TextualReference
 		@context
 			dc:description "The file this reference came from"
 		refOne: infolis:InfolisFile
-	pattern
-		@context
-			dc:description "The pattern that extracted this reference"
-		refOne infolis:InfolisPattern
 	mentionsReference
 		@context
 			dc:description "The Entity which belongs to the file "
