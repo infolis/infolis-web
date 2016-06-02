@@ -732,7 +732,7 @@ InfolisPattern
 			dc:description "Threshold which is applied to only filter relevant patterns"
 		type Number
 		index: true
-	reliability
+	serviceReliability
 		@context
 			dc:description "Indicates how reliable a pattern is"
 		type Number
