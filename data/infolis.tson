@@ -494,12 +494,12 @@ Execution
 
 	infolisFileTags
 		@context
-			dc:description "Find InfolisFiles with any of these tags"
+			dc:description "Find InfolisFiles with any of these tags TODO @bolandka"
 		type: ArrayOfStrings
 
 	infolisPatternTags
 		@context
-			dc:description "Find InfolisPatterns with any of these tags"
+			dc:description "Find InfolisPatterns with any of these tags TODO @bolandka"
 		type: ArrayOfStrings
 
 	tags
