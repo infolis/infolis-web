@@ -581,6 +581,16 @@ Execution
 			"en"
 			"de"
 		]
+
+	metaDataFiles
+		@context
+			dc:description """
+				Meta data files of the publications in which information about
+				the title, author, astract, subject, identifier, URL, and language
+				can be found.
+			"""
+		type ArrayOfStrings
+
 SearchQuery
 	@context
 		dc:description "A search query"
