@@ -281,6 +281,11 @@ Execution
 			dc:description "Output directory of the indexer."
 		type String
 
+	indexDirectory
+		@context
+			dc:description "index directory of the indexer."
+		type String
+
 	phraseSlop
 		@context
 			dc:description """
