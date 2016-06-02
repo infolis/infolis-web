@@ -637,6 +637,11 @@ Entity
 			dc:description "Identifier of the entity"
 		type String
 		index: true
+	url
+		@context
+			dc:description "TODO @dommii @bolandka"
+		type String
+		required no
 	tags
 		@context
 			dc:description "Tags to assign to this entity"
