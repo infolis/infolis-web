@@ -655,6 +655,10 @@ Entity
 		@context
 			dc:description "The InfolisFile that manifests this entity"
 		refOne infolis:InfolisFile
+	number
+		@context
+			dc:description "TODO @dommii @bolandka"
+		type String
 
 SearchResult
 	@context
