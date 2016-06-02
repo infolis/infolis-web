@@ -459,12 +459,12 @@ Execution
 
 	queryServices
 		@context
-			dc:description "List of QueryService to use"
+			dc:description "List of QueryService to use TODO @dommii"
 		refMany infolis:QueryService
 
 	queryServiceClasses
 		@context
-			dc:description "Instead of a using a list of QueryService URIs(queryServices), the Java classes of the QueryServices can be used."
+			dc:description "Instead of a using a list of QueryService URIs(queryServices), the Java classes of the QueryServices can be used. TODO @dommii"
 		type: ArrayOfStrings
 		enum: [
 			'io.github.infolis.infolink.querying.DaraHTMLQueryService'
@@ -473,7 +473,12 @@ Execution
 
 	searchResults
 		@context
-			dc:description "Search results"
+			dc:description """
+				After a search in one or more repositories, a list 
+				of search results is returned. These results not only contain
+				the repository which was searched but also information like
+				the relevance score.
+				"""
 		refMany infolis:SearchResult
 
 	tags
