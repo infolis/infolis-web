@@ -383,22 +383,23 @@ Execution
 				"""
 		refMany infolis:InfolisFile
 
-	seeds
-		@context
-			dc:description "The initial seeds for learning."
-		type ArrayOfStrings
-
 	upperCaseConstraint
 		@context
 			dc:description """
-				Indicates whether we require a term to contain
-				at least one upper case character.
+				Indicates whether we require a term to contain at least one upper case
+				character.
+
 				The idea behind is that especially a study name is supposed to be a
 				named entity and thus should contain at least one upper-case character.
 				Default: false
 				"""
 		index: true
 		type Boolean
+
+	seeds
+		@context
+			dc:description "The initial seeds for learning."
+		type ArrayOfStrings
 
 	maxIterations
 		@context
