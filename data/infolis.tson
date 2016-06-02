@@ -411,11 +411,18 @@ Execution
 		index: false
 		type Number
 
+	windowsize
+		@context
+			dc:description "Number of words used for creation of patterns."
+		type: Number
+		default: 3
+
 	reliabilityThreshold
 		@context
 			dc:description "Determines which patterns are the relevant ones."
 		index: false
 		type Number
+		default: 0.8
 
 	bootstrapStrategy
 		@context
