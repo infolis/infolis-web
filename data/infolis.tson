@@ -663,6 +663,10 @@ Entity
 		@context
 			dc:description "TODO @dommii @bolandka"
 		type ArrayOfStrings
+	reliability
+		@context
+			dc:description "TODO @dommii @bolandka"
+		type Number
 
 SearchResult
 	@context
