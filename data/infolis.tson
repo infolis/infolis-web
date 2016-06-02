@@ -667,6 +667,10 @@ Entity
 		@context
 			dc:description "TODO @dommii @bolandka"
 		type Number
+	alternativeNames
+		@context
+			dc:description "TODO @dommii @bolandka"
+		type ArrayOfStrings
 
 SearchResult
 	@context
