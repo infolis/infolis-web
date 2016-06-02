@@ -298,18 +298,6 @@ Execution
 		index: false
 		type: Number
 
-	upperCaseConstraint
-		@context
-			dc:description """
-				Indicates whether we require a term to contain
-				at least one upper case character.
-				The idea behind is that especially a study name is supposed to be a
-				named entity and thus should contain at least one upper-case character.
-				Default: false
-				"""
-		index: true
-		type Boolean
-
 	allowLeadingWildcards
 		@context
 			dc:description """
@@ -352,6 +340,16 @@ Execution
 				"""
 		refOne infolis:SearchQuery
 
+	referenceGroup
+		@context
+			dc:description: """
+				Group numbers to use for RegexSearcher: group of reference term.
+
+				number of the group which contains the doi. This number depends on the used doiRegex
+				"""
+		type: Number
+		default: 3
+
 	textualReferences
 		@context
 			dc:description """
@@ -379,6 +377,18 @@ Execution
 		@context
 			dc:description "The initial seeds for learning."
 		type ArrayOfStrings
+
+	upperCaseConstraint
+		@context
+			dc:description """
+				Indicates whether we require a term to contain
+				at least one upper case character.
+				The idea behind is that especially a study name is supposed to be a
+				named entity and thus should contain at least one upper-case character.
+				Default: false
+				"""
+		index: true
+		type Boolean
 
 	maxIterations
 		@context
