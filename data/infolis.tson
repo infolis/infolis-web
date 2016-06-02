@@ -675,6 +675,10 @@ Entity
 		@context
 			dc:description "TODO @dommii @bolandka"
 		type: String		
+	authors
+		@context
+			dc:description "TODO @dommii @bolandka"
+		type ArrayOfStrings
 
 SearchResult
 	@context
