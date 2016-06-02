@@ -451,7 +451,10 @@ Execution
 
 	links
 		@context
-			dc:description "The found EntityLinks."
+			dc:description """
+				As a final step, links between the texts and the discovered
+				named entities (research data) are established and saved in this list.
+				"""
 		refMany infolis:EntityLink
 
 	queryServices
