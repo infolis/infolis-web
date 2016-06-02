@@ -548,6 +548,14 @@ Execution
 				"""
 		type Number
 		default 1
+
+	entitiesForKeywordTagging
+		@context
+			dc:description """
+				List of entities (URIs of the entities) for which key words should be
+				generated. Serves as input for the keyword  tagging algorithm.
+				"""
+		refMany infolis:Entity
 SearchQuery
 	@context
 		dc:description "A search query"
