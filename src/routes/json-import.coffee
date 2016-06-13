@@ -25,8 +25,9 @@ _postFiles = (origDB, files, callback) ->
 		filePath = files[fileId][0].path
 		mediaType = if /.*txt$/.test(filePath) then 'text/plain' else 'application/pdf'
 		Request
-			.post("/api/upload")
+			.post("#{CONFIG.baseURI}/api/upload")
 			.type('form')
+			.field('tags', db.infolisFile[fileId].tags.join(','))
 			.field('mediaType', mediaType)
 			.attach('file', filePath)
 			.buffer(false)
@@ -44,21 +45,29 @@ _postFiles = (origDB, files, callback) ->
 			callback err
 		callback null, _replaceAll(origDB, mapping)
 
-_postResource = (origDB, resourceEndpoint, callback) ->
-	console.log "Posting all to #{resourceEndpoint}"
+_postResource = (origDB, tags, resourceEndpoint, callback) ->
 	db = JSON.parse origDB
 	resMap = db[resourceEndpoint]
 	if not resMap
 		return callback null, origDB
+	console.log "Posting #{Object.keys(resMap).length} to #{resourceEndpoint}"
 	mapping = {}
 	Async.forEachOf resMap, (obj, uuid, done) ->
+		obj.tags or= []
+		obj.tags.push tags
+		console.log obj
 		Request
 			.post "/api/#{resourceEndpoint}"
+			.set 'content-type', 'application/json'
 			.send obj
 			.end (err, resp) ->
-				if err or resp.status isnt 201
+				# console.log resp
+				if err or resp.status > 400
+					console.error "ERROR", resp.status
 					return done err
-				mapping[uuid] = resp.get('Location')
+				mapping[uuid] = resp.get('location')
+				# console.log "headers", resp.body
+				console.log "Posted #{uuid} as #{mapping[uuid]}"
 				return done()
 	, (err) ->
 		return callback err if err
@@ -97,15 +106,18 @@ module.exports = (app, done) ->
 				return next err if err
 				order = [
 					'queryService'
+					'searchQuery'
 					'searchResult'
 					'entity'
 					'entityLink'
+					'keyword'
 					'textualReference'
 					'infolisPattern'
 					'execution'
 				]
 				Async.eachSeries order, (resourceEndpoint, done) ->
-					_postResource serializedDB, resourceEndpoint, (err, updatedSerializedDB) ->
+					console.log "Tags to post", fields.tags.join(',')
+					_postResource serializedDB, fields.tags.join(','), resourceEndpoint, (err, updatedSerializedDB) ->
 						return done err if err
 						serializedDB = updatedSerializedDB
 						done()
