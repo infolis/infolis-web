@@ -676,14 +676,20 @@ Entity
 	abstractText
 		@context
 			dc:description "TODO @dommii @bolandka"
-		type: String		
+			owl:sameAs
+			    @id dc:abstract
+		type: String
 	authors
 		@context
 			dc:description "TODO @dommii @bolandka"
+			owl:sameAs
+			    @id dc:creator
 		type ArrayOfStrings
 	subjects
 		@context
 			dc:description "TODO @dommii @bolandka"
+			owl:sameAs
+			    @id dc:creator
 		type ArrayOfStrings
 
 SearchResult
