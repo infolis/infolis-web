@@ -1,6 +1,7 @@
 {Form} = require 'multiparty'
 Async  = require 'async'
 Crypto = require 'crypto'
+Qs     = require 'qs'
 Fs     = require 'fs'
 CONFIG = require '../config'
 Request = require 'superagent'
@@ -14,7 +15,7 @@ module.exports = (app, done) ->
 			tags: ['essential']
 			summary: "Upload a file"
 			description: "Upload a file and store it as an InfolisFile resource."
-			consumes: ['multipart/formx-data']
+			consumes: ['multipart/form-data']
 			parameters: [
 				{
 					name: 'file'
@@ -23,8 +24,40 @@ module.exports = (app, done) ->
 					in: 'formData'
 				}
 				{
-					name: 'tags'
+					name: 'identifier'
 					type: 'string'
+					in: 'formData'
+				}
+				{
+					name: 'subjects'
+					type: 'array'
+					items: { type: 'string' }
+					in: 'formData'
+				}
+				{
+					name: 'authors'
+					type: 'array'
+					items: { type: 'string' }
+					in: 'formData'
+				}
+				{
+					name: 'language'
+					type: 'string'
+					in: 'formData'
+					enum: [
+						'en'
+						'de'
+					]
+				}
+				{
+					name: 'name'
+					type: 'string'
+					in: 'formData'
+				}
+				{
+					name: 'tags'
+					type: 'array'
+					items: { type: 'string' }
 					in: 'formData'
 				}
 				{
@@ -67,6 +100,7 @@ module.exports = (app, done) ->
 				ret = new Error("Didn't pass the 'file' upload")
 				ret.cause = [fields, files]
 				return next ret
+			entityModel = new app.schemo.models.Entity()
 			fileModel = new app.schemo.models.InfolisFile()
 			Fs.readFile fileField.path, (err, fileData) ->
 				Async.each ['md5', 'sha1'], (algo, done) ->
@@ -76,8 +110,15 @@ module.exports = (app, done) ->
 					done()
 				, (err) ->
 					tags = []
-					if 'tags' of fields
-						tags = fields['tags']
+					if fields['tags']
+						tags = Qs.parse(fields['tags'][0]).tags
+					entityModel.set 'tags', tags
+					if fields['authors']
+						entityModel.set 'authors', Qs.parse(fields['authors'][0]).authors
+					if fields['subjects']
+						entityModel.set 'subjects', Qs.parse(fields['subjects'][0]).subjects
+					entityModel.set 'name', fields['name']
+					entityModel.set 'identifier', fields['identifier']
 					fileModel.set 'size', fileField['size']
 					fileModel.set 'tags', tags
 					fileModel.set 'mediaType', fields['mediaType']
@@ -96,14 +137,22 @@ module.exports = (app, done) ->
 							if res2.status isnt 201
 								ret = new Error(res.text)
 								return next ret
-							fileModel.save (err, saved) ->
+							fileModel.save (err, savedFile) ->
 								if err
 									ret = new Error("Error saving file to database")
 									ret.cause = err
 									ret.status = 400
 									return next ret
-								res.status 201
-								res.header 'Location', fileModel.uri()
-								res.send '@link': fileModel.uri()
+								entityModel.set 'file', savedFile
+								entityModel.save (err, savedEntity) ->
+									if err
+										ret = new Error("Error saving entity to database")
+										ret.cause = err
+										ret.status = 400
+										return next ret
+									log.debug "Created entity: #{savedEntity}"
+									res.status 201
+									res.header 'Location', fileModel.uri()
+									res.send '@link': fileModel.uri()
 
 	done()
