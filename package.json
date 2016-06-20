@@ -44,6 +44,7 @@
     "mongoose-jsonld": "^0.2.3",
     "morgan": "^1.6.1",
     "multiparty": "^4.1.1",
+    "qs": "^6.2.0",
     "superagent": "^1.7.2",
     "supervisor": "^0.9.1",
     "tson": "^0.0.10",
