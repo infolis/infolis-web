@@ -653,10 +653,6 @@ Entity
 		@context
 			dc:description "Textual references in which the entity refers to"
 		refMany infolis:TextualReference
-	file
-		@context
-			dc:description "The InfolisFile that manifests this entity"
-		refOne infolis:InfolisFile
 	number
 		@context
 			dc:description "TODO @dommii @bolandka"
@@ -772,6 +768,10 @@ InfolisFile
 		@type owl:Class
 		owl:sameAs
 			@id omnom:File
+	manifestsEntity
+		@context
+			dc:description "The Entity this Infolisfile manifests"
+		refOne infolis:Entity
 	md5
 		@context
 			owl:sameAs
