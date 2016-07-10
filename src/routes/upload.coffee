@@ -89,7 +89,6 @@ module.exports = (app, done) ->
 				500:
 					description: 'Backend failed.'
 
-
 	app.post '/api/upload', (req, res, next) ->
 		form = new Form()
 		form.parse req, (err, fields, files) ->
