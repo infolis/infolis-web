@@ -62,9 +62,9 @@ block footer
 						$("#essential_post_api_upload_content .response-content-type").hide()
 						Docs.expandEndpointListForResource('essential')
 					onFailure: (data) -> console.log 'Unable to Load SwaggerUI'
-					docExpansion: 'none'
+					docExpansion: 'list'
 					apisSorter: 'alpha'
-					jsonEditor: true
+					jsonEditor: false
 					showRequestHeaders: false
 				)
 				window.swaggerUi.load()
