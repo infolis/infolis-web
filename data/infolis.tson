@@ -178,6 +178,7 @@ Execution
 			'io.github.infolis.algorithm.SearchResultLinker'
 			'io.github.infolis.algorithm.SpringerImporter'
 			'io.github.infolis.algorithm.TagSearcher'
+			'io.github.infolis.algorithm.TextAndMetaDataExtractor'
 			'io.github.infolis.algorithm.TextExtractor'
 			'io.github.infolis.algorithm.Tokenizer'
 			'io.github.infolis.algorithm.TokenizerOpenNLP'
@@ -665,10 +666,6 @@ Entity
 		@context
 			dc:description "TODO @dommii @bolandka"
 		type Number
-	alternativeNames
-		@context
-			dc:description "TODO @dommii @bolandka"
-		type ArrayOfStrings
 	abstractText
 		@context
 			dc:description "TODO @dommii @bolandka"
