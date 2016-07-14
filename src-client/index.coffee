@@ -266,20 +266,13 @@ class InfolinkClient
 		opts.execution.inputFiles = inputFiles
 		return @execute opts
 
-	applyPatterns: (inputFiles, patterns, opts) ->
-		opts.execution =
-			algorithm: 'io.github.infolis.algorithm.PatternApplier'
-			inputFiles: inputFiles
-			patterns: patterns
-		return @execute opts
-
 	applyPatternAndResolve : (inputFiles, tag, opts) ->
 		opts.execution =
-			algorithm: 'io.github.infolis.algorithm.ApplyPatternAndResolve'
+			algorithm: 'io.github.infolis.algorithm.SearchPatternsAndCreateLinks'
 			inputFiles: inputFiles
 			infolisPatternTags: [tag]
 			queryServiceClasses: [
-				"io.github.infolis.resolve.DaraHTMLQueryService"
+				'io.github.infolis.infolink.querying.DaraHTMLQueryService'
 			]
 		return @execute opts
 
