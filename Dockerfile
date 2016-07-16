@@ -5,8 +5,8 @@ WORKDIR /usr/src/app
 
 RUN apt-get update -y && apt-get install -y raptor2-utils
 
-COPY package.json /usr/src/app/package.json
-RUN npm install
 COPY . /usr/src/app
+RUN npm install && npm run compile
 
-CMD ['npm', 'start']
+EXPOSE 3000
+CMD npm start

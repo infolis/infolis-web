@@ -1,2 +1,6 @@
 data/mongodb*
+dist
+.git
+test
+Dockerfile
 node_modules
