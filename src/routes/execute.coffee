@@ -39,6 +39,18 @@ module.exports = (app, done) ->
 	#     req.io.emit 'talk', {
 	#         message: 'yay'
 	#     }
+	app.delete '/api/execute', (req, res, next) ->
+		executionUri = req.param('id')
+		Request
+			.delete("#{CONFIG.backendURI}/#{CONFIG.backendApiPath}/executor?id=#{executionUri}")
+			.end (err, startResp) ->
+				if err
+					return next err
+				res.header 'Location', executionUri
+				res.send '@link': executionUri
+				res.status 201
+				return res.end()
+
 	app.post '/api/execute', (req, res, next) ->
 		exec = req.body
 		exec.status = 'PENDING'
