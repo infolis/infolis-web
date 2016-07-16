@@ -18,10 +18,11 @@ C.port         = 3000
 C.baseURI      = "http://localhost:#{C.port}"
 C.apiPrefix    = '/api'
 C.schemaPrefix = '/schema'
+C.logdir = __dirname + '/../data/logs/'
 C.logging      = {
 	transports: [ 'console', 'file' ]
 	level: 'debug'
-	logdir: __dirname + '/../data/logs/'
+	logdir: C.logdir
 }
 C.colorscheme = 'chrysoprase'
 C.site_api = "http://infolis.gesis.org/infolink"

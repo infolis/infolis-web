@@ -45,7 +45,7 @@ errorHandler = (err, req, res, next) ->
 	else
 		res.send StringifySafe err, null, 2
 
-accessLogger = Morgan 'combined', stream: Fs.createWriteStream(__dirname + '/../data/logs/access.log', {flags: 'a'})
+accessLogger = Morgan 'combined', stream: Fs.createWriteStream(CONFIG.logdir + '/' + 'access.log', {flags: 'a'})
 accessLoggerDev = Morgan 'dev'
 
 class InfolisWebservice
