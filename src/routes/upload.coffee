@@ -138,6 +138,7 @@ module.exports = (app, done) ->
 								return next ret
 							fileModel.save (err, savedFile) ->
 								if err
+									log.error "Error saving file to database", err
 									ret = new Error("Error saving file to database")
 									ret.cause = err
 									ret.status = 400

@@ -36,10 +36,11 @@ else
 paths.push HOSTNAME
 for path in paths
 	try
-		C = Merge C, require __dirname + "/../config.#{path}"
+		console.log "Trying "  + __dirname + "/../config.#{path}"
+		C = Merge C, require __dirname + "/../config.#{path}.coffee"
 		console.log "Loaded configuration: #{path}"
-	catch
-		console.log "No configuration found: #{path}"
+	catch e
+		console.log "No configuration found: #{path} (#{e})"
 
 
 # context expansion must come last
