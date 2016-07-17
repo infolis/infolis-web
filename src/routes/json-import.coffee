@@ -89,9 +89,9 @@ _postResource = (db, tags, resourceEndpoint, callback) ->
 		obj.tags or= []
 		obj.tags.push tags
 		# console.log obj
-		log.debug "Putting to /api/#{resourceEndpoint}/#{resId}"
+		log.debug "Putting to #{CONFIG.site_api}/api/#{resourceEndpoint}/#{resId}"
 		Request
-			.put "/infolink/api/#{resourceEndpoint}/#{resId}"
+			.put "#{CONFIG.site_api}/api/#{resourceEndpoint}/#{resId}"
 			.set 'content-type', 'application/json'
 			.send obj
 			.end (err, resp) ->
