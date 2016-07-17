@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt-get update -y && apt-get install -y raptor2-utils
 
 COPY . /app
-RUN npm install && npm run compile
+RUN npm --loglevel warn install
 
 EXPOSE 3000
-CMD npm run start-dev
+CMD npm run start
