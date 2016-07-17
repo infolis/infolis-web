@@ -14,8 +14,8 @@ Cors          = require 'cors'
 StringifySafe = require 'json-stringify-safe'
 Morgan        = require 'morgan'
 
-ExpressJSONLD  = require 'express-jsonld/src'
-Schemo = require 'mongoose-jsonld/src'
+ExpressJSONLD  = require 'express-jsonld'
+Schemo = require 'mongoose-jsonld'
 
 CONFIG = require './config'
 
@@ -66,7 +66,7 @@ class InfolisWebservice
 			throw new Error("Must set the MongoDB connection for API")
 		@app.mongoose.on 'connected', doneSetupMongoose
 		@app.mongoose.on 'error', (e) =>
-			log.error "ERROR starting MongoDB"
+			log.error "Mongo Error: #{e}", e
 			throw e
 
 	setupExpress : (doneSetupExpress) ->
