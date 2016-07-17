@@ -8,7 +8,7 @@ C.mongoServerOptions = {
 	server:
 		socketOptions:
 			# The time in milliseconds to attempt a connection before timing out.
-			connectTimeoutMS: 5000
+			connectTimeoutMS: 30000
 }
 C.backendURI   = 'http://localhost:8081'
 C.backendStaticPath = 'static'
