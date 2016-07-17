@@ -9,6 +9,7 @@ RUN apt-get update -y && apt-get install -y raptor2-utils
 
 COPY . /app
 RUN npm --loglevel warn install
+RUN npm run client
 
 EXPOSE 3000
 CMD npm run start
