@@ -5,7 +5,7 @@ FROM node:6.2
 ENV NODE_ENV production
 WORKDIR /app
 
-RUN apt-get update -y && apt-get install -y raptor2-utils
+RUN apt-get update -y && apt-get install -y raptor2-utils vim
 
 COPY . /app
 RUN npm --loglevel warn install
