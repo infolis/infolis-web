@@ -33,7 +33,7 @@
     "body-parser": "^1.15.0",
     "coffeeify": "^1.2.0",
     "cors": "^2.7.1",
-    "easylog": "^0.0.10",
+    "easylog": "^0.0.12",
     "express": "^4.13.4",
     "express-jsonld": "0.0.19",
     "jade": "^1.11.0",
