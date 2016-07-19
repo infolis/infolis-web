@@ -6,6 +6,7 @@ class Demo1
 			@uploadTags = []
 			for tag in $("#upload-tags").val().trim().split(/\s*,\s*/)
 				@uploadTags.push tag
+			@patternSet = $("#pattern-tags").val()
 			@reset()
 			@uploadFiles()
 
@@ -16,6 +17,7 @@ class Demo1
 		self = this
 		infolinkClient.uploadFiles
 			selector: "#file"
+			tags: [@uploadTags]
 			onStarted: (ev) =>
 				self.reveal("#upload-progress")
 				bar = Bootstrap.createProgressBar("file-#{ev.fileIdx}", '#upload-progress')
@@ -54,7 +56,7 @@ class Demo1
 				notie.alert(3, 'Text extraction error', 0.5)
 			onProgress : (execution) ->
 				Bootstrap.setProgressBar(execution._id, execution.progress)
-			onComplete : (execution) ->
+			onComplete : (execution) =>
 				if execution.status is 'FAILED'
 					console.error "Text extraction failed", execution
 					notie.alert(6, 'Text extraction failed :(', 0.5)
@@ -67,28 +69,28 @@ class Demo1
 					$("#text-output-uri").append(
 						$("<li>").append($("<a>").attr("href", uri).html(uri)))
 				zebar = null
-				infolinkClient.applyPatternAndResolve execution.outputFiles, "demo3",
+				infolinkClient.searchPatternAndCreateLinks execution.outputFiles, @patternSet,
 					onStarted : (execution) ->
-						console.log 'Started ApplyPatternAndResolve', execution
+						console.log 'Started SearchPatternsAndCreateLinks', execution
 						self.reveal("#links")
 						self.reveal("#apar-uri")
 						self.reveal("#apar-progress")
 						zebar = Bootstrap.createProgressBar('apar', '#apar-progress')
 						zebar.html($("<a>").attr("href",execution.uri).append(execution._id))
 					onError: (execution) ->
-						notie.alert(3, 'apar error', 0.5)
+						notie.alert(3, 'SearchPatternsAndCreateLinks error', 0.5)
 					onProgress : (exec) ->
 						$("#apar-uri").html($("<a>").attr('href',exec.uri).text(exec.uri))
 						Bootstrap.setProgressBar('apar', exec.progress).text(exec.progress)
 					onComplete : (execution) ->
 						if execution.status is 'FAILED'
-							console.error "APAR failed", execution
-							notie.alert(6, 'Apply Pattern And Resolve failed :(', 0.5)
+							console.error "SearchPatternsAndCreateLinks failed", execution
+							notie.alert(6, 'SearchPatternsAndCreateLinks failed :(', 0.5)
 							Bootstrap.getProgressBar('apar').addClass('progress-bar-danger')
 							return
 						Bootstrap.setProgressBar('apar', 100)
 						Bootstrap.getProgressBar('apar').addClass('progress-bar-success')
-						notie.alert(1, 'Apply Pattern And Resolve complete :)', 0.5)
+						notie.alert(1, 'SearchPatternsAndCreateLinks complete :)', 0.5)
 						for uri in execution.links
 							$("#links").append(
 								$("<li>").append($("<a>").attr("href", uri).html(uri)))

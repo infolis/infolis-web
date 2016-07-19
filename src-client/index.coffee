@@ -162,7 +162,7 @@ class InfolinkClient
 					opts.onProgress execution
 					console.log 'end poll loop', pollId
 		pollId = setInterval poll, @pollInterval
- 
+
 	GM_downloadBlob: (uri, opts) ->
 		onError    = opts.onError    or @defaultHandler.error
 		onStarted  = opts.onStarted  or @defaultHandler.started
@@ -266,13 +266,22 @@ class InfolinkClient
 		opts.execution.inputFiles = inputFiles
 		return @execute opts
 
-	applyPatternAndResolve : (inputFiles, tag, opts) ->
+	searchPatternsAndCreateLinks: (inputFiles, tag, opts) ->
+		opts.execution =
+			algorithm: 'io.github.infolis.algorithm.SearchPatternsAndCreateLinks'
+			inputFiles: inputFiles
+			infolisPatternTags: [tag]
+
+	searchPatternAndCreateLinks : (inputFiles, tag, opts) ->
 		opts.execution =
 			algorithm: 'io.github.infolis.algorithm.SearchPatternsAndCreateLinks'
 			inputFiles: inputFiles
 			infolisPatternTags: [tag]
 			queryServiceClasses: [
 				'io.github.infolis.infolink.querying.DaraHTMLQueryService'
+			]
+			searchResultLinkerClass: [
+				'io.github.infolis.algorithm.BestMatchLinker'
 			]
 		return @execute opts
 

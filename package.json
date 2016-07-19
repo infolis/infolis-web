@@ -7,7 +7,7 @@
     "docs": "docker -i src -o apidocs -s -n -c vs",
     "compile": "coffee -c -o lib src",
     "client": "browserify -t coffeeify -o public/client.js src-client/index.coffee",
-    "demos": "coffee -wc -o public/ src-client/demo*.coffee",
+    "demos": "coffee -wc -o public/ src-client/*.coffee",
     "watch-client": "nodemon -w src-client -e 'coffee' --exec 'npm run client'",
     "jekyll": "cd ../infolis.github.io; jekyll serve --config _config.yml,_config-dev.yml",
     "start-dev": "supervisor -w src/,data/infolis.tson,../jsonld-rapper/src,../express-jsonld/src,../mongoose-jsonld/src src/server.coffee",
