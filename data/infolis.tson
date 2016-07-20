@@ -695,7 +695,7 @@ SearchResult
 		@context
 			dc:description "Identifier of the search result"
 		type String
-		index: true
+		index: false
 	tags
 		@context
 			dc:description "tags to assign to this search result"
@@ -705,17 +705,17 @@ SearchResult
 		@context
 			dc:description "Position in the list of search results"
 		type Number
-		index: true
+		index: false
 	relevanceScore
 		@context
 			dc:description "Relevance score as calculated by the search engine"
 		type Number
-		index: true
+		index: false
 	date
 		@context
 			dc:description "Date of the search resul"
 		type String
-		index: true
+		index: false
 	queryService
 		@context
 			dc:description "Query Service used to retrieve search result."
