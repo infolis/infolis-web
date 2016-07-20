@@ -137,6 +137,7 @@ class InfolisWebservice
 			'play/datasetifier'
 			'data-model-explorer'
 			'backend-static'
+			'simple-search'
 		]
 		Async.eachSeries controllers, (controller, done) =>
 			log.info "Setting up route #{controller}"
