@@ -110,8 +110,8 @@ module.exports = (app, done) ->
 				, (err) ->
 					tags = []
 					if fields['tags']
-						tags = Qs.parse(fields['tags'][0]).tags
-					entityModel.set 'tags', tags
+						tags = fields['tags'][0].split(/\s*,\s*/)
+					entityModel.tags = tags
 					if fields['authors']
 						entityModel.set 'authors', Qs.parse(fields['authors'][0]).authors
 					if fields['subjects']
@@ -136,21 +136,22 @@ module.exports = (app, done) ->
 							if res2.status isnt 201
 								ret = new Error(res.text)
 								return next ret
-							fileModel.save (err, savedFile) ->
+							entityModel.save (err, savedEntity) ->
+								log.debug "Created entity: #{savedEntity}"
 								if err
-									log.error "Error saving file to database", err
-									ret = new Error("Error saving file to database")
+									ret = new Error("Error saving entity to database")
 									ret.cause = err
 									ret.status = 400
 									return next ret
-								entityModel.set 'file', savedFile
-								entityModel.save (err, savedEntity) ->
+								fileModel.manifestsEntity = "#{CONFIG.site_api}/api/entity/#{savedEntity._id}"
+								fileModel.save (err, savedFile) ->
+									log.debug "Created InfolisFile: #{savedFile}"
 									if err
-										ret = new Error("Error saving entity to database")
+										log.error "Error saving file to database", err
+										ret = new Error("Error saving file to database")
 										ret.cause = err
 										ret.status = 400
 										return next ret
-									log.debug "Created entity: #{savedEntity}"
 									res.status 201
 									res.header 'Location', fileModel.uri()
 									res.send '@link': fileModel.uri()
