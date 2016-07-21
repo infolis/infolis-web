@@ -222,7 +222,6 @@ Execution
 			@type xsd:date
 			dc:description "Timestamp when execution started."
 		type Date
-		index: true
 		hideFromSwagger: true
 
 	endTime
@@ -232,7 +231,6 @@ Execution
 			@type xsd:date
 			dc:description "Timestamp when execution ended."
 		type Date
-		index: true
 		hideFromSwagger: true
 
 	progress
@@ -263,7 +261,6 @@ Execution
 		@context
 			dc:description "Whether to remove the bibliography from text/plain document."
 		type Boolean
-		index: true
 
 	tokenize
 		@context
@@ -298,7 +295,6 @@ Execution
 				operations may be carried out.
 				Default: 10
 				"""
-		index: false
 		type: Number
 
 	allowLeadingWildcards
@@ -308,7 +304,6 @@ Execution
 				use leading wildcard characters.
 				Default: true
 				"""
-		index: false
 		type Boolean
 
 	maxClauseCount
@@ -319,7 +314,6 @@ Execution
 				matching boolean combinations of other queries.
 				Default: Integer max value
 				"""
-		index: false
 		type: Number
 
 	searchTerm
@@ -330,7 +324,6 @@ Execution
 				For example, the bootstrapping algorithms need a seed in the beginning to start
 				the whole process. The search term represents such a seed, e.g. the study name 'ALLBUS'.
 				"""
-		index: true
 		type String
 
 	searchQuery
@@ -396,7 +389,6 @@ Execution
 				named entity and thus should contain at least one upper-case character.
 				Default: false
 				"""
-		index: true
 		type Boolean
 
 	seeds
@@ -411,7 +403,6 @@ Execution
 				A high number of iterations can lead to a increased run time.
 				Default: 10
 				"""
-		index: false
 		type Number
 
 	windowsize
@@ -423,7 +414,6 @@ Execution
 	reliabilityThreshold
 		@context
 			dc:description "Determines which patterns are the relevant ones."
-		index: false
 		type Number
 		default: 0.8
 
@@ -604,8 +594,8 @@ SearchQuery
 		@context
 			dc:description "The query string"
 		type String
+		index: false
 		required: yes
-		index: true
 
 Entity
 	@context
@@ -695,27 +685,22 @@ SearchResult
 		@context
 			dc:description "Identifier of the search result"
 		type String
-		index: false
 	tags
 		@context
 			dc:description "tags to assign to this search result"
 		type ArrayOfStrings
-		index: true
 	listIndex
 		@context
 			dc:description "Position in the list of search results"
 		type Number
-		index: false
 	relevanceScore
 		@context
 			dc:description "Relevance score as calculated by the search engine"
 		type Number
-		index: false
 	date
 		@context
 			dc:description "Date of the search resul"
 		type String
-		index: false
 	queryService
 		@context
 			dc:description "Query Service used to retrieve search result."
@@ -743,7 +728,6 @@ InfolisPattern
 		@context
 			dc:description "The Lucene query that can be used to query an index"
 		type String
-		index: true
 	words
 		@context
 			dc:description "The words surrounding the pattern, used to induce general patterns"
@@ -752,7 +736,6 @@ InfolisPattern
 		@context
 			dc:description "Threshold which is applied to only filter relevant patterns"
 		type Number
-		index: true
 	tags
 		@context
 			dc:description "Tags to assign to this pattern"
@@ -810,7 +793,6 @@ InfolisFile
 			'DELETED'
 		]
 		required: no
-		index: true
 	tags
 		@context
 			owl:sameAs
@@ -840,13 +822,11 @@ QueryService
 				@id xsd:anyURI
 		type: String
 		required: yes
-		index: true
 	serviceReliability
 		@context
 			dc:description "The reliability of this QueryService"
 		type: Number
 		required: yes
-		index: true
 	maxNumber
 		@context
 			dc:description "Maximum number of results"
@@ -902,15 +882,16 @@ EntityLink
 		@context
 			dc:description "The entity from which the link originates from, this is typically the publication"
 		refOne infolis:Entity
+		index:true
 	toEntity
 		@context
 			dc:description "The entity to which is linked, this is typically the research data"
 		refOne infolis:Entity
+		index:true
 	confidence
 		@context
 			dc:description "Describes how likely it is that the link indeed holds, xsd:double"
 		type: Number
-		index: true
 	linkReason
 		@context
 			dc:description "TODO @dommii @bolandka"
@@ -925,7 +906,6 @@ Keyword
 		@context
 			dc:description: "URI of the keyword in the thesaurus."
 		type: String
-		index: no
 		required: true
 	thesaurusLabel
 		@context
