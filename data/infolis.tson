@@ -899,6 +899,17 @@ EntityLink
 			owl:sameAs
 				@id dc:relation
 		type ArrayOfStrings
+		enum: [
+			'part_of_temporal'
+			'part_of_spatial'
+			'parts_of_temporal'
+			'parts_of_spatial'
+			'version_of'
+			'part_of_confidential'
+			'part_of_sample'
+			'part_of_supplement'
+			'part_of'
+		]
 		index: true
 
 Keyword
