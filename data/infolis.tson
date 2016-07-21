@@ -644,10 +644,6 @@ Entity
 		@context
 			dc:description "Textual references in which the entity refers to"
 		refMany infolis:TextualReference
-	number
-		@context
-			dc:description "TODO @dommii @bolandka"
-		type String
 	numericInfo
 		@context
 			dc:description "TODO @dommii @bolandka"
