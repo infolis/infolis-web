@@ -617,7 +617,7 @@ Entity
 		@context
 			owl:sameAs
 				@id dcterms:spatial 
-		type String
+		type ArrayOfStrings
 		index: true
 	language
 		@context
