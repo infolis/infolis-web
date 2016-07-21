@@ -893,6 +893,13 @@ EntityLink
 			dc:description "TODO @dommii @bolandka"
 		type: String
 		index: true
+	entityRelation
+		@context
+			dc:description "TODO @dommii @bolandka"
+			owl:sameAs
+				@id dc:relation
+		type ArrayOfStrings
+		index: true
 
 Keyword
 	@context
