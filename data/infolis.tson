@@ -878,12 +878,12 @@ EntityLink
 		@context
 			dc:description "The entity from which the link originates from, this is typically the publication"
 		refOne infolis:Entity
-		index:true
+		index: true
 	toEntity
 		@context
 			dc:description "The entity to which is linked, this is typically the research data"
 		refOne infolis:Entity
-		index:true
+		index: true
 	confidence
 		@context
 			dc:description "Describes how likely it is that the link indeed holds, xsd:double"
