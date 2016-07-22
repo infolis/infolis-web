@@ -618,13 +618,13 @@ Entity
 			owl:sameAs
 				@id dcterms:spatial 
 		type ArrayOfStrings
-		index: true
+		index: false
 	language
 		@context
 			owl:sameAs
 				@id dc:language 
 		type String
-		index: true
+		index: false
 	identifier
 		@context
 			dc:description "Identifier of the entity"
