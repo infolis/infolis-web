@@ -35,7 +35,7 @@
     "cors": "^2.7.1",
     "easylog": "^0.0.12",
     "express": "^4.13.4",
-    "express-jsonld": "0.0.19",
+    "express-jsonld": "0.0.20",
     "jade": "^1.11.0",
     "json-stringify-safe": "^5.0.1",
     "jstransformer-coffee-script": "^1.0.0",
