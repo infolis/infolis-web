@@ -42,7 +42,7 @@
     "jstransformer-markdown": "^1.1.0",
     "merge": "^1.2.0",
     "mongoose": "^4.5.5",
-    "mongoose-jsonld": "^0.2.6",
+    "mongoose-jsonld": "^0.2.7",
     "morgan": "^1.6.1",
     "multiparty": "^4.1.1",
     "qs": "^6.2.0",
