@@ -803,12 +803,13 @@ QueryService
 		@type owl:Class
 	queryServiceType:
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description "Service for searching entities in a repository."
 		type 'String'
 		required true
 		enum: [
 			'io.github.infolis.infolink.querying.DaraHTMLQueryService'
 			'io.github.infolis.infolink.querying.DaraSolrQueryService'
+			'io.github.infolis.infolink.querying.DataciteQueryService'
 		]
 	target
 		@context
