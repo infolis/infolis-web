@@ -487,21 +487,20 @@ Execution
 
 	infolisFileTags
 		@context
-			dc:description "Find InfolisFiles with any of these tags TODO @bolandka"
+			dc:description "List of tags to identify a specific set of InfolisFiles"
 		type: ArrayOfStrings
 
 	infolisPatternTags
 		@context
-			dc:description "Find InfolisPatterns with any of these tags TODO @bolandka"
+			dc:description "List of tags to identify a specific set of InfolisPatterns"
 		type: ArrayOfStrings
 
 	tags
 		@context
 			dc:description """
-				A tag indicates which corpus of documents and/or patterns should be used.
-				For example, a user likes to apply patterns learnt on
-				documents of a specific topic like social science.
-				These tags describe the execution to make it searchable via its tags.
+				Free-form tags to assign to the execution and all generated entities. 
+				This makes all uploaded and generated data identifiable and searchable 
+				e.g. using infolisFileTags and infolisPatternTags. 
 				"""
 		type ArrayOfStrings
 		index: true
@@ -599,7 +598,7 @@ SearchQuery
 
 Entity
 	@context
-		dc:description "An entity to be linked from or to, a Dataset or a Publication or a SearchResult"
+		dc:description "An entity to be linked from or to, i.e. a dataset or a publication"
 		@type owl:Class
 	name
 		@context
@@ -632,7 +631,7 @@ Entity
 		index: true
 	url
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description "URL describing the entity or offering supplemental material"
 		type String
 		required no
 	tags
@@ -642,31 +641,31 @@ Entity
 		index: true
 	textualReferences
 		@context
-			dc:description "Textual references in which the entity refers to"
+			dc:description "TODO remove"
 		refMany infolis:TextualReference
 	numericInfo
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description "Numeric information belonging to the entity, e.g. temporal coverage or publication date"
 		type ArrayOfStrings
 	reliability
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description "Confidence value for the entity; less than 1 for automatically generated entities"
 		type Number
 	abstractText
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description "TODO @dommii"
 			owl:sameAs
 			    @id dc:abstract
 		type: String
 	authors
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description "TODO @dommii"
 			owl:sameAs
 			    @id dc:creator
 		type ArrayOfStrings
 	subjects
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description "TODO @dommii"
 			owl:sameAs
 			    @id dc:creator
 		type ArrayOfStrings
@@ -870,8 +869,8 @@ TextualReference
 EntityLink
 	@context
 		dc:description """
-			An entity link desribes that two entities are linked, i.e. a publication is linked to the research data that is mentioned in
-			the publication text.
+			An entity link describes that two entities are linked, i.e. a publication is linked to the research data that is mentioned in
+			the publication text
 			"""
 		@type owl:Class
 	fromEntity
@@ -890,12 +889,15 @@ EntityLink
 		type: Number
 	linkReason
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description """
+				The TextualReference found in the fromEntity based on which a 
+				link to the toEntity was established
+				"""
 		type: String
 		index: true
 	entityRelation
 		@context
-			dc:description "TODO @dommii @bolandka"
+			dc:description "Type of the relation that holds between fromEntity and toEntity"
 			owl:sameAs
 				@id dc:relation
 		type ArrayOfStrings
