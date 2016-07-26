@@ -724,10 +724,6 @@ InfolisPattern
 		@context
 			dc:description "The Lucene query that can be used to query an index"
 		type String
-	words
-		@context
-			dc:description "The words surrounding the pattern, used to induce general patterns"
-		type ArrayOfStrings
 	threshold
 		@context
 			dc:description "Threshold which is applied to only filter relevant patterns"
