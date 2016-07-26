@@ -867,7 +867,10 @@ TextualReference
 		@context
 			dc:description "Entity that contains this textual reference"
 		refOne: infolis:Entity
-
+	pattern
+		@context
+			dc:description "Pattern that matched this TODO @bolandka"
+		refOne: infolis:InfolisPattern
 EntityLink
 	@context
 		dc:description """
