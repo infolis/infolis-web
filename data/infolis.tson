@@ -493,7 +493,7 @@ Execution
 
 	infolisPatternTags
 		@context
-			dc:description "List of tags to identify a specific set of InfolisPatterns"
+			dc:description "List of tags to identify a specific set of InfolisPattern"
 		type: ArrayOfStrings
 
 	tags
@@ -865,7 +865,7 @@ TextualReference
 		refOne: infolis:InfolisFile
 	mentionsReference
 		@context
-			dc:description "The Entity which belongs to the file "
+			dc:description "Entity that contains this textual reference"
 		refOne: infolis:Entity
 
 EntityLink
