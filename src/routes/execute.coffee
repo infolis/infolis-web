@@ -7,6 +7,19 @@ Request = require 'superagent'
 module.exports = (app, done) ->
 
 	app.swagger '/api/execute',
+		delete:
+			tags: ['essential']
+			summary: 'Stop an execution'
+			parameters: [
+				name: 'id'
+				in: 'query'
+				description: 'URL of the execution to stop'
+				required: true
+				type: 'string'
+			]
+			responses:
+				201:
+					description: "Sent Stop command to backend."
 		post:
 			tags: ['essential']
 			summary: "Post an execution and run it on the backend."
