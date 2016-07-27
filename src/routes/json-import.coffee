@@ -41,6 +41,9 @@ _replaceAll = (db, oldId, newId) ->
 			delete resMap[oldId]
 
 _postFiles = (db, files, callback) ->
+	if 'infolisFile' not of db
+		log.warn "No infolisFiles in the database"
+		return callback()
 	# return callback null
 	missingFiles = []
 	for fileId in Object.keys(db.infolisFile)
@@ -137,7 +140,8 @@ module.exports = (app, done) ->
 			maxFieldsSize: 100 * 1024 * 1024
 			maxFields: 50 * 1000
 		)
-		timestamp = "#{Date.now()}"
+		unless 'no-timestamp' of req.query
+			timestamp = "#{Date.now()}"
 		form.parse req, (err, fields, files) ->
 			if err
 				log.error err
@@ -148,7 +152,7 @@ module.exports = (app, done) ->
 			_postFiles db, files, (err) ->
 				return next err if err
 				# replace ids
-				for resourceEndpoint in PUT_ORDER
+				if timestamp then for resourceEndpoint in PUT_ORDER
 					log.info "Prepending #{timestamp} to all #{resourceEndpoint}"
 					for resourceId of db[resourceEndpoint]
 						_replaceAll db, resourceId, "#{timestamp}_#{resourceId}"
