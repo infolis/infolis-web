@@ -896,7 +896,7 @@ EntityLink
 				"""
 		type: String
 		index: true
-	entityRelation
+	entityRelations
 		@context
 			dc:description "Type of the relation that holds between fromEntity and toEntity"
 			owl:sameAs
