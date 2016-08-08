@@ -493,7 +493,12 @@ Execution
 
 	infolisPatternTags
 		@context
-			dc:description "List of tags to identify a specific set of InfolisPattern"
+			dc:description "List of tags to identify a specific set of InfolisPatterns"
+		type: ArrayOfStrings
+		
+	textualReferenceTags
+		@context
+			dc:description "List of tags to identify a specific set of TextualReferences"
 		type: ArrayOfStrings
 
 	tags
@@ -501,7 +506,7 @@ Execution
 			dc:description """
 				Free-form tags to assign to the execution and all generated entities. 
 				This makes all uploaded and generated data identifiable and searchable 
-				e.g. using infolisFileTags and infolisPatternTags. 
+				e.g. using infolisFileTags, infolisPatternTags and textualReferenceTags. 
 				"""
 		type ArrayOfStrings
 		index: true
@@ -637,7 +642,7 @@ Entity
 		required no
 	tags
 		@context
-			dc:description "Tags to assign to this entity"
+			dc:description "Tags assigned to this entity"
 		type ArrayOfStrings
 		index: true
 	textualReferences
@@ -683,7 +688,7 @@ SearchResult
 		type String
 	tags
 		@context
-			dc:description "tags to assign to this search result"
+			dc:description "Tags assigned to this search result"
 		type ArrayOfStrings
 	listIndex
 		@context
@@ -730,7 +735,7 @@ InfolisPattern
 		type Number
 	tags
 		@context
-			dc:description "Tags to assign to this pattern"
+			dc:description "Tags assigned to this pattern"
 		type ArrayOfStrings
 		index: true
 
@@ -789,7 +794,7 @@ InfolisFile
 		@context
 			owl:sameAs
 				@id dc:subject
-			dc:description "A set of free form tags to attach to files"
+			dc:description "A set of free form tags attached to this file"
 		type ArrayOfStrings
 		required: no
 		index: true
@@ -867,6 +872,12 @@ TextualReference
 		@context
 			dc:description "Pattern that extracted this textual reference"
 		refOne: infolis:InfolisPattern
+	tags
+		@context
+			dc:description "Tags assigned to this textual reference"
+		type ArrayOfStrings
+		index: true
+		
 EntityLink
 	@context
 		dc:description """
