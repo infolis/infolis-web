@@ -842,6 +842,11 @@ QueryService
 			'doi'
 		]
 		required no
+	tags
+		@context
+			dc:description "Tags assigned to this query service"
+		type ArrayOfStrings
+		index: true
 
 TextualReference
 	@context
@@ -925,6 +930,11 @@ EntityLink
 			'part_of'
 		]
 		index: true
+	tags
+		@context
+			dc:description "Tags assigned to this entityLink"
+		type ArrayOfStrings
+		index: true
 
 Keyword
 	@context
@@ -949,3 +959,8 @@ Keyword
 			dc:description: "The confidence score of a keyword bases on the similarity of the terms in the abstract to the terms in the thesaurus."
 		type: Number
 		required true
+	tags
+		@context
+			dc:description "Tags assigned to this keyword"
+		type ArrayOfStrings
+		index: true
