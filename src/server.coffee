@@ -13,6 +13,8 @@ TSON          = require 'tson'
 Cors          = require 'cors'
 StringifySafe = require 'json-stringify-safe'
 Morgan        = require 'morgan'
+Cluster       = require 'cluster'
+OS            = require 'os'
 
 ExpressJSONLD  = require 'express-jsonld'
 Schemo = require 'mongoose-jsonld'
@@ -164,7 +166,13 @@ class InfolisWebservice
 					log.info "Starting server on #{CONFIG.port}"
 					@app.listen CONFIG.port
 
-server = new InfolisWebservice()
-server.startServer()
+if Cluster.isMaster
+	nr_cpus = OS.cpus().length
+	log.info "Forking #{nr_cpus} workers"
+	for [0 ... nr_cpus]
+		Cluster.fork()
+else
+	server = new InfolisWebservice()
+	server.startServer()
 
 # ALT: test/test.coffee
