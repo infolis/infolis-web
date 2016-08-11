@@ -82,17 +82,20 @@ _postFiles = (db, files, callback) ->
 		return callback err if err
 		callback null
 
-_postResource = (db, tags, resourceEndpoint, callback) ->
+_postResource = (db, tags, resourceEndpoint, skip_replace, callback) ->
 	resMap = db[resourceEndpoint]
 	if not resMap
 		return callback null
 	log.debug "Posting #{Object.keys(resMap).length} things to #{resourceEndpoint}"
 	mapping = {}
-	Async.forEachOfLimit resMap, 100, (obj, resId, done) ->
+	ids = Object.keys(resMap)
+	total = ids.length
+	Async.eachOfLimit ids.sort(), 200, (resId, cur, done) ->
+		obj = resMap[resId]
 		obj.tags or= []
 		obj.tags.push tags
 		# console.log obj
-		log.debug "Putting to #{CONFIG.site_api}/api/#{resourceEndpoint}/#{resId}"
+		log.debug "[#{cur}/#{total}] Putting to #{CONFIG.site_api}/api/#{resourceEndpoint}/#{resId}"
 		Request
 			.put "#{CONFIG.site_api}/api/#{resourceEndpoint}/#{resId}"
 			.set 'content-type', 'application/json'
@@ -104,8 +107,9 @@ _postResource = (db, tags, resourceEndpoint, callback) ->
 				else if resp.status >= 400
 					log.error "ERROR Putting #{resId}", resp.status
 					return done err
-				log.debug "<- #{resp.status} #{resp.header['location']}."
-				_replaceAll db, resId, resp.header['location']
+				# log.debug "<- #{resp.status} #{resp.header['location']}."
+				unless skip_replace
+					_replaceAll db, resId, resp.header['location']
 				return done()
 	, (err) ->
 		return callback err if err
@@ -158,7 +162,7 @@ module.exports = (app, done) ->
 						_replaceAll db, resourceId, "#{timestamp}_#{resourceId}"
 				log.silly "Tags to post", fields.tags.join(',')
 				Async.eachSeries PUT_ORDER, (resourceEndpoint, cb) ->
-					_postResource db, fields.tags.join(','), resourceEndpoint, (err) ->
+					_postResource db, fields.tags.join(','), resourceEndpoint, req.query.skip_replace, (err) ->
 						return cb err if err
 						return cb null
 				, (err) ->
