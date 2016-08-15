@@ -675,6 +675,16 @@ Entity
 			owl:sameAs
 			    @id dc:subject
 		type ArrayOfStrings
+	entityType
+		@context
+			dc:description "The type of entity: publication, dataset or database"
+		type String
+		default "publication"
+		enum: [
+			"publication"
+			"dataset"
+			"database"
+		]
 
 SearchResult
 	@context
