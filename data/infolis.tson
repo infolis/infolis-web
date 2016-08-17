@@ -939,7 +939,7 @@ EntityLink
 			'part_of_supplement'
 			'part_of'
 		]
-		index: true
+		index: false
 	tags
 		@context
 			dc:description "Tags assigned to this entityLink"
