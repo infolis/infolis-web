@@ -677,13 +677,14 @@ Entity
 		type ArrayOfStrings
 	entityType
 		@context
-			dc:description "The type of entity: publication, dataset or database"
+			dc:description "The type of entity: publication, dataset, database or citedData"
 		type String
 		default "publication"
 		enum: [
 			"publication"
 			"dataset"
 			"database"
+			"citedData"
 		]
 
 SearchResult
