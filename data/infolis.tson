@@ -584,7 +584,7 @@ Execution
 		@context
 			dc:description """
 				Meta data files of the publications in which information about
-				the title, author, astract, subject, identifier, URL, and language
+				the title, author, astract, subject, identifiers, URL, and language
 				can be found.
 			"""
 		type ArrayOfStrings
@@ -630,11 +630,11 @@ Entity
 				@id dc:language 
 		type String
 		index: false
-	identifier
+	identifiers
 		@context
-			dc:description "Identifier of the entity"
-		type String
-		index: true
+			dc:description "Identifiers of the entity"
+		type ArrayOfStrings
+		index: false
 	url
 		@context
 			dc:description "URL describing the entity or offering supplemental material"
@@ -695,7 +695,7 @@ SearchResult
 		@type owl:Class
 	identifier
 		@context
-			dc:description "Identifier of the search result"
+			dc:description "Identifiers of the search result"
 		type String
 	tags
 		@context
