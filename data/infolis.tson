@@ -944,6 +944,8 @@ EntityLink
 			'same_as_temporal'
 			'same_as_spatial'
 			'unknown'
+			'same_as'
+			'references'
 		]
 		index: false
 	tags
