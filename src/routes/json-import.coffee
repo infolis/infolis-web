@@ -40,7 +40,10 @@ _replaceAll = (db, oldId, newId) ->
 			resMap[newId] = resMap[oldId]
 			delete resMap[oldId]
 
-_postFiles = (db, files, callback) ->
+_postFiles = (db, files, no_upload, callback) ->
+	if no_upload
+		log.warn "Skipping uploads as no_upload was given"
+		return callback()
 	if 'infolisFile' not of db
 		log.warn "No infolisFiles in the database"
 		return callback()
@@ -50,7 +53,7 @@ _postFiles = (db, files, callback) ->
 		if fileId not of files
 			missingFiles.push fileId
 	if missingFiles.length > 0
-		return next "Did not provide these files: #{[missingFiles]}"
+		return callback new Error("Did not provide these files: #{[missingFiles]}")
 	# Post all files
 	Async.eachLimit Object.keys(db.infolisFile), 10, (fileId, cb) ->
 		log.silly files[fileId]
@@ -146,6 +149,7 @@ module.exports = (app, done) ->
 		)
 		unless 'no-timestamp' of req.query
 			timestamp = "#{Date.now()}"
+		no_upload = 'no-upload' of req.query
 		form.parse req, (err, fields, files) ->
 			if err
 				log.error err
@@ -153,7 +157,7 @@ module.exports = (app, done) ->
 			if not fields.db
 				return next "Must pass 'db'"
 			db = JSON.parse fields.db.toString()
-			_postFiles db, files, (err) ->
+			_postFiles db, files, no_upload, (err) ->
 				return next err if err
 				# replace ids
 				if timestamp then for resourceEndpoint in PUT_ORDER
