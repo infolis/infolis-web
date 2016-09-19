@@ -1,12 +1,57 @@
-infolis-web
-===========
-
+# infolis-web
 Infolis Web services
+
+<!-- BEGIN-MARKDOWN-TOC -->
+* [REST API](#rest-api)
+* [Simple HTTP API](#simple-http-api)
+	* [`/simple/links`](#simplelinks)
+		* [Parameters](#parameters)
+			* [`identifier`](#identifier)
+			* [`name`](#name)
+			* [`tags`](#tags)
+* [`/simple/datasets`](#simpledatasets)
+* [Deployment](#deployment)
+	* [TL;DR](#tl-dr)
+	* [Step 1: Set up your Working environment for InFoLiS-Web](#step-1-set-up-your-working-environment-for-infolis-web)
+		* [Git](#git)
+		* [cURL](#curl)
+		* [Nodesource](#nodesource)
+		* [NodeJS](#nodejs)
+		* [Raptor2 Utilites](#raptor2-utilites)
+		* [MongoDB](#mongodb)
+		* [npm](#npm)
+	* [Step 2: Clone the infolis project repositories](#step-2-clone-the-infolis-project-repositories)
+	* [Step 3: Get the project running](#step-3-get-the-project-running)
+		* [Infolis.github.io](#infolisgithubio)
+		* [Infolis-web](#infolis-web)
+
+<!-- END-MARKDOWN-TOC -->
 
 This software is licensed under the [MIT license](./LICENSE) terms.
 
-Deployment
-----------
+## REST API
+
+Try out the [Infolis API UI](https://infolis.gesis.org/api).
+
+The REST API is defined by the [Infolis TSON](./data/infolis.tson).
+
+## Simple HTTP API
+
+This is a simplified API for simple clients, producing simple results
+using simple mechanics, simply encoded.
+
+### `/simple/links`
+
+Find links between entities (publications, datasets, databases...).
+
+#### Parameters
+
+##### `from_id`
+##### `to_id`
+
+Search from/to this [`identifiers`](http://infolis.gesis.org/infolink/api/tson#identifiers)
+
+## Deployment
 
 infolis-web should run on any BSD/Linux system supporting NodeJS and MongoDB. However
 we run our deployment on an Ubuntu 14.04 LTS Server system and assume deployment
@@ -104,7 +149,7 @@ Open your shell and type
 
 `sudo apt-get install nodejs`
 
-Be sure that you have NodeJS Version 4.0.0 or later. You can look up your version by typing 
+Be sure that you have NodeJS Version 4.0.0 or later. You can look up your version by typing
 `nodejs --version`
 
 #### Raptor2 Utilites
@@ -144,7 +189,7 @@ Make new directories for both repositories and clone them to receive your local 
 `git clone git@github.com:yourgithub/infolis-web`
 
 ### Step 3: Get the project running
- 
+
 Host the Services on your local server. You can serve `infolis.github.io` via Jekyll and `infolis-web` via npm.
 
 #### Infolis.github.io
