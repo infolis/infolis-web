@@ -1,21 +1,62 @@
 extends ./layout.jade
+
 block title
-	| Datastore stats
+	| Simple search
 
 block help
 	include:markdown ../help/stats.md
 
+block end-of-head
+	style.
+		.hi { background: yellow }
+		.type { vertical-align: super; font-size: small }
+
+mixin entityCell(entity, query)
+	- id = entity.identifiers[0] || entity._id
+	- hi = id && id.match(query.id) ? 'hi' : '';
+	a(href="?id=#{id}",class="#{hi}")= entity.name
+		&nbsp;
+		if entity.versionInfo
+			span.versionInfo #{entity.versionInfo}
+	span.type #{entity.entityType}
+	details
+		summary debug
+		pre
+			=JSON.stringify(entity, null, 2)
+
 block content
 	.row
-		.col-md-5
-			h1 Simple Search
+		.col-sm-12
 			form.form-horizontal(role="form")
 				.form-group
-				.form-group
-					label.control-label.col-sm-3(for="input-id") Input ID
 					.col-sm-4
-						input.form-control#input-id(type="text",placeholder="10.1234.567/8")
+							input.form-control#input-id(name='id',type="text",placeholder="#{query.id}")
+					.col-sm-4
+							.col-sm-4
+								label.form-control.control-label(for="input-regex") regex?
+							.col-sm-4
+								input.form-control#input-regex(name='regex',type="checkbox")
 				.form-group
-					.col-sm-3.col-sm-offset-3
-						input.form-control.btn.btn-success#start-demo(type="button",value="Analyze")
-
+					.col-sm-3.col-sm-offset-2
+						input.form-control.btn.btn-success#input-search(type="submit",value="search")
+	.row
+		.col-sm-12
+			if links.length > 0
+				table.table.table-bordered.table-striped
+					//- tr
+					//-   th
+					//-   th linked to
+					//-   th
+					for link in links
+						tr
+							td
+								+entityCell(link.fromEntity, query)
+							td
+								for rel in link.entityRelations
+									a(href="/schema/entityRelations")= rel
+								details
+									summary debug
+									pre
+										=JSON.stringify(link, null, 2)
+							td
+								+entityCell(link.toEntity, query)
