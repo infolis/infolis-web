@@ -10,7 +10,7 @@
     "demos": "coffee -wc -o public/ src-client/*.coffee",
     "watch-client": "nodemon -w src-client -e 'coffee' --exec 'npm run client'",
     "jekyll": "cd ../infolis.github.io; jekyll serve --config _config.yml,_config-dev.yml",
-    "start-dev": "supervisor -w src/,data/infolis.tson,../jsonld-rapper/src,../express-jsonld/src,../mongoose-jsonld/src src/server.coffee",
+    "start-dev": "supervisor -w views,src/,data/infolis.tson,../jsonld-rapper/src,../express-jsonld/src,../mongoose-jsonld/src src/server.coffee",
     "start": "coffee src/server.coffee",
     "mongo": "mongod --dbpath data/mongodb --port 27018",
     "lint": "coffeelint -f dist/coffeelint.json src src-client",
