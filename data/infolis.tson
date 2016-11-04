@@ -161,6 +161,7 @@ Execution
 			'io.github.infolis.algorithm.DoiLinker'
 			'io.github.infolis.algorithm.FederatedSearcher'
 			'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
+			'io.github.infolis.algorithm.GoldLinker'
 			'io.github.infolis.algorithm.Indexer'
 			'io.github.infolis.algorithm.InfolisPatternSearcher'
 			'io.github.infolis.algorithm.KeywordTagger'
@@ -442,6 +443,7 @@ Execution
 			'io.github.infolis.algorithm.BestMatchLinker'
 			'io.github.infolis.algorithm.MultiMatchesLinker'
 			'io.github.infolis.algorithm.OntologyLinker'
+			'io.github.infolis.algorithm.GoldLinker'
 		]
 
 	links
