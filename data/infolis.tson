@@ -161,6 +161,7 @@ Execution
 			'io.github.infolis.algorithm.DoiLinker'
 			'io.github.infolis.algorithm.FederatedSearcher'
 			'io.github.infolis.algorithm.FrequencyBasedBootstrapping'
+			'io.github.infolis.algorithm.GoldLinker'
 			'io.github.infolis.algorithm.Indexer'
 			'io.github.infolis.algorithm.InfolisPatternSearcher'
 			'io.github.infolis.algorithm.KeywordTagger'
@@ -442,6 +443,7 @@ Execution
 			'io.github.infolis.algorithm.BestMatchLinker'
 			'io.github.infolis.algorithm.MultiMatchesLinker'
 			'io.github.infolis.algorithm.OntologyLinker'
+			'io.github.infolis.algorithm.GoldLinker'
 		]
 
 	links
@@ -939,10 +941,12 @@ EntityLink
 			'parts_of_temporal'
 			'parts_of_spatial'
 			'version_of'
+			'superset_of_version'
 			'part_of_confidential'
 			'part_of_sample'
 			'part_of_supplement'
 			'part_of'
+			'parts_of'
 			'same_as_temporal'
 			'same_as_spatial'
 			'unknown'
