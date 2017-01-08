@@ -167,6 +167,7 @@ Execution
 			'io.github.infolis.algorithm.KeywordTagger'
 			'io.github.infolis.algorithm.LearnPatternsAndCreateLinks'
 			'io.github.infolis.algorithm.Learner'
+			'io.github.infolis.algorithm.LinkImporter'
 			'io.github.infolis.algorithm.LocalSearcher'
 			'io.github.infolis.algorithm.LuceneSearcher'
 			'io.github.infolis.algorithm.MetaDataExtractor'
