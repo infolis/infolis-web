@@ -10,35 +10,53 @@ block end-of-head
 	style.
 		.hi { background: yellow }
 		.type { vertical-align: super; font-size: small }
+		details { width: 33vw; max-height: 80vh; overflow: scroll }
+
+mixin symbolFor(entity)
+	span= (entity.entityType === 'publication') ? '¶' : '⛁'
 
 mixin entityCell(entity, query)
+	- console.log(entity)
 	- id = entity.identifiers[0] || entity._id
 	- hi = id && id.match(query.id) ? 'hi' : '';
-	a(href="?id=#{id}",class="#{hi}")= entity.name
-		&nbsp;
+	a(href="/api/entity/#{entity._id}",class="#{hi}")
+		| #{entity.name}
 		if entity.versionInfo
+			&nbsp;
 			span.versionInfo #{entity.versionInfo}
-	span.type #{entity.entityType}
-	details
-		summary debug
-		pre
-			=JSON.stringify(entity, null, 2)
+	a(href="?id=#{id}&type=#{entity.entityType}")
+		&nbsp;
+		span(style='font-size:xx-large;line-height:0;') ⌕
+	//- details
+	//-   summary debug
+	//-   pre
+	//-     =JSON.stringify(entity, null, 2)
 
 block content
 	.row
 		.col-sm-12
 			form.form-horizontal(role="form")
 				.form-group
-					.col-sm-4
-							input.form-control#input-id(name='id',type="text",placeholder="#{query.id}")
-					.col-sm-4
-							.col-sm-4
-								label.form-control.control-label(for="input-regex") regex?
-							.col-sm-4
-								input.form-control#input-regex(name='regex',type="checkbox")
+					.control-label.col-sm-2(for='input-title') Title
+					.col-sm-10
+						input.form-control#input-title(name='title',type="text",value="#{query.name || ''}")
 				.form-group
-					.col-sm-3.col-sm-offset-2
-						input.form-control.btn.btn-success#input-search(type="submit",value="search")
+					.control-label.col-sm-2(for='input-id') ID
+					.col-sm-10
+						input.form-control#input-id(name='id',type="text",value="#{query.id || ''}")
+				.form-group
+					.control-label.col-sm-2.control-label(for="input-regex") regex?
+					.col-sm-1
+						input.form-control#input-regex(name='regex',type="checkbox",checked)
+				.form-group
+					.control-label.col-sm-2.control-label(for="input-type") Type
+					.col-sm-10
+						select.form-control#input-type(name="type")
+							option(selected) publication
+							option dataset
+				.form-group
+					.col-sm-2.col-sm-offset-2
+						input.col-sm-10.form-control.btn.btn-success#input-search(type="submit",value="search")
 	.row
 		.col-sm-12
 			if links.length > 0
@@ -52,11 +70,16 @@ block content
 							td
 								+entityCell(link.fromEntity, query)
 							td
-								for rel in link.entityRelations
-									a(href="/schema/entityRelations")= rel
-								details
-									summary debug
-									pre
-										=JSON.stringify(link, null, 2)
+								a(href="/schema/entityRelations?profile=compact", title="#{link.entityRelations[0]}")
+									+symbolFor(link.fromEntity)
+									| &nbsp;▶&nbsp;
+									+symbolFor(link.toEntity)
+							//- td
+							//-   for rel in link.entityRelations
+							//-     a(href="/schema/entityRelations")= rel
+								//- details
+								//-   summary debug
+								//-   pre
+								//-     =JSON.stringify(link, null, 2)
 							td
 								+entityCell(link.toEntity, query)
