@@ -20,7 +20,7 @@ function addinfolislinks() {
     });
 }
 function initializeinfolis() {
-    $(document).ajaxcomplete(addinfolislinks);
+    $(document).ajaxComplete(addinfolislinks);
     addinfolislinks();
 }
 initializeinfolis();
