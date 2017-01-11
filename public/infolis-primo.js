@@ -1,13 +1,3 @@
-// ==UserScript==
-// @name         Primo Infolis
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        http://primo.bib.uni-mannheim.de/primo_library/libweb/action/*
-// @grant        none
-// ==/UserScript==
-
 function addInfolisLinks() {
 	var iconStyle = [
 		'background-image: url(http://infolis.github.io/img/logo-circle.png) !important',
