@@ -658,9 +658,9 @@ Entity
 		@context
 			dc:description "Numeric information belonging to the entity, e.g. temporal coverage or publication date"
 		type ArrayOfStrings
-	reliability
+	entityReliability
 		@context
-			dc:description "Confidence value for the entity; less than 1 for automatically generated entities"
+			dc:description "Confidence value for this entity; less than 1 for automatically generated entities"
 		type Number
 	abstractText
 		@context
@@ -754,6 +754,10 @@ InfolisPattern
 			dc:description "Tags assigned to this pattern"
 		type ArrayOfStrings
 		index: true
+	patternReliability
+		@context
+			dc:description "Confidence value for this pattern; less than 1 for automatically generated patterns"
+		type Number
 
 InfolisFile
 	@context
@@ -898,6 +902,10 @@ TextualReference
 			dc:description "Tags assigned to this textual reference"
 		type ArrayOfStrings
 		index: true
+	referenceReliability
+		@context
+			dc:description "Confidence value for this textual reference; less than 1 for automatically generated references"
+		type Number
 		
 EntityLink
 	@context
