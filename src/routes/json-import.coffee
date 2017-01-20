@@ -144,7 +144,7 @@ module.exports = (app, done) ->
 
 	app.post '/api/json-import', (req, res, next) ->
 		form = new Form(
-			maxFieldsSize: 100 * 1024 * 1024
+			maxFieldsSize: 1024 * 1024 * 1024 # 1 GiB
 			maxFields: 50 * 1000
 		)
 		unless 'no-timestamp' of req.query
