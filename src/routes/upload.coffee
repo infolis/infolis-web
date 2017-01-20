@@ -118,6 +118,8 @@ module.exports = (app, done) ->
 						entityModel.set 'subjects', Qs.parse(fields['subjects'][0]).subjects
 					entityModel.set 'name', fields['name']
 					entityModel.set 'identifier', fields['identifier']
+					# Mon Jan 16 13:46:59 CET 2017
+					entityModel.set 'entityReliability', 1
 					fileModel.set 'size', fileField['size']
 					fileModel.set 'tags', tags
 					fileModel.set 'mediaType', fields['mediaType']
