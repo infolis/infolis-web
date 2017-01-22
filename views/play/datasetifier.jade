@@ -1,7 +1,7 @@
 extends ../layout.jade
 
 block title
-	| Datasetify your PDFs
+	| Datasetify your documents
 
 block help
 	include:markdown ../../help/datasetifier.md
@@ -22,7 +22,7 @@ block content
 		.col-md-10.col-md-offset-1
 			form.form-horizontal(role="form")
 				.form-group
-					label.control-label.col-sm-3(for="file") Choose PDF files
+					label.control-label.col-sm-3(for="file") Choose PDF or TXT files
 					.col-sm-4
 						input.form-control#file(type="file",multiple=true)
 				.form-group
@@ -33,7 +33,8 @@ block content
 					label.control-label.col-sm-3(for="pattern-tags") Use Pattern Set
 					.col-sm-4
 						select.form-control#pattern-tags
-							option ssoar-dgs_empirisch-quantitativ_de-learn_dgs_empirisch-quantitativ_de-2016-07-15T13-33-26
+							option de
+							option en
 				.form-group
 					.col-sm-3.col-sm-offset-3
 						input.form-control.btn.btn-success#start-demo(type="button",value="Analyze")

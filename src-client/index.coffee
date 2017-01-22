@@ -260,28 +260,20 @@ class InfolinkClient
 				return onError arguments
 			return onComplete {uris}
 
-	extractText: (inputFiles, opts) ->
-		opts.execution or= {}
-		opts.execution.algorithm = 'io.github.infolis.algorithm.TextExtractor'
-		opts.execution.inputFiles = inputFiles
-		return @execute opts
-
-	searchPatternsAndCreateLinks: (inputFiles, tag, opts) ->
+	searchPatternsAndCreateLinks : (inputFiles, tag, opts) ->
 		opts.execution =
 			algorithm: 'io.github.infolis.algorithm.SearchPatternsAndCreateLinks'
 			inputFiles: inputFiles
 			infolisPatternTags: [tag]
-
-	searchPatternAndCreateLinks : (inputFiles, tag, opts) ->
-		opts.execution =
-			algorithm: 'io.github.infolis.algorithm.SearchPatternsAndCreateLinks'
-			inputFiles: inputFiles
-			infolisPatternTags: [tag]
+			tokenize: true
+			ptb3Escaping: true
+			tokenizeNLs: false
+			removeBib: true
 			queryServiceClasses: [
-				'io.github.infolis.infolink.querying.DaraHTMLQueryService'
+				'io.github.infolis.infolink.querying.DaraSolrQueryService'
 			]
 			searchResultLinkerClass: [
-				'io.github.infolis.algorithm.BestMatchLinker'
+				'io.github.infolis.algorithm.OntologyLinker'
 			]
 		return @execute opts
 
