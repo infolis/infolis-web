@@ -486,8 +486,8 @@ Execution
 				Beside the search in external repositories, we can also
 				search in our own database. As use case, we get a URN for a publication
 				from a user and want to show all named entities that are linked to 
-				this publication. With an interal search using the generated links,
-				we can find this entities which are returned in this list.
+				this publication. With an internal search using the generated links,
+				we can find these entities which are returned in this list.
 				"""
 		refMany infolis:Entity
 
