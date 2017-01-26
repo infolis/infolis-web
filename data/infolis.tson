@@ -690,6 +690,9 @@ Entity
 			"dataset"
 			"database"
 			"citedData"
+			"project"
+			"institution"
+			"instrument"
 		]
 
 SearchResult
