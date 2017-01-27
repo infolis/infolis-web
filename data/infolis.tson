@@ -645,6 +645,11 @@ Entity
 			dc:description "URL describing the entity or offering supplemental material"
 		type String
 		required no
+	entityView
+		@context
+			dc:description "View to display for this entity (e.g. a citation string)"
+		type String
+		required no
 	tags
 		@context
 			dc:description "Tags assigned to this entity"
@@ -931,6 +936,16 @@ EntityLink
 		@context
 			dc:description "Describes how likely it is that the link indeed holds, xsd:double"
 		type: Number
+	linkView
+		@context
+			dc:description "View to display for this link"
+		type String
+		required no
+	provenance
+		@context
+			dc:description "Source of the link"
+		type String
+		required no
 	linkReason
 		@context
 			dc:description """
