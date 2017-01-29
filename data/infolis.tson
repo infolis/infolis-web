@@ -687,7 +687,7 @@ Entity
 		type ArrayOfStrings
 	entityType
 		@context
-			dc:description "The type of entity: publication, dataset, database or citedData"
+			dc:description "The type of entity: publication, dataset, database, citedData, project, institution or instrument"
 		type String
 		default "publication"
 		enum: [
