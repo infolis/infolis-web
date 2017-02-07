@@ -10,7 +10,7 @@
 #
 
 @ns
-	infolis <http://infolis.gesis.org/infolink/schema/>
+	infolis <http://infolis.gesis.org/infolink-internal/schema/>
 	rdf     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 	dc      <http://purl.org/dc/elements/1.1/>
 	owl     <http://www.w3.org/2002/07/owl#>
@@ -138,7 +138,7 @@ Execution
 	@context
 		dc:description "The concrete execution of an Algorithm."
 		vann:example
-			@id <http://infolis.gesis.org/infolink/api#!/rest-ld-execution>
+			@id <http://infolis.gesis.org/infolink-internal/api#!/rest-ld-execution>
 		rdfs:subClassOf
 			@id schema:Action
 		dcterms:source
@@ -186,6 +186,10 @@ Execution
 			'io.github.infolis.algorithm.Tokenizer'
 			'io.github.infolis.algorithm.TokenizerOpenNLP'
 			'io.github.infolis.algorithm.TokenizerStanford'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.AllbusBibImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.DbkImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.ZisImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.enrichment.DatasetSearcher'
 		]
 
 	status
