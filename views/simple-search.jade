@@ -70,10 +70,14 @@ block content
 							td
 								+entityCell(link.fromEntity, query)
 							td
-								a(href="/schema/entityRelations?profile=compact", title="#{link.entityRelations[0]}")
-									+symbolFor(link.fromEntity)
-									| &nbsp;▶&nbsp;
-									+symbolFor(link.toEntity)
+								for entityRelation in link.entityRelations
+									a(href="/schema/entityRelations?profile=compact", title="#{entityRelation}")
+										+symbolFor(link.fromEntity)
+										| &nbsp;▶&nbsp;
+										+symbolFor(link.toEntity)
+										| &nbsp;&nbsp;&nbsp;
+										span=entityRelation
+										| <br />	
 							//- td
 							//-   for rel in link.entityRelations
 							//-     a(href="/schema/entityRelations")= rel
