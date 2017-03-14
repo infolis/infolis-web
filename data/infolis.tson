@@ -700,71 +700,71 @@ Entity
 			"institution"
 			"instrument"
 		]
-  journal
-    @context
-      dc:description "bibliographic metadata: journal title"
-    type String
-  series
-    @context
-      dc:description "bibliographic metadata: series title"
-    type String
-  collection
-    @context
-      dc:description "bibliographic metadata: collection title"
-    type String
-  number
-    @context
-      dc:description "bibliographic metadata: number"
-    type String
-  volume
-    @context
-      dc:description "bibliographic metadata: volume"
-    type String
-  pages
-    @context
-      dc:description "bibliographic metadata: pages"
-    type String
-  corporateEditor
-    @context
-      dc:description "bibliographic metadata: corporateEditor"
-    type String
-  publisher
-    @context
-      dc:description "bibliographic metadata: publisher"
-    type String
-  isbn
-    @context
-      dc:description "bibliographic metadata: isbn"
-    type String
-  issn
-    @context
-      dc:description "bibliographic metadata: issn"
-    type String
-  publicationType
-    @context
-      dc:description "bibliographic metadata: publicationType"
-    type String
-  location
-    @context
-      dc:description "bibliographic metadata: location"
-    type String
-  licence
-    @context
-      dc:description "bibliographic metadata: licence"
-    type String
-  dataProvider
-    @context
-      dc:description "bibliographic metadata: dataProvider"
-    type String
-  publicationStatus
-    @context
-      dc:description "bibliographic metadata: publicationStatus"
-    type String
-  editors
+	journal
+		@context
+			dc:description "bibliographic metadata: journal title"
+		type String
+	series
+		@context
+			dc:description "bibliographic metadata: series title"
+		type String
+	collection
+		@context
+			dc:description "bibliographic metadata: collection title"
+		type String
+	number
+		@context
+			dc:description "bibliographic metadata: number"
+		type String
+	volume
+		@context
+ 			dc:description "bibliographic metadata: volume"
+		type String
+	pages
+		@context
+			dc:description "bibliographic metadata: pages"
+		type String
+	corporateEditor
+		@context
+			dc:description "bibliographic metadata: corporateEditor"
+		type String
+	publisher
+		@context
+			dc:description "bibliographic metadata: publisher"
+		type String
+	isbn
+		@context
+			dc:description "bibliographic metadata: isbn"
+		type String
+	issn
+		@context
+			dc:description "bibliographic metadata: issn"
+		type String
+	publicationType
+		@context
+			dc:description "bibliographic metadata: publicationType"
+		type String
+	location
+		@context
+			dc:description "bibliographic metadata: location"
+		type String
+	licence
+		@context
+			dc:description "bibliographic metadata: licence"
+		type String
+	dataProvider
+		@context
+			dc:description "bibliographic metadata: dataProvider"
+		type String
+	publicationStatus
+		@context
+			dc:description "bibliographic metadata: publicationStatus"
+		type String
+	editors
 		@context
 			dc:description "bibliographic metadata: editors"
 		type ArrayOfStrings
-  classification
+	classification
 		@context
 			dc:description "bibliographic metadata: classification"
 		type ArrayOfStrings
@@ -775,7 +775,7 @@ Entity
 	freeKeywords
 		@context
 			dc:description "bibliographic metadata: freeKeywords"
-		type ArrayOfStrings
+	type ArrayOfStrings
 
 SearchResult
 	@context
