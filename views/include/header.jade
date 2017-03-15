@@ -18,6 +18,9 @@ mixin navbarLeft()
 					a(href='#{site_api}/play/datasetifier') Datasetifier	
 				li
 					a(href='#{site_api}/api') API
+				li
+					a(href='#{site_api}/play/publicationmask') Publication Mask
+
 		li.dropdown
 			a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
 				| Monitor
@@ -29,6 +32,7 @@ mixin navbarLeft()
 					a(href='#{site_api}/api/stats') Database Stats
 				li
 					a(href='#{site_api}/api/monitor') Execution Monitor
+					
 		li.dropdown
 			a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
 				| Search

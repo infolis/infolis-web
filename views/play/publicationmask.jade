@@ -1,0 +1,159 @@
+extends ../layout.jade
+
+block title
+	| Publicationmask
+
+block help
+	include:markdown ../../help/datasetifier.md
+
+block end-of-head
+	style.
+		.progress-bar,
+		.progress-bar a {
+			color:white !important;
+			font-size: 1em;
+			font-weight-bold;
+		}
+	script
+		include:coffee-script ../../src-client/publicationmask.coffee
+
+block content
+	.row
+		.col-md-10.col-md-offset-1
+			form.form-horizontal(role="form")
+				.form-group
+					label.control-label.col-sm-3(for="Pub-type") Type of Publication//publicationType(string)
+					.col-md-4
+						select.form-control#pub-type
+							option Article
+							option Book
+							option Booklet
+							option Inbook
+							option Incollection
+							option Inproceedings
+							option Manual
+							option Mastersthesis
+							option Misc
+							option Phdthesis
+							option Proceedings
+							option Techreport
+							option Unpublished
+				.form-group
+					label.control-label.col-sm-3(for="Pub-status") Publication status //publiationStatus (string)
+					.col-md-4
+						select.form-control#pub-status
+							option In preparation
+							option Submitted
+							option Review
+							option Revision
+							option Accepted
+							option Rejected
+							option Published
+				.form-group
+					label.control-label.col-sm-3(for="title") Title //name (string)
+					.col-md-4
+						input.form-control#title(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="citation") Citation //view (string)
+					.col-md-4
+						input.form-control#Citation(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="journal") Journal //journalTitle (string)
+					.col-md-4
+						input.form-control#journal(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="volume") Volume // volume (string)
+					.col-md-4
+						input.form-control#volume(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="number") Number // number (string)
+					.col-md-4
+						input.form-control#number(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="year") Year // year (string)
+					.col-md-4
+						select.form-control#month //month (string)
+							option(value=jan) January 
+							option(value=feb) February   
+							option(value=mar) March   
+							option(value=apr) April   
+							option(value=may) May   
+							option(value=jun) June   
+							option(value=jul) July   
+							option(value=aug) August   
+							option(value=sep) September   
+							option(value=oct) October   
+							option(value=nov) November   
+							option(value=dec) December   
+				.form-group
+					label.control-label.col-sm-3(for="pages") Pages // pages (string)
+					.col-md-4
+						input.form-control#pages(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="note") Note // note (string)
+					.col-md-4
+						input.form-control#note(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="issn") ISSN // issn (string) und auch identifiers (List<String>)
+					.col-md-4
+						input.form-control#issn(type="text",placeholder="")
+				//.form-group
+					label.control-label.col-sm-3(for="crossref") Crossref
+					.col-md-4
+						input.form-control#crossref(type="text",placeholder="")
+				//.form-group
+					label.control-label.col-sm-3(for="key") Key (?) 
+					.col-md-4
+						input.form-control#key(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="url") URL // url (string)
+					.col-md-4
+						input.form-control#url(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="doi") DOI // identifiers (List<String>)
+					.col-md-4
+						input.form-control#doi(type="text",placeholder="")
+				.form-group
+					label.control-label.col-sm-3(for="abstract") Abstract // abstractText (string)
+					.col-md-4
+						textarea.form-control#abstract(name="abstract", cols="80", rows="5")
+				//.form-group
+					label.control-label.col-sm-3(for="userfields") Userfields
+					.col-md-4
+						textarea.form-control#userfields(name="userfields", cols="80", rows="5")
+				.form-group
+					label.control-label.col-sm-3(for="keywords") Keywords // subjects (List<String>); zusaetzlich classification
+					.col-md-4
+						input.form-control#keywords(type="text",placeholder="")
+				.form-group
+					.col-md-3
+						label.control-label.col-sm-3(for="authors") Authors // authors (List<String>)
+						textarea.form-control#authors(name="authors", cols="50", rows="6")
+					.col-md-1
+						br
+						br
+						input.form-control.btn.btn-default#author-add(type="button",value="<< add")
+						input.form-control.btn.btn-default#author-rem(type="button",value="rem >>")
+					.col-md-0
+					label.control-label.col-sm-2(for="keywords") Search //machnma mal spaeter
+						input.form-control#search(type="text",placeholder="")						
+						textarea.form-control#result(name="result", cols="50", rows="5")
+				.form-group
+					.col-md-3
+					label.control-label.col-sm-3(for="editors") Editors // editors (List<String>)
+						textarea.form-control#editors(name="editors", cols="50", rows="6")
+					.col-md-1
+						br
+						br
+						input.form-control.btn.btn-default#editor-add(type="button",value="<< add")
+						input.form-control.btn.btn-default#editor-rem(type="button",value="rem >>")
+				.form-group
+					.col-md-4.col-sm-offset-4
+						br
+						input.form-control.btn.btn-success#publication-add(type="button",value="Add")
+						input.form-control.btn.btn-danger#publication-cancel(type="button",value="Cancel")
+				//language (string)
+				//publisher (string)
+				//isbn (das gleiche wie bei issn)
+				//identifiers (List<String>)
+				//location (string)
