@@ -760,6 +760,14 @@ Entity
 		@context
 			dc:description "bibliographic metadata: publicationStatus"
 		type String
+	month
+		@context
+			dc:description "bibliographic metadata: month"
+		type String
+	year
+		@context
+			dc:description "bibliographic metadata: year"
+		type String
 	editors
 		@context
 			dc:description "bibliographic metadata: editors"
