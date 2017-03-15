@@ -775,7 +775,7 @@ Entity
 	freeKeywords
 		@context
 			dc:description "bibliographic metadata: freeKeywords"
-	type ArrayOfStrings
+		type ArrayOfStrings
 
 SearchResult
 	@context
