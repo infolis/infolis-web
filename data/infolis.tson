@@ -700,15 +700,15 @@ Entity
 			"institution"
 			"instrument"
 		]
-	journal
+	journalTitle
 		@context
 			dc:description "bibliographic metadata: journal title"
 		type String
-	series
+	seriesTitle
 		@context
 			dc:description "bibliographic metadata: series title"
 		type String
-	collection
+	collectionTitle
 		@context
 			dc:description "bibliographic metadata: collection title"
 		type String
