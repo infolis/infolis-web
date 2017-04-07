@@ -138,6 +138,7 @@ class InfolisWebservice
 			'greasemonkey'
 			'play/datasetifier'
 			'play/publicationmask'
+			'play/publicationsearch'
 			'data-model-explorer'
 			'backend-static'
 			'simple-search'

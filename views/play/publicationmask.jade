@@ -20,11 +20,11 @@ block end-of-head
 block content
 	.row
 		.col-md-10.col-md-offset-1
-			form.form-horizontal(role="form")
-				.form-group
-					label.control-label.col-sm-3(for="Pub-type") Type of Publication//publicationType(string)
+			form.form-horizontal(role="form")#masterform
+				.form-group 
+					label.control-label.col-sm-3(for="pubtype") Type of Publication
 					.col-md-4
-						select.form-control#pub-type
+						select.form-control#pubtype
 							option Article
 							option Book
 							option Booklet
@@ -38,10 +38,11 @@ block content
 							option Proceedings
 							option Techreport
 							option Unpublished
-				.form-group
-					label.control-label.col-sm-3(for="Pub-status") Publication status //publiationStatus (string)
+				.form-group 
+					label.control-label.col-sm-3(for="pubstatus") Publication status 
 					.col-md-4
-						select.form-control#pub-status
+						select.form-control#pubstatus
+							option 
 							option In preparation
 							option Submitted
 							option Review
@@ -49,30 +50,35 @@ block content
 							option Accepted
 							option Rejected
 							option Published
-				.form-group
-					label.control-label.col-sm-3(for="title") Title //name (string)
+				.form-group 
+					label.control-label.col-sm-3(for="title") Title 
+					.col-md-4#titlegrp
+						input.form-control#title(type="text",placeholder="(required)")
+				.form-group 
+					label.control-label.col-sm-3(for="citation") Citation 
 					.col-md-4
-						input.form-control#title(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="citation") Citation //view (string)
-					.col-md-4
-						input.form-control#Citation(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="journal") Journal //journalTitle (string)
-					.col-md-4
-						input.form-control#journal(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="volume") Volume // volume (string)
+						input.form-control#citation(type="text",placeholder="")
+				.form-group 
+					label.control-label.col-sm-3(for="journal") Journal 
+					.col-md-4#journalgrp
+						input.form-control#journal(type="text",placeholder="(required)")
+				.form-group 
+					label.control-label.col-sm-3(for="volume") Volume 
 					.col-md-4
 						input.form-control#volume(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="number") Number // number (string)
+				.form-group 
+					label.control-label.col-sm-3(for="number") Number 
 					.col-md-4
 						input.form-control#number(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="year") Year // year (string)
-					.col-md-4
-						select.form-control#month //month (string)
+				.form-group 
+					label.control-label.col-sm-3(for="year") Year 
+					.col-md-4#yeargrp
+						input.form-control#year(type="text",placeholder="(required)")
+				.form-group 
+					label.control-label.col-sm-3(for="month") Month 
+					.col-md-4 
+						select.form-control#month 
+							option(value=) 
 							option(value=jan) January 
 							option(value=feb) February   
 							option(value=mar) March   
@@ -85,62 +91,50 @@ block content
 							option(value=oct) October   
 							option(value=nov) November   
 							option(value=dec) December   
-				.form-group
-					label.control-label.col-sm-3(for="pages") Pages // pages (string)
+				.form-group 
+					label.control-label.col-sm-3(for="pages") Pages 
 					.col-md-4
 						input.form-control#pages(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="note") Note // note (string)
-					.col-md-4
-						input.form-control#note(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="issn") ISSN // issn (string) und auch identifiers (List<String>)
-					.col-md-4
+				.form-group 
+					label.control-label.col-sm-3(for="issn") ISSN 
+					.col-md-4 
 						input.form-control#issn(type="text",placeholder="")
-				//.form-group
-					label.control-label.col-sm-3(for="crossref") Crossref
-					.col-md-4
-						input.form-control#crossref(type="text",placeholder="")
-				//.form-group
-					label.control-label.col-sm-3(for="key") Key (?) 
-					.col-md-4
-						input.form-control#key(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="url") URL // url (string)
+				.form-group 
+					label.control-label.col-sm-3(for="url") URL 
 					.col-md-4
 						input.form-control#url(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="doi") DOI // identifiers (List<String>)
+				.form-group 
+					label.control-label.col-sm-3(for="doi") DOI 
 					.col-md-4
 						input.form-control#doi(type="text",placeholder="")
-				.form-group
-					label.control-label.col-sm-3(for="abstract") Abstract // abstractText (string)
+				.form-group 
+					label.control-label.col-sm-3(for="abstract") Abstract 
 					.col-md-4
 						textarea.form-control#abstract(name="abstract", cols="80", rows="5")
-				//.form-group
-					label.control-label.col-sm-3(for="userfields") Userfields
-					.col-md-4
-						textarea.form-control#userfields(name="userfields", cols="80", rows="5")
-				.form-group
-					label.control-label.col-sm-3(for="keywords") Keywords // subjects (List<String>); zusaetzlich classification
+				.form-group 
+					label.control-label.col-sm-3(for="keywords") Keywords 
 					.col-md-4
 						input.form-control#keywords(type="text",placeholder="")
+				.form-group 
+					label.control-label.col-sm-3(for="classification") Classification 
+					.col-md-4
+						input.form-control#classification(type="text",placeholder="")
 				.form-group
 					.col-md-3
-						label.control-label.col-sm-3(for="authors") Authors // authors (List<String>)
+					label.control-label.col-sm-3(for="authors") Authors
 						textarea.form-control#authors(name="authors", cols="50", rows="6")
 					.col-md-1
 						br
 						br
 						input.form-control.btn.btn-default#author-add(type="button",value="<< add")
 						input.form-control.btn.btn-default#author-rem(type="button",value="rem >>")
-					.col-md-0
-					label.control-label.col-sm-2(for="keywords") Search //machnma mal spaeter
+					.col-md-0 
+					label.control-label.col-sm-2(for="keywords") Search 
 						input.form-control#search(type="text",placeholder="")						
 						textarea.form-control#result(name="result", cols="50", rows="5")
 				.form-group
-					.col-md-3
-					label.control-label.col-sm-3(for="editors") Editors // editors (List<String>)
+					.col-md-3 
+					label.control-label.col-sm-3(for="editors") Editors 
 						textarea.form-control#editors(name="editors", cols="50", rows="6")
 					.col-md-1
 						br
@@ -151,9 +145,5 @@ block content
 					.col-md-4.col-sm-offset-4
 						br
 						input.form-control.btn.btn-success#publication-add(type="button",value="Add")
+						input.form-control.btn.btn-success#publication-update(type="button",value="Update")
 						input.form-control.btn.btn-danger#publication-cancel(type="button",value="Cancel")
-				//language (string)
-				//publisher (string)
-				//isbn (das gleiche wie bei issn)
-				//identifiers (List<String>)
-				//location (string)

@@ -1,0 +1,34 @@
+extends ../layout.jade
+
+block title
+	| Publicationsearch
+
+block help
+	include:markdown ../../help/datasetifier.md
+
+block end-of-head
+	style.
+		.progress-bar,
+		.progress-bar a {
+			color:white !important;
+			font-size: 1em;
+			font-weight-bold;
+		}
+	script
+		include:coffee-script ../../src-client/publicationsearch.coffee
+
+block content
+	.row
+		.col-md-10.col-md-offset-1
+			form.form-horizontal(role="form", action="#", onsubmit="return false;") 
+				.form-group
+					.control-label.col-sm-2(for='input-title') Title
+					.col-md-5.has-warning#titlegrp
+						input.form-control#input-title(name='title',type="text",value="")
+					.col-md-2
+						input.col-sm-10.form-control.btn.btn-success#input-search(type="button",value="search")
+					.col-md-2
+						a.col-sm-10.form-control.btn.btn-warning#input-search(type="submit",value="add new",href="./publicationmask") add new
+	.row
+		.col-sm-12
+			table.table.table-bordered.table-striped#searchresult
