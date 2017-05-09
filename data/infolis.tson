@@ -157,6 +157,7 @@ Execution
 			# TODO fix this for updated version
 			'io.github.infolis.algorithm.BestMatchLinker'
 			'io.github.infolis.algorithm.BibliographyExtractor'
+			'io.github.infolis.algorithm.DbIndexer'
 			'io.github.infolis.algorithm.DoiExtractor'
 			'io.github.infolis.algorithm.DoiLinker'
 			'io.github.infolis.algorithm.FederatedSearcher'
@@ -189,8 +190,14 @@ Execution
 			'io.github.infolis.algorithm.TokenizerStanford'
 			'org.gesis.git.LODInfrastructure.dataProcessing.importer.AllbusBibImporter'
 			'org.gesis.git.LODInfrastructure.dataProcessing.importer.DbkImporter'
-			'org.gesis.git.LODInfrastructure.dataProcessing.importer.ZisImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.ZisBibtexImporter'
 			'org.gesis.git.LODInfrastructure.dataProcessing.enrichment.DatasetSearcher'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.AllbusRisImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.harvester.SowiportHarvester'
+			'org.gesis.git.LODInfrastructure.dataProcessing.harvester.SofisWikiHarvester'
+			'org.gesis.git.LODInfrastructure.dataProcessing.harvester.DbkHarvester'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.GlesBibtexImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.BibsonomyBibtexImporter'
 		]
 
 	status
@@ -655,6 +662,11 @@ Entity
 			dc:description "View to display for this entity (e.g. a citation string)"
 		type String
 		required no
+	entityProvenance
+		@context
+			dc:description "Source of the entity"
+		type String
+		required no
 	tags
 		@context
 			dc:description "Tags assigned to this entity"
@@ -743,6 +755,14 @@ Entity
 	issn
 		@context
 			dc:description "bibliographic metadata: issn"
+		type String
+	doi
+		@context
+			dc:description "bibliographic metadata: doi"
+		type String
+	gwsId
+		@context
+			dc:description "id used by GWS"
 		type String
 	publicationType
 		@context
