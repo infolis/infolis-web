@@ -1,50 +1,45 @@
 mixin navbarLeft()
 	ul.nav.navbar-nav
 		li
-			a.home(href="#{site_github}") Home
-		li
 			a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
-				| Learn
+				| Info
 				span.caret
 			ul.dropdown-menu
 				li
-					a(href="#{site_github}/about/") About
+					a(href='#{site_api}/schema') Schema
 				li
-					a(href="#{site_github}/goals/") Goals
-				li
-					a(href='#{site_github}/data-model') Data Model
-				li
-					a(href="#{site_github}/publications/") Publications
+					a(href="#{site_api}/play/data-model-explorer") Data Model Explorer
 		li.dropdown
 			a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
 				| Work
 				span.caret
 			ul.dropdown-menu
 				li
+					a(href='#{site_api}/play/datasetifier') Datasetifier	
+				li
 					a(href='#{site_api}/api') API
 				li
-					a(href='#{site_api}/schema') Schema
+					a(href='#{site_api}/play/publicationsearch') Publication
+
+		li.dropdown
+			a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
+				| Monitor
+				span.caret
+			ul.dropdown-menu
 				//- li
 					//- a(href='#{site_api}/api/ldf') Linked Data Fragments
 				li
-					a(href='#{site_api}/api/monitor') Monitor
+					a(href='#{site_api}/api/stats') Database Stats
 				li
-					a(href='#{site_api}/api/stats') Stats
+					a(href='#{site_api}/api/monitor') Execution Monitor
+					
 		li.dropdown
 			a.dropdown-toggle(data-toggle='dropdown',role="button",aria-expanded="false",aria-haspopup="true")
-				| Play
+				| Search
 				span.caret
 			ul.dropdown-menu
 				li
-					a(href='#{site_api}/play/datasetifier') Datasetifier
-				li
-					a(href='https://www.bib.uni-mannheim.de/infolis/vufind/') Discovery Prototype
-				li
-					a(href='#{site_api}/search') Simple Search
-				li
-					a(href='#{site_api}/play/data-model-explorer') Data Model Explorer
-		li
-			a(href="#{site_github}/blog/") Blog
+					a(href='#{site_api}/search') Get Linked Entities
 
 mixin navbarRight()
 	ul.nav.navbar-nav.navbar-right
@@ -80,8 +75,6 @@ nav.navbar.navbar-inverse.navbar-static-top
 		.row
 			.col-md-10.col-md-offset-1
 				.navbar-header
-					a.navbar-brand(href='#{site_github}', style="padding-top: 5px;")
-						img(src='#{site_github}/img/logo-circle.png', alt='', style="height:2.3em;display:inline")
 					button.navbar-toggle.colapsed(type="button",data-toggle="collapse",data-target="#infolis-navbar")
 						span.icon-bar
 						span.icon-bar
