@@ -10,7 +10,7 @@
 #
 
 @ns
-	infolis <http://infolis.gesis.org/infolink/schema/>
+	infolis <http://infolis.gesis.org/infolink-internal/schema/>
 	rdf     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 	dc      <http://purl.org/dc/elements/1.1/>
 	owl     <http://www.w3.org/2002/07/owl#>
@@ -138,7 +138,7 @@ Execution
 	@context
 		dc:description "The concrete execution of an Algorithm."
 		vann:example
-			@id <http://infolis.gesis.org/infolink/api#!/rest-ld-execution>
+			@id <http://infolis.gesis.org/infolink-internal/api#!/rest-ld-execution>
 		rdfs:subClassOf
 			@id schema:Action
 		dcterms:source
@@ -157,6 +157,7 @@ Execution
 			# TODO fix this for updated version
 			'io.github.infolis.algorithm.BestMatchLinker'
 			'io.github.infolis.algorithm.BibliographyExtractor'
+			'io.github.infolis.algorithm.DbIndexer'
 			'io.github.infolis.algorithm.DoiExtractor'
 			'io.github.infolis.algorithm.DoiLinker'
 			'io.github.infolis.algorithm.FederatedSearcher'
@@ -168,10 +169,12 @@ Execution
 			'io.github.infolis.algorithm.LearnPatternsAndCreateLinks'
 			'io.github.infolis.algorithm.Learner'
 			'io.github.infolis.algorithm.LinkImporter'
+			'io.github.infolis.algorithm.LinkIndexer'
 			'io.github.infolis.algorithm.LocalSearcher'
 			'io.github.infolis.algorithm.LuceneSearcher'
 			'io.github.infolis.algorithm.MetaDataExtractor'
 			'io.github.infolis.algorithm.MultiMatchesLinker'
+			'io.github.infolis.algorithm.NameExtrator'
 			'io.github.infolis.algorithm.OntologyLinker'
 			'io.github.infolis.algorithm.ReferenceLinker'
 			'io.github.infolis.algorithm.RegexSearcher'
@@ -186,6 +189,17 @@ Execution
 			'io.github.infolis.algorithm.Tokenizer'
 			'io.github.infolis.algorithm.TokenizerOpenNLP'
 			'io.github.infolis.algorithm.TokenizerStanford'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.AllbusBibImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.DbkImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.ZisBibtexImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.enrichment.DatasetSearcher'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.AllbusRisImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.harvester.SowiportHarvester'
+			'org.gesis.git.LODInfrastructure.dataProcessing.harvester.SofisWikiHarvester'
+			'org.gesis.git.LODInfrastructure.dataProcessing.harvester.DbkHarvester'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.GlesBibtexImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.GrisBibtexImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.BibsonomyBibtexImporter'
 		]
 
 	status
@@ -645,6 +659,16 @@ Entity
 			dc:description "URL describing the entity or offering supplemental material"
 		type String
 		required no
+	entityView
+		@context
+			dc:description "View to display for this entity (e.g. a citation string)"
+		type String
+		required no
+	entityProvenance
+		@context
+			dc:description "Source of the entity"
+		type String
+		required no
 	tags
 		@context
 			dc:description "Tags assigned to this entity"
@@ -682,7 +706,7 @@ Entity
 		type ArrayOfStrings
 	entityType
 		@context
-			dc:description "The type of entity: publication, dataset, database or citedData"
+			dc:description "The type of entity: publication, dataset, database, citedData, project, institution or instrument"
 		type String
 		default "publication"
 		enum: [
@@ -690,7 +714,102 @@ Entity
 			"dataset"
 			"database"
 			"citedData"
+			"project"
+			"institution"
+			"instrument"
 		]
+	journalTitle
+		@context
+			dc:description "bibliographic metadata: journal title"
+		type String
+	seriesTitle
+		@context
+			dc:description "bibliographic metadata: series title"
+		type String
+	collectionTitle
+		@context
+			dc:description "bibliographic metadata: collection title"
+		type String
+	number
+		@context
+			dc:description "bibliographic metadata: number"
+		type String
+	volume
+		@context
+ 			dc:description "bibliographic metadata: volume"
+		type String
+	pages
+		@context
+			dc:description "bibliographic metadata: pages"
+		type String
+	corporateEditor
+		@context
+			dc:description "bibliographic metadata: corporateEditor"
+		type String
+	publisher
+		@context
+			dc:description "bibliographic metadata: publisher"
+		type String
+	isbn
+		@context
+			dc:description "bibliographic metadata: isbn"
+		type String
+	issn
+		@context
+			dc:description "bibliographic metadata: issn"
+		type String
+	doi
+		@context
+			dc:description "bibliographic metadata: doi"
+		type String
+	gwsId
+		@context
+			dc:description "id used by GWS"
+		type String
+	publicationType
+		@context
+			dc:description "bibliographic metadata: publicationType"
+		type String
+	location
+		@context
+			dc:description "bibliographic metadata: location"
+		type String
+	licence
+		@context
+			dc:description "bibliographic metadata: licence"
+		type String
+	dataProvider
+		@context
+			dc:description "bibliographic metadata: dataProvider"
+		type String
+	publicationStatus
+		@context
+			dc:description "bibliographic metadata: publicationStatus"
+		type String
+	month
+		@context
+			dc:description "bibliographic metadata: month"
+		type String
+	year
+		@context
+			dc:description "bibliographic metadata: year"
+		type String
+	editors
+		@context
+			dc:description "bibliographic metadata: editors"
+		type ArrayOfStrings
+	classification
+		@context
+			dc:description "bibliographic metadata: classification"
+		type ArrayOfStrings
+	methodKeywords
+		@context
+			dc:description "bibliographic metadata: methodKeywords"
+		type ArrayOfStrings
+	freeKeywords
+		@context
+			dc:description "bibliographic metadata: freeKeywords"
+		type ArrayOfStrings
 
 SearchResult
 	@context
@@ -928,6 +1047,16 @@ EntityLink
 		@context
 			dc:description "Describes how likely it is that the link indeed holds, xsd:double"
 		type: Number
+	linkView
+		@context
+			dc:description "View to display for this link"
+		type String
+		required no
+	provenance
+		@context
+			dc:description "Source of the link"
+		type String
+		required no
 	linkReason
 		@context
 			dc:description """
