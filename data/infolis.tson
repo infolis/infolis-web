@@ -460,6 +460,7 @@ Execution
 			'io.github.infolis.algorithm.MultiMatchesLinker'
 			'io.github.infolis.algorithm.OntologyLinker'
 			'io.github.infolis.algorithm.GoldLinker'
+			'io.github.infolis.algorithm.DoiLinker'
 		]
 
 	links
