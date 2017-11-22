@@ -157,6 +157,7 @@ Execution
 			# TODO fix this for updated version
 			'io.github.infolis.algorithm.BestMatchLinker'
 			'io.github.infolis.algorithm.BibliographyExtractor'
+			'io.github.infolis.algorithm.DbIndexer'
 			'io.github.infolis.algorithm.DoiExtractor'
 			'io.github.infolis.algorithm.DoiLinker'
 			'io.github.infolis.algorithm.FederatedSearcher'
@@ -651,6 +652,11 @@ Entity
 			dc:description "View to display for this entity (e.g. a citation string)"
 		type String
 		required no
+	entityProvenance
+		@context
+			dc:description "Source of the entity"
+		type String
+		required no
 	tags
 		@context
 			dc:description "Tags assigned to this entity"
@@ -739,6 +745,14 @@ Entity
 	issn
 		@context
 			dc:description "bibliographic metadata: issn"
+		type String
+	doi
+		@context
+			dc:description "bibliographic metadata: doi"
+		type String
+	gwsId
+		@context
+			dc:description "id used by GWS"
 		type String
 	publicationType
 		@context
