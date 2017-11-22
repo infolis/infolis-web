@@ -174,13 +174,14 @@ Execution
 			'io.github.infolis.algorithm.LuceneSearcher'
 			'io.github.infolis.algorithm.MetaDataExtractor'
 			'io.github.infolis.algorithm.MultiMatchesLinker'
-			'io.github.infolis.algorithm.NameExtrator'
+			'io.github.infolis.algorithm.NameExtractor'
 			'io.github.infolis.algorithm.OntologyLinker'
 			'io.github.infolis.algorithm.ReferenceLinker'
 			'io.github.infolis.algorithm.RegexSearcher'
 			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
 			'io.github.infolis.algorithm.SearchPatternsAndCreateLinks'
 			'io.github.infolis.algorithm.SearchDoisAndCreateLinks'
+			'io.github.infolis.algorithm.SearchNamesAndCreateLinks'
 			'io.github.infolis.algorithm.SearchResultLinker'
 			'io.github.infolis.algorithm.SpringerImporter'
 			'io.github.infolis.algorithm.TagSearcher'
@@ -459,6 +460,7 @@ Execution
 			'io.github.infolis.algorithm.MultiMatchesLinker'
 			'io.github.infolis.algorithm.OntologyLinker'
 			'io.github.infolis.algorithm.GoldLinker'
+			'io.github.infolis.algorithm.DoiLinker'
 		]
 
 	links
