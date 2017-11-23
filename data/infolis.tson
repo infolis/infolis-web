@@ -181,6 +181,7 @@ Execution
 			'io.github.infolis.algorithm.ReliabilityBasedBootstrapping'
 			'io.github.infolis.algorithm.SearchPatternsAndCreateLinks'
 			'io.github.infolis.algorithm.SearchDoisAndCreateLinks'
+			'io.github.infolis.algorithm.SearchNamesAndCreateLinks'
 			'io.github.infolis.algorithm.SearchResultLinker'
 			'io.github.infolis.algorithm.SpringerImporter'
 			'io.github.infolis.algorithm.TagSearcher'
