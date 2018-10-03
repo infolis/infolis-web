@@ -201,6 +201,7 @@ Execution
 			'org.gesis.git.LODInfrastructure.dataProcessing.importer.GlesBibtexImporter'
 			'org.gesis.git.LODInfrastructure.dataProcessing.importer.GrisBibtexImporter'
 			'org.gesis.git.LODInfrastructure.dataProcessing.importer.BibsonomyBibtexImporter'
+			'org.gesis.git.LODInfrastructure.dataProcessing.importer.PiaacXmlImporter'
 		]
 
 	status
